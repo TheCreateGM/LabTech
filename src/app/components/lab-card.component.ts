@@ -17,20 +17,21 @@ import { IonicModule } from '@ionic/angular';
   `,
   styles: [`
     .lab-card {
-      --background: var(--lab-glass-backdrop);
-      border: 1px solid var(--lab-glass-border);
+      /* Make cards clearly visible on dark backgrounds */
+      --background: var(--lab-color-surface);
+      border: 1px solid var(--lab-color-outline);
       border-radius: var(--lab-radius-2xl);
       box-shadow: var(--lab-shadow-soft);
       margin: var(--lab-space-base);
+      width: 100%;
       text-align: center;
       cursor: pointer;
       transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
       overflow: hidden;
       position: relative;
     }
-    
+
+    /* Decorative top accent shows on hover only */
     .lab-card::before {
       content: '';
       position: absolute;
@@ -42,38 +43,37 @@ import { IonicModule } from '@ionic/angular';
       opacity: 0;
       transition: opacity 0.3s ease;
     }
-    
+
     .lab-card:hover {
-      transform: translateY(-8px) scale(1.02);
+      transform: translateY(-6px);
       box-shadow: var(--lab-shadow-strong);
-      --background: rgba(255, 255, 255, 0.95);
     }
-    
+
     .lab-card:hover::before {
       opacity: 1;
     }
-    
+
     ion-card-content {
       padding: var(--lab-space-xl) !important;
     }
-    
+
     .card-icon {
       margin-bottom: var(--lab-space-lg);
       position: relative;
     }
-    
+
     .card-icon ion-icon {
       font-size: 3rem;
       color: var(--ion-color-primary);
       filter: drop-shadow(0 2px 4px rgba(102, 126, 234, 0.3));
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
-    
+
     .lab-card:hover .card-icon ion-icon {
-      transform: scale(1.1);
+      transform: scale(1.08);
       filter: drop-shadow(0 4px 8px rgba(102, 126, 234, 0.4));
     }
-    
+
     .card-label {
       font-size: var(--lab-font-size-lg);
       font-weight: 600;
@@ -81,20 +81,20 @@ import { IonicModule } from '@ionic/angular';
       letter-spacing: -0.01em;
       line-height: 1.4;
     }
-    
+
     @media (max-width: 768px) {
       .lab-card {
         margin: var(--lab-space-sm);
       }
-      
+
       ion-card-content {
         padding: var(--lab-space-lg) !important;
       }
-      
+
       .card-icon ion-icon {
         font-size: 2.5rem;
       }
-      
+
       .card-label {
         font-size: var(--lab-font-size-base);
       }
