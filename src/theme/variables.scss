@@ -1,2 +1,141 @@
+// LabTech GeoLab - Modern Flat Plastic Design System
 // For information on how to create your own theme, please see:
 // http://ionicframework.com/docs/theming/
+
+:root {
+  // Modern Color Palette - Flat & Vibrant
+  --ion-color-primary: #667eea;
+  --ion-color-primary-rgb: 102, 126, 234;
+  --ion-color-primary-contrast: #ffffff;
+  --ion-color-primary-contrast-rgb: 255, 255, 255;
+  --ion-color-primary-shade: #5a6fd8;
+  --ion-color-primary-tint: #7691ec;
+
+  --ion-color-secondary: #764ba2;
+  --ion-color-secondary-rgb: 118, 75, 162;
+  --ion-color-secondary-contrast: #ffffff;
+  --ion-color-secondary-contrast-rgb: 255, 255, 255;
+  --ion-color-secondary-shade: #68428f;
+  --ion-color-secondary-tint: #845fab;
+
+  --ion-color-tertiary: #f093fb;
+  --ion-color-tertiary-rgb: 240, 147, 251;
+  --ion-color-tertiary-contrast: #000000;
+  --ion-color-tertiary-contrast-rgb: 0, 0, 0;
+  --ion-color-tertiary-shade: #d482dd;
+  --ion-color-tertiary-tint: #f29efb;
+
+  --ion-color-success: #10dc60;
+  --ion-color-success-rgb: 16, 220, 96;
+  --ion-color-success-contrast: #ffffff;
+  --ion-color-success-contrast-rgb: 255, 255, 255;
+  --ion-color-success-shade: #0ec254;
+  --ion-color-success-tint: #28e070;
+
+  --ion-color-warning: #ffce00;
+  --ion-color-warning-rgb: 255, 206, 0;
+  --ion-color-warning-contrast: #000000;
+  --ion-color-warning-contrast-rgb: 0, 0, 0;
+  --ion-color-warning-shade: #e0b500;
+  --ion-color-warning-tint: #ffd31a;
+
+  --ion-color-danger: #f04141;
+  --ion-color-danger-rgb: 240, 65, 65;
+  --ion-color-danger-contrast: #ffffff;
+  --ion-color-danger-contrast-rgb: 255, 255, 255;
+  --ion-color-danger-shade: #d33939;
+  --ion-color-danger-tint: #f25454;
+
+  // Modern Neutral Palette
+  --ion-color-dark: #2d3748;
+  --ion-color-dark-rgb: 45, 55, 72;
+  --ion-color-dark-contrast: #ffffff;
+  --ion-color-dark-contrast-rgb: 255, 255, 255;
+  --ion-color-dark-shade: #283040;
+  --ion-color-dark-tint: #42495a;
+
+  --ion-color-medium: #92a3b8;
+  --ion-color-medium-rgb: 146, 163, 184;
+  --ion-color-medium-contrast: #000000;
+  --ion-color-medium-contrast-rgb: 0, 0, 0;
+  --ion-color-medium-shade: #808fa2;
+  --ion-color-medium-tint: #9daccb;
+
+  --ion-color-light: #f8fafc;
+  --ion-color-light-rgb: 248, 250, 252;
+  --ion-color-light-contrast: #000000;
+  --ion-color-light-contrast-rgb: 0, 0, 0;
+  --ion-color-light-shade: #dae1e7;
+  --ion-color-light-tint: #f9fbfc;
+
+  // Custom Lab Colors
+  --lab-color-accent: #4facfe;
+  --lab-color-accent-rgb: 79, 172, 254;
+  --lab-color-surface: #ffffff;
+  --lab-color-surface-variant: #f1f5f9;
+  --lab-color-outline: #e2e8f0;
+  --lab-color-outline-variant: #cbd5e1;
+  
+  // Plastic/Glass Effects
+  --lab-glass-backdrop: rgba(255, 255, 255, 0.85);
+  --lab-glass-border: rgba(255, 255, 255, 0.2);
+  --lab-shadow-soft: 0 4px 16px rgba(0, 0, 0, 0.08);
+  --lab-shadow-medium: 0 8px 32px rgba(0, 0, 0, 0.12);
+  --lab-shadow-strong: 0 16px 64px rgba(0, 0, 0, 0.16);
+  
+  // Modern Typography Scale
+  --lab-font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --lab-font-size-xs: 0.75rem;   // 12px
+  --lab-font-size-sm: 0.875rem;  // 14px
+  --lab-font-size-base: 1rem;    // 16px
+  --lab-font-size-lg: 1.125rem;  // 18px
+  --lab-font-size-xl: 1.25rem;   // 20px
+  --lab-font-size-2xl: 1.5rem;   // 24px
+  --lab-font-size-3xl: 1.875rem; // 30px
+  
+  // Modern Spacing Scale
+  --lab-space-xs: 0.25rem;   // 4px
+  --lab-space-sm: 0.5rem;    // 8px
+  --lab-space-base: 1rem;    // 16px
+  --lab-space-lg: 1.5rem;    // 24px
+  --lab-space-xl: 2rem;      // 32px
+  --lab-space-2xl: 3rem;     // 48px
+  
+  // Modern Border Radius
+  --lab-radius-xs: 0.125rem;  // 2px
+  --lab-radius-sm: 0.25rem;   // 4px
+  --lab-radius-base: 0.5rem;  // 8px
+  --lab-radius-lg: 0.75rem;   // 12px
+  --lab-radius-xl: 1rem;      // 16px
+  --lab-radius-2xl: 1.5rem;   // 24px
+  --lab-radius-full: 9999px;
+
+  // Component-specific variables
+  --ion-background-color: #f8fafc;
+  --ion-text-color: #1e293b;
+  --ion-border-color: #e2e8f0;
+  
+  // Card styling
+  --ion-card-background: var(--lab-color-surface);
+  --ion-card-box-shadow: var(--lab-shadow-soft);
+  
+  // Button styling
+  --ion-border-radius: var(--lab-radius-lg);
+}
+
+// Dark mode support
+@media (prefers-color-scheme: dark) {
+  :root {
+    --ion-background-color: #0f172a;
+    --ion-text-color: #f1f5f9;
+    --ion-border-color: #334155;
+    
+    --lab-color-surface: #1e293b;
+    --lab-color-surface-variant: #334155;
+    --lab-color-outline: #475569;
+    --lab-color-outline-variant: #64748b;
+    
+    --lab-glass-backdrop: rgba(30, 41, 59, 0.85);
+    --lab-glass-border: rgba(255, 255, 255, 0.1);
+  }
+}

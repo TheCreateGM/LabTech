@@ -1,17 +1,82 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Tab 1
+      LabTech GeoLab
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content [fullscreen]="true" class="fade-in">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Tab 1</ion-title>
+      <ion-title size="large">LabTech GeoLab</ion-title>
     </ion-toolbar>
   </ion-header>
 
-  <app-explore-container name="Tab 1 page"></app-explore-container>
+  <div class="welcome-section">
+    <div class="hero-card">
+      <div class="hero-content">
+        <h1>Welcome to LabTech GeoLab</h1>
+        <p>Your comprehensive digital companion for geotechnical engineering laboratory tests. Experience modern, streamlined workflows with our intuitive interface.</p>
+        <ion-button expand="block" fill="solid" class="hero-button">
+          <ion-icon name="flask" slot="start"></ion-icon>
+          Start Testing
+        </ion-button>
+      </div>
+      <div class="hero-visual">
+        <ion-icon name="analytics" class="hero-icon"></ion-icon>
+      </div>
+    </div>
+  </div>
+
+  <div class="features-section">
+    <h2 class="section-title">Available Tests</h2>
+    <ion-grid>
+      <ion-row>
+        <ion-col size="12" size-md="6">
+          <app-lab-card
+            iconName="filter"
+            label="Sieve Analysis"
+            (cardClick)="navigateToTest('sieve')"
+          ></app-lab-card>
+        </ion-col>
+        <ion-col size="12" size-md="6">
+          <app-lab-card
+            iconName="hammer"
+            label="Proctor Test"
+            (cardClick)="navigateToTest('proctor')"
+          ></app-lab-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+
+  <div class="stats-section">
+    <h2 class="section-title">Quick Stats</h2>
+    <ion-grid>
+      <ion-row>
+        <ion-col size="4">
+          <div class="stat-card">
+            <ion-icon name="checkmark-circle" class="stat-icon success"></ion-icon>
+            <div class="stat-number">2</div>
+            <div class="stat-label">Tests Available</div>
+          </div>
+        </ion-col>
+        <ion-col size="4">
+          <div class="stat-card">
+            <ion-icon name="time" class="stat-icon warning"></ion-icon>
+            <div class="stat-number">11</div>
+            <div class="stat-label">Steps Total</div>
+          </div>
+        </ion-col>
+        <ion-col size="4">
+          <div class="stat-card">
+            <ion-icon name="trending-up" class="stat-icon primary"></ion-icon>
+            <div class="stat-number">100%</div>
+            <div class="stat-label">Accuracy</div>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
 </ion-content>
