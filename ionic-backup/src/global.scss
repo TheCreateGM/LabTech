@@ -1,0 +1,119 @@
+/*
+ * App Global CSS
+ * ----------------------------------------------------------------------------
+ * Put style rules here that you want to apply globally. These styles are for
+ * the entire app and not just one component. Additionally, this file can be
+ * used as an entry point to import other CSS/Sass files to be included in the
+ * output CSS.
+ * For more information on global stylesheets, visit the documentation:
+ * https://ionicframework.com/docs/layout/global-stylesheets
+ */
+
+/* Core CSS required for Ionic components to work properly */
+@import "@ionic/angular/css/core.css";
+
+/* Basic CSS for apps built with Ionic */
+@import "@ionic/angular/css/normalize.css";
+@import "@ionic/angular/css/structure.css";
+@import "@ionic/angular/css/typography.css";
+@import "@ionic/angular/css/display.css";
+
+/* Optional CSS utils that can be commented out */
+@import "@ionic/angular/css/padding.css";
+@import "@ionic/angular/css/float-elements.css";
+@import "@ionic/angular/css/text-alignment.css";
+@import "@ionic/angular/css/text-transformation.css";
+@import "@ionic/angular/css/flex-utils.css";
+
+/**
+ * Ionic Dark Mode
+ * -----------------------------------------------------
+ * For more info, please see:
+ * https://ionicframework.com/docs/theming/dark-mode
+ */
+
+/* @import "@ionic/angular/css/palettes/dark.always.css"; */
+/* @import "@ionic/angular/css/palettes/dark.class.css"; */
+@import '@ionic/angular/css/palettes/dark.system.css';
+
+/* LabTech GeoLab Global Styles */
+:root {
+  /* Custom color palette for professional lab interface */
+  --ion-color-primary: #3880ff;
+  --ion-color-primary-rgb: 56, 128, 255;
+  --ion-color-primary-contrast: #ffffff;
+  --ion-color-primary-contrast-rgb: 255, 255, 255;
+  --ion-color-primary-shade: #3171e0;
+  --ion-color-primary-tint: #4c8dff;
+  
+  --ion-color-secondary: #0cd1e8;
+  --ion-color-secondary-rgb: 12, 209, 232;
+  --ion-color-secondary-contrast: #ffffff;
+  --ion-color-secondary-contrast-rgb: 255, 255, 255;
+  --ion-color-secondary-shade: #0bb8cc;
+  --ion-color-secondary-tint: #24d6ea;
+}
+
+/* Global font styling */
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+/* Consistent header styling */
+ion-header ion-toolbar {
+  --background: var(--ion-color-primary);
+  --color: white;
+}
+
+ion-header ion-title {
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+/* Button styling consistency */
+ion-button.lab-button {
+  --border-radius: 8px;
+  font-weight: 500;
+  text-transform: none;
+}
+
+/* Input field styling */
+ion-input {
+  --border-color: #ddd;
+  --border-style: solid;
+  --border-width: 1px;
+  --border-radius: 6px;
+  --padding: 8px 12px;
+}
+
+ion-textarea {
+  --border-color: #ddd;
+  --border-style: solid;
+  --border-width: 1px;
+  --border-radius: 6px;
+  --padding: 12px;
+}
+
+/* Table styling for data entry */
+.data-table {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* Content padding consistency */
+.content-section {
+  padding-bottom: 20px;
+}
+
+/* Responsive design for different screen sizes */
+@media (max-width: 768px) {
+  .data-table {
+    font-size: 11px !important;
+  }
+  
+  .data-table th,
+  .data-table td {
+    padding: 4px !important;
+  }
+}

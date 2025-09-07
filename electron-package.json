@@ -1,0 +1,29 @@
+{
+  "name": "labtech-geolab-electron",
+  "version": "1.0.0",
+  "description": "A digital guide and data entry tool for geotechnical laboratory tests",
+  "main": "dist/main/main.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "npm run build && electron .",
+    "dev": "tsc && electron . --dev",
+    "clean": "rm -rf dist"
+  },
+  "keywords": [
+    "electron",
+    "geotechnical",
+    "laboratory",
+    "testing",
+    "desktop-app"
+  ],
+  "author": "LabTech Team",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "electron": "^27.0.0",
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "electron-is-dev": "^2.0.0"
+  }
+}

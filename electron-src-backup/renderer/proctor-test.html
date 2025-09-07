@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LabTech GeoLab - Standard Proctor Compaction Test</title>
+    <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+    <!-- Navigation Header -->
+    <div class="nav-header">
+        <button id="proctor-home-btn" class="nav-btn">🏠</button>
+        <div class="nav-title">GEOTECHNICAL LAB</div>
+        <div></div>
+    </div>
+
+    <!-- Section 1: Objectives -->
+    <div id="objectives" class="test-section active">
+        <div class="section-content">
+            <h3 class="section-title">A. OBJECTIVES</h3>
+            <p>This laboratory test is performed to determine the relationship between the moisture content and the dry density of a soil for a specified compactive effort.</p>
+        </div>
+    </div>
+
+    <!-- Section 2: Theory -->
+    <div id="theory" class="test-section">
+        <div class="section-content">
+            <h3 class="section-title">B. THEORY</h3>
+            <p>The Proctor compaction test is a laboratory method of experimentally determining the optimal moisture content at which a given soil type will become most dense and achieve its maximum dry density. The test is performed to determine the relationship between moisture content and dry density of soils compacted in a specified manner.</p>
+            <p>The objectives of compaction are to:</p>
+            <ul class="bulleted-list">
+                <li>Increase shear strength</li>
+                <li>Increase stiffness and bearing capacity</li>
+                <li>Decrease voids ratio and permeability</li>
+                <li>Reduce settlement and frost action</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Section 3: Apparatus & Material -->
+    <div id="apparatus" class="test-section">
+        <div class="section-content">
+            <h3 class="section-title">C. APPARATUS & MATERIAL</h3>
+            <ul class="bulleted-list">
+                <li>Cylindrical metal mould</li>
+                <li>Metal rammer (2.5 kg mass)</li>
+                <li>Measuring cylinder</li>
+                <li>Balance (accurate to 1g)</li>
+                <li>Oven</li>
+                <li>Mixing tools</li>
+                <li>Straight edge</li>
+                <li>Sample containers</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Section 4: Procedure -->
+    <div id="procedure" class="test-section">
+        <div class="section-content">
+            <h3 class="section-title">D. PROCEDURE</h3>
+            <ol class="numbered-list">
+                <li>Obtain about 3 kg of air-dry soil sample and pass it through 4.75 mm (No. 4) sieve.</li>
+                <li>Take about 2.5 kg of soil and add water to give a moisture content of about 5% below optimum.</li>
+                <li>Mix the soil thoroughly and place it in a sealed container for at least 16 hours.</li>
+                <li>Determine and record the mass of the mold and base plate (m1).</li>
+                <li>Place the soil in the mold and compact in three layers with 25 blows per layer.</li>
+                <li>Each blow should be applied by dropping the rammer from a height of 305 mm.</li>
+                <li>After compaction, remove the collar and trim excess soil flush with the top.</li>
+                <li>Determine and record the mass of mold plus compacted soil (m2).</li>
+                <li>Extrude the specimen and take samples for moisture content determination.</li>
+                <li>Repeat the procedure for at least 4 more tests with increasing moisture content.</li>
+            </ol>
+            <div class="mt-20">
+                <strong>Volume Formula:</strong> V = (πD²L) / 4000 cm³
+                <br>
+                <small>Where D = diameter of mold (cm), L = height of mold (cm)</small>
+            </div>
+        </div>
+    </div>
+
+    <!-- Section 5: Data/Results -->
+    <div id="data-results" class="test-section">
+        <div class="section-content">
+            <h3 class="section-title">E. DATA / RESULTS</h3>
+            
+            <!-- Dry Density Table -->
+            <h4 class="section-subtitle">Dry Density / Moisture Content Relationship</h4>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Parameter</th>
+                        <th>Test Number 1</th>
+                        <th>Test Number 2</th>
+                        <th>Test Number 3</th>
+                        <th>Test Number 4</th>
+                        <th>Test Number 5</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Mass of mold + base (m1) kg</td>
+                        <td><input type="number" class="m1" step="0.01" min="0"></td>
+                        <td><input type="number" class="m1" step="0.01" min="0"></td>
+                        <td><input type="number" class="m1" step="0.01" min="0"></td>
+                        <td><input type="number" class="m1" step="0.01" min="0"></td>
+                        <td><input type="number" class="m1" step="0.01" min="0"></td>
+                    </tr>
+                    <tr>
+                        <td>Mass of mold + compacted soil (m2) kg</td>
+                        <td><input type="number" class="m2" step="0.01" min="0"></td>
+                        <td><input type="number" class="m2" step="0.01" min="0"></td>
+                        <td><input type="number" class="m2" step="0.01" min="0"></td>
+                        <td><input type="number" class="m2" step="0.01" min="0"></td>
+                        <td><input type="number" class="m2" step="0.01" min="0"></td>
+                    </tr>
+                    <tr>
+                        <td>Mass of compacted specimen (m2-m1) kg</td>
+                        <td><input type="number" class="specimen-mass" readonly></td>
+                        <td><input type="number" class="specimen-mass" readonly></td>
+                        <td><input type="number" class="specimen-mass" readonly></td>
+                        <td><input type="number" class="specimen-mass" readonly></td>
+                        <td><input type="number" class="specimen-mass" readonly></td>
+                    </tr>
+                    <tr>
+                        <td>Volume of mold (V) cm³</td>
+                        <td><input type="number" class="volume" value="1000" step="1"></td>
+                        <td><input type="number" class="volume" value="1000" step="1"></td>
+                        <td><input type="number" class="volume" value="1000" step="1"></td>
+                        <td><input type="number" class="volume" value="1000" step="1"></td>
+                        <td><input type="number" class="volume" value="1000" step="1"></td>
+                    </tr>
+                    <tr>
+                        <td>Bulk density (ρb) g/cm³</td>
+                        <td><input type="number" class="bulk-density" readonly></td>
+                        <td><input type="number" class="bulk-density" readonly></td>
+                        <td><input type="number" class="bulk-density" readonly></td>
+                        <td><input type="number" class="bulk-density" readonly></td>
+                        <td><input type="number" class="bulk-density" readonly></td>
+                    </tr>
+                    <tr>
+                        <td>Moisture content (w) %</td>
+                        <td><input type="number" class="moisture-content-display" readonly></td>
+                        <td><input type="number" class="moisture-content-display" readonly></td>
+                        <td><input type="number" class="moisture-content-display" readonly></td>
+                        <td><input type="number" class="moisture-content-display" readonly></td>
+                        <td><input type="number" class="moisture-content-display" readonly></td>
+                    </tr>
+                    <tr>
+                        <td>Dry density (ρd) g/cm³</td>
+                        <td><input type="number" class="dry-density" readonly></td>
+                        <td><input type="number" class="dry-density" readonly></td>
+                        <td><input type="number" class="dry-density" readonly></td>
+                        <td><input type="number" class="dry-density" readonly></td>
+                        <td><input type="number" class="dry-density" readonly></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- Moisture Content Table -->
+            <h4 class="section-subtitle">Moisture Content, w</h4>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Parameter</th>
+                        <th>Container 1</th>
+                        <th>Container 2</th>
+                        <th>Container 3</th>
+                        <th>Container 4</th>
+                        <th>Container 5</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Container number</td>
+                        <td><input type="text" class="container-number"></td>
+                        <td><input type="text" class="container-number"></td>
+                        <td><input type="text" class="container-number"></td>
+                        <td><input type="text" class="container-number"></td>
+                        <td><input type="text" class="container-number"></td>
+                    </tr>
+                    <tr>
+                        <td>Mass of container (c1) g</td>
+                        <td><input type="number" class="c1" step="0.01" min="0"></td>
+                        <td><input type="number" class="c1" step="0.01" min="0"></td>
+                        <td><input type="number" class="c1" step="0.01" min="0"></td>
+                        <td><input type="number" class="c1" step="0.01" min="0"></td>
+                        <td><input type="number" class="c1" step="0.01" min="0"></td>
+                    </tr>
+                    <tr>
+                        <td>Mass of container + wet soil (c2) g</td>
+                        <td><input type="number" class="c2" step="0.01" min="0"></td>
+                        <td><input type="number" class="c2" step="0.01" min="0"></td>
+                        <td><input type="number" class="c2" step="0.01" min="0"></td>
+                        <td><input type="number" class="c2" step="0.01" min="0"></td>
+                        <td><input type="number" class="c2" step="0.01" min="0"></td>
+                    </tr>
+                    <tr>
+                        <td>Mass of container + dry soil (c3) g</td>
+                        <td><input type="number" class="c3" step="0.01" min="0"></td>
+                        <td><input type="number" class="c3" step="0.01" min="0"></td>
+                        <td><input type="number" class="c3" step="0.01" min="0"></td>
+                        <td><input type="number" class="c3" step="0.01" min="0"></td>
+                        <td><input type="number" class="c3" step="0.01" min="0"></td>
+                    </tr>
+                    <tr>
+                        <td>Mass of moisture (c2-c3) g</td>
+                        <td><input type="number" class="mass-moisture" readonly></td>
+                        <td><input type="number" class="mass-moisture" readonly></td>
+                        <td><input type="number" class="mass-moisture" readonly></td>
+                        <td><input type="number" class="mass-moisture" readonly></td>
+                        <td><input type="number" class="mass-moisture" readonly></td>
+                    </tr>
+                    <tr>
+                        <td>Mass of dry soil (c3-c1) g</td>
+                        <td><input type="number" class="mass-dry-soil" readonly></td>
+                        <td><input type="number" class="mass-dry-soil" readonly></td>
+                        <td><input type="number" class="mass-dry-soil" readonly></td>
+                        <td><input type="number" class="mass-dry-soil" readonly></td>
+                        <td><input type="number" class="mass-dry-soil" readonly></td>
+                    </tr>
+                    <tr>
+                        <td>Moisture content w = (c2-c3)/(c3-c1) × 100%</td>
+                        <td><input type="number" class="moisture-content" readonly></td>
+                        <td><input type="number" class="moisture-content" readonly></td>
+                        <td><input type="number" class="moisture-content" readonly></td>
+                        <td><input type="number" class="moisture-content" readonly></td>
+                        <td><input type="number" class="moisture-content" readonly></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Section 6: Calculation -->
+    <div id="calculation" class="test-section">
+        <div class="section-content">
+            <h3 class="section-title">F. CALCULATION</h3>
+            <ul class="info-list">
+                <li><strong>i.</strong> Plot experimental points and smooth curve for dry density vs moisture content.</li>
+                <li><strong>ii.</strong> Report the maximum dry density and corresponding optimal moisture content.</li>
+                <li><strong>iii.</strong> Plot curves for 0% and 5% air voids using the formula:<br>
+                    <code>ρd = (Gs × ρw × (1 - Ar)) / (1 + w×Gs)</code><br>
+                    Where: ρd = dry density, ρw = density of water (1 g/cm³), Ar = air voids ratio, Gs = specific gravity of soil solids, w = moisture content (decimal)
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Section 7: Discussion -->
+    <div id="discussion" class="test-section">
+        <div class="section-content">
+            <h3 class="section-title">G. DISCUSSION</h3>
+            <textarea class="text-area" placeholder="Discuss the results, curves obtained, and any observations about the compaction behavior..."></textarea>
+        </div>
+    </div>
+
+    <!-- Section 8: Conclusion -->
+    <div id="conclusion" class="test-section">
+        <div class="section-content">
+            <h3 class="section-title">H. CONCLUSION</h3>
+            <textarea class="text-area" placeholder="Summarize the findings, optimal moisture content, maximum dry density, and practical implications..."></textarea>
+        </div>
+    </div>
+
+    <!-- Navigation Footer -->
+    <div class="nav-footer">
+        <button id="proctor-back-btn" class="btn btn-small">Back</button>
+        <button id="proctor-next-btn" class="btn btn-small">Next</button>
+    </div>
+
+    <!-- Include specific script for proctor test -->
+    <script src="ts/proctor.js"></script>
+</body>
+</html>

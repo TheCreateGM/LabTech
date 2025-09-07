@@ -1,0 +1,8 @@
+{
+  "name": "labtech-geolab",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular",
+  "id": "1c45a639"
+}
