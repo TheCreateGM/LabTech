@@ -58,12 +58,21 @@
 .features-section,
 .stats-section {
   padding: 0 var(--lab-space-base) var(--lab-space-xl);
+  /* Hide any decorative overflow to avoid artifacts on small screens */
+  overflow: hidden;
+}
+
+/* Tighter grid paddings on mobile */
+.features-section ion-grid,
+.stats-section ion-grid {
+  --ion-grid-padding: 0;
+  --ion-grid-column-padding: var(--lab-space-sm);
 }
 
 .section-title {
   font-size: var(--lab-font-size-2xl, 1.5rem);
   font-weight: 700;
-  color: var(--ion-color-dark, #1a202c);
+  color: var(--ion-text-color);
   margin: 0 0 var(--lab-space-lg, 1.5rem) 0;
   padding: 0 var(--lab-space-base, 1rem);
   letter-spacing: -0.01em;
@@ -151,7 +160,7 @@
   .stat-card { padding: var(--lab-space-base, 1rem); margin: var(--lab-space-xs, 0.25rem); }
   .stat-icon { font-size: 1.8rem; }
   .stat-number { font-size: var(--lab-font-size-xl, 1.25rem); }
-  .features-section, .stats-section { padding: 0 var(--lab-space-sm, 0.5rem) var(--lab-space-base, 1rem); }
+  .features-section, .stats-section { padding: 0 var(--lab-space-sm, 0.5rem) var(--lab-space-base, 1rem); overflow: hidden; }
 }
 
 @media (max-width: 480px) {
@@ -167,6 +176,7 @@
   .stat-icon { font-size: 1.2rem; }
   .stat-number { font-size: var(--lab-font-size-lg, 1.125rem); }
   .stat-label { font-size: var(--lab-font-size-xs, 0.75rem); }
+  .features-section ion-grid, .stats-section ion-grid { --ion-grid-column-padding: 6px; }
 }
 
 @media (max-width: 360px) {

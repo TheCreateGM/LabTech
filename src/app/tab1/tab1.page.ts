@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonIcon, IonGrid, IonRow, IonCol } from '@ionic/angular/standalone';
 import { LabCardComponent } from '../components/lab-card.component';
+import { addIcons } from 'ionicons';
+import { analytics, flask, filter, hammer, checkmarkCircle, time, trendingUp } from 'ionicons/icons';
 
 @Component({
   selector: 'app-tab1',
@@ -22,7 +24,10 @@ import { LabCardComponent } from '../components/lab-card.component';
   ],
 })
 export class Tab1Page {
-  constructor(private router: Router) {}
+  constructor(private router: Router) {
+    // Register only the icons used on this page to ensure they render on mobile
+    addIcons({ analytics, flask, filter, hammer, checkmarkCircle, time, trendingUp });
+  }
   
   navigateToTest(testType: string) {
     if (testType === 'sieve') {
