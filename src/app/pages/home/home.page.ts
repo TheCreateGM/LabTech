@@ -71,7 +71,7 @@ export class HomePage {
   }
 
   onGeoTechnicalLabClick() {
-    this.router.navigate(['/geotechnical-lab']);
+    this.router.navigate(['/tabs/geotechnical-lab']);
   }
 
   onChemicalLabClick() {

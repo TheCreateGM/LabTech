@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonIcon, IonGrid, IonRow, IonCol } from '@ionic/angular/standalone';
 import { LabCardComponent } from '../components/lab-card.component';
 
@@ -21,12 +22,17 @@ import { LabCardComponent } from '../components/lab-card.component';
   ],
 })
 export class Tab1Page {
-  constructor() {}
+  constructor(private router: Router) {}
   
   navigateToTest(testType: string) {
-    console.log(`Navigating to ${testType} test`);
-    // TODO: Implement navigation to test pages
-    // This would typically use Angular Router
-    // this.router.navigate(['/test', testType]);
+    if (testType === 'sieve') {
+      this.router.navigate(['/tabs/sieve-analysis/theory']);
+    } else if (testType === 'proctor') {
+      this.router.navigate(['/tabs/proctor-test/theory']);
+    }
+  }
+  
+  navigateToHome() {
+    this.router.navigate(['/tabs/home']);
   }
 }

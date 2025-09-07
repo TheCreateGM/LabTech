@@ -10,7 +10,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "lint": "ng lint",
-    "ionic:serve": "ionic serve",
+    "ionic:serve": "ng serve",
     "ionic:build": "ng build",
     "build:prod": "ng build --configuration production",
     "build:android": "ionic capacitor build android",
