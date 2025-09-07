@@ -20,22 +20,36 @@
 }
 
 .hero-content h1 {
-  font-size: var(--lab-font-size-3xl);
+  font-size: var(--lab-font-size-3xl, 1.875rem);
   font-weight: 700;
-  color: var(--ion-color-dark);
-  margin: 0 0 var(--lab-space-base) 0;
+  color: var(--ion-color-dark, #1a202c);
+  margin: 0 0 var(--lab-space-base, 1rem) 0;
   letter-spacing: -0.02em;
-  background: linear-gradient(135deg, var(--ion-color-primary), var(--ion-color-secondary));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  
+  // Gradient text with fallback
+  @supports (background-clip: text) or (-webkit-background-clip: text) {
+    background: linear-gradient(135deg, var(--ion-color-primary), var(--ion-color-secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    
+    // Fallback for when gradient fails
+    &:not([style*="-webkit-text-fill-color"]) {
+      color: var(--ion-color-primary);
+    }
+  }
+  
+  // Additional fallback for unsupported browsers
+  @supports not ((background-clip: text) or (-webkit-background-clip: text)) {
+    color: var(--ion-color-primary);
+  }
 }
 
 .hero-content p {
-  font-size: var(--lab-font-size-lg);
-  color: var(--ion-color-medium);
+  font-size: var(--lab-font-size-lg, 1.125rem);
+  color: var(--ion-color-medium, #718096);
   line-height: 1.6;
-  margin: 0 0 var(--lab-space-xl) 0;
+  margin: 0 0 var(--lab-space-xl, 2rem) 0;
 }
 
 .hero-button {
@@ -65,11 +79,11 @@
 }
 
 .section-title {
-  font-size: var(--lab-font-size-2xl);
+  font-size: var(--lab-font-size-2xl, 1.5rem);
   font-weight: 700;
-  color: var(--ion-color-dark);
-  margin: 0 0 var(--lab-space-lg) 0;
-  padding: 0 var(--lab-space-base);
+  color: var(--ion-color-dark, #1a202c);
+  margin: 0 0 var(--lab-space-lg, 1.5rem) 0;
+  padding: 0 var(--lab-space-base, 1rem);
   letter-spacing: -0.01em;
 }
 
@@ -107,16 +121,16 @@
 }
 
 .stat-number {
-  font-size: var(--lab-font-size-2xl);
+  font-size: var(--lab-font-size-2xl, 1.5rem);
   font-weight: 700;
-  color: var(--ion-color-dark);
+  color: var(--ion-color-dark, #1a202c);
   line-height: 1;
-  margin-bottom: var(--lab-space-xs);
+  margin-bottom: var(--lab-space-xs, 0.25rem);
 }
 
 .stat-label {
-  font-size: var(--lab-font-size-sm);
-  color: var(--ion-color-medium);
+  font-size: var(--lab-font-size-sm, 0.875rem);
+  color: var(--ion-color-medium, #718096);
   font-weight: 500;
 }
 

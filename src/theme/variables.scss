@@ -47,19 +47,19 @@
   --ion-color-danger-tint: #f25454;
 
   // Modern Neutral Palette
-  --ion-color-dark: #2d3748;
-  --ion-color-dark-rgb: 45, 55, 72;
+  --ion-color-dark: #1a202c;
+  --ion-color-dark-rgb: 26, 32, 44;
   --ion-color-dark-contrast: #ffffff;
   --ion-color-dark-contrast-rgb: 255, 255, 255;
-  --ion-color-dark-shade: #283040;
-  --ion-color-dark-tint: #42495a;
+  --ion-color-dark-shade: #171923;
+  --ion-color-dark-tint: #2d3748;
 
-  --ion-color-medium: #92a3b8;
-  --ion-color-medium-rgb: 146, 163, 184;
-  --ion-color-medium-contrast: #000000;
-  --ion-color-medium-contrast-rgb: 0, 0, 0;
-  --ion-color-medium-shade: #808fa2;
-  --ion-color-medium-tint: #9daccb;
+  --ion-color-medium: #718096;
+  --ion-color-medium-rgb: 113, 128, 150;
+  --ion-color-medium-contrast: #ffffff;
+  --ion-color-medium-contrast-rgb: 255, 255, 255;
+  --ion-color-medium-shade: #64748b;
+  --ion-color-medium-tint: #8492a6;
 
   --ion-color-light: #f8fafc;
   --ion-color-light-rgb: 248, 250, 252;
@@ -112,7 +112,7 @@
 
   // Component-specific variables
   --ion-background-color: #f8fafc;
-  --ion-text-color: #1e293b;
+  --ion-text-color: #0f172a;
   --ion-border-color: #e2e8f0;
   
   // Card styling
@@ -123,11 +123,51 @@
   --ion-border-radius: var(--lab-radius-lg);
 }
 
-// Dark mode support
+// Light theme (explicit class)
+.light-theme {
+  --ion-background-color: #f8fafc;
+  --ion-text-color: #0f172a;
+  --ion-border-color: #e2e8f0;
+  
+  --lab-color-surface: #ffffff;
+  --lab-color-surface-variant: #f1f5f9;
+  --lab-color-outline: #e2e8f0;
+  --lab-color-outline-variant: #cbd5e1;
+  
+  --lab-glass-backdrop: rgba(255, 255, 255, 0.85);
+  --lab-glass-border: rgba(255, 255, 255, 0.2);
+}
+
+// Dark theme (explicit class)
+.dark-theme {
+  --ion-background-color: #0f172a;
+  --ion-text-color: #f8fafc;
+  --ion-border-color: #334155;
+  
+  --lab-color-surface: #1e293b;
+  --lab-color-surface-variant: #334155;
+  --lab-color-outline: #475569;
+  --lab-color-outline-variant: #64748b;
+  
+  --lab-glass-backdrop: rgba(30, 41, 59, 0.85);
+  --lab-glass-border: rgba(255, 255, 255, 0.1);
+  
+  // Dark mode text colors
+  --ion-color-dark: #f8fafc;
+  --ion-color-dark-rgb: 248, 250, 252;
+  --ion-color-medium: #94a3b8;
+  --ion-color-medium-rgb: 148, 163, 184;
+  
+  // Adjust gradients for dark mode
+  --ion-color-primary: #7c8feb;
+  --ion-color-secondary: #8b5fbf;
+}
+
+// Auto mode - system preference based
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not(.light-theme):not(.dark-theme) {
     --ion-background-color: #0f172a;
-    --ion-text-color: #f1f5f9;
+    --ion-text-color: #f8fafc;
     --ion-border-color: #334155;
     
     --lab-color-surface: #1e293b;
@@ -137,5 +177,30 @@
     
     --lab-glass-backdrop: rgba(30, 41, 59, 0.85);
     --lab-glass-border: rgba(255, 255, 255, 0.1);
+    
+    // Dark mode text colors
+    --ion-color-dark: #f8fafc;
+    --ion-color-dark-rgb: 248, 250, 252;
+    --ion-color-medium: #94a3b8;
+    --ion-color-medium-rgb: 148, 163, 184;
+    
+    --ion-color-primary: #7c8feb;
+    --ion-color-secondary: #8b5fbf;
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not(.light-theme):not(.dark-theme) {
+    --ion-background-color: #f8fafc;
+    --ion-text-color: #0f172a;
+    --ion-border-color: #e2e8f0;
+    
+    --lab-color-surface: #ffffff;
+    --lab-color-surface-variant: #f1f5f9;
+    --lab-color-outline: #e2e8f0;
+    --lab-color-outline-variant: #cbd5e1;
+    
+    --lab-glass-backdrop: rgba(255, 255, 255, 0.85);
+    --lab-glass-border: rgba(255, 255, 255, 0.2);
   }
 }
