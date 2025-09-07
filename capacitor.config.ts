@@ -15,13 +15,6 @@ const config: CapacitorConfig = {
       backgroundColor: '#3880ff',
       style: 'light'
     }
-  },
-  // Force Ionic Appflow to use the latest platforms
-  android: {
-    path: 'android'
-  },
-  ios: {
-    path: 'ios'
   }
 };
 
