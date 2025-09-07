@@ -17,39 +17,21 @@
 
 .hero-content {
   flex: 1;
-}
-
-.hero-content h1 {
-  font-size: var(--lab-font-size-3xl, 1.875rem);
-  font-weight: 700;
-  color: var(--ion-color-dark, #1a202c);
-  margin: 0 0 var(--lab-space-base, 1rem) 0;
-  letter-spacing: -0.02em;
   
-  // Gradient text with fallback
-  @supports (background-clip: text) or (-webkit-background-clip: text) {
-    background: linear-gradient(135deg, var(--ion-color-primary), var(--ion-color-secondary));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    
-    // Fallback for when gradient fails
-    &:not([style*="-webkit-text-fill-color"]) {
-      color: var(--ion-color-primary);
-    }
-  }
-  
-  // Additional fallback for unsupported browsers
-  @supports not ((background-clip: text) or (-webkit-background-clip: text)) {
+  h1 {
+    font-size: var(--lab-font-size-3xl, 1.875rem);
+    font-weight: 700;
     color: var(--ion-color-primary);
+    margin: 0 0 var(--lab-space-base, 1rem) 0;
+    letter-spacing: -0.02em;
   }
-}
-
-.hero-content p {
-  font-size: var(--lab-font-size-lg, 1.125rem);
-  color: var(--ion-color-medium, #718096);
-  line-height: 1.6;
-  margin: 0 0 var(--lab-space-xl, 2rem) 0;
+  
+  p {
+    font-size: var(--lab-font-size-lg, 1.125rem);
+    color: var(--ion-color-medium, #718096);
+    line-height: 1.6;
+    margin: 0 0 var(--lab-space-xl, 2rem) 0;
+  }
 }
 
 .hero-button {
@@ -143,15 +125,13 @@
   }
 }
 
-// Tablet responsive (769px - 768px)
-@media (max-width: 992px) and (min-width: 769px) {
+@media (max-width: 992px) {
   .hero-card {
     padding: var(--lab-space-xl, 2rem);
     gap: var(--lab-space-lg, 1.5rem);
   }
 }
 
-// Mobile tablet (481px - 768px)
 @media (max-width: 768px) {
   .hero-card {
     flex-direction: column;
@@ -161,139 +141,43 @@
     margin-bottom: var(--lab-space-lg, 1.5rem);
   }
   
-  .hero-content h1 {
-    font-size: var(--lab-font-size-2xl, 1.5rem);
-    margin-bottom: var(--lab-space-sm, 0.5rem);
+  .hero-content {
+    h1 { font-size: var(--lab-font-size-2xl, 1.5rem); }
+    p { font-size: var(--lab-font-size-base, 1rem); margin-bottom: var(--lab-space-base, 1rem); }
   }
   
-  .hero-content p {
-    font-size: var(--lab-font-size-base, 1rem);
-    margin-bottom: var(--lab-space-base, 1rem);
-  }
-  
-  .hero-icon {
-    font-size: 4rem;
-  }
-  
-  .section-title {
-    font-size: var(--lab-font-size-xl, 1.25rem);
-    padding: 0 var(--lab-space-sm, 0.5rem);
-  }
-  
-  .stat-card {
-    padding: var(--lab-space-base, 1rem);
-    margin: var(--lab-space-xs, 0.25rem);
-  }
-  
-  .stat-icon {
-    font-size: 1.8rem;
-  }
-  
-  .stat-number {
-    font-size: var(--lab-font-size-xl, 1.25rem);
-  }
-  
-  .features-section,
-  .stats-section {
-    padding: 0 var(--lab-space-sm, 0.5rem) var(--lab-space-base, 1rem);
-  }
+  .hero-icon { font-size: 4rem; }
+  .section-title { font-size: var(--lab-font-size-xl, 1.25rem); }
+  .stat-card { padding: var(--lab-space-base, 1rem); margin: var(--lab-space-xs, 0.25rem); }
+  .stat-icon { font-size: 1.8rem; }
+  .stat-number { font-size: var(--lab-font-size-xl, 1.25rem); }
+  .features-section, .stats-section { padding: 0 var(--lab-space-sm, 0.5rem) var(--lab-space-base, 1rem); }
 }
 
-// Mobile phone (max-width: 480px)
 @media (max-width: 480px) {
-  .welcome-section {
-    padding: var(--lab-space-base, 1rem) var(--lab-space-sm, 0.5rem);
+  .welcome-section { padding: var(--lab-space-base, 1rem) var(--lab-space-sm, 0.5rem); }
+  .hero-card { padding: var(--lab-space-base, 1rem); gap: var(--lab-space-sm, 0.5rem); min-height: auto; }
+  .hero-content {
+    h1 { font-size: var(--lab-font-size-xl, 1.25rem); line-height: 1.2; }
+    p { font-size: var(--lab-font-size-sm, 0.875rem); line-height: 1.4; }
   }
-  
-  .hero-card {
-    flex-direction: column;
-    text-align: center;
-    padding: var(--lab-space-base, 1rem) !important;
-    gap: var(--lab-space-sm, 0.5rem) !important;
-    margin-bottom: var(--lab-space-base, 1rem) !important;
-    min-height: auto;
-  }
-  
-  .hero-content h1 {
-    font-size: var(--lab-font-size-xl, 1.25rem) !important;
-    margin-bottom: var(--lab-space-xs, 0.25rem) !important;
-    line-height: 1.2;
-  }
-  
-  .hero-content p {
-    font-size: var(--lab-font-size-sm, 0.875rem) !important;
-    margin-bottom: var(--lab-space-sm, 0.5rem) !important;
-    line-height: 1.4;
-  }
-  
-  .hero-icon {
-    font-size: 3rem !important;
-  }
-  
-  .section-title {
-    font-size: var(--lab-font-size-lg, 1.125rem) !important;
-    padding: 0 var(--lab-space-xs, 0.25rem) !important;
-    margin-bottom: var(--lab-space-sm, 0.5rem) !important;
-  }
-  
-  .stat-card {
-    padding: var(--lab-space-sm, 0.5rem) !important;
-    margin: 2px !important;
-  }
-  
-  .stat-icon {
-    font-size: 1.2rem !important;
-    margin-bottom: var(--lab-space-xs, 0.25rem) !important;
-  }
-  
-  .stat-number {
-    font-size: var(--lab-font-size-lg, 1.125rem) !important;
-    margin-bottom: 2px !important;
-  }
-  
-  .stat-label {
-    font-size: var(--lab-font-size-xs, 0.75rem) !important;
-    line-height: 1.2;
-  }
-  
-  .features-section,
-  .stats-section {
-    padding: 0 var(--lab-space-xs, 0.25rem) var(--lab-space-sm, 0.5rem) !important;
-  }
+  .hero-icon { font-size: 3rem; }
+  .section-title { font-size: var(--lab-font-size-lg, 1.125rem); }
+  .stat-card { padding: var(--lab-space-sm, 0.5rem); margin: 2px; }
+  .stat-icon { font-size: 1.2rem; }
+  .stat-number { font-size: var(--lab-font-size-lg, 1.125rem); }
+  .stat-label { font-size: var(--lab-font-size-xs, 0.75rem); }
 }
 
-// Very small screens (max-width: 360px)
 @media (max-width: 360px) {
-  .hero-card {
-    padding: var(--lab-space-sm, 0.5rem) !important;
-    margin-bottom: var(--lab-space-sm, 0.5rem) !important;
+  .hero-card { padding: var(--lab-space-sm, 0.5rem); }
+  .hero-content {
+    h1 { font-size: var(--lab-font-size-base, 1rem); }
+    p { font-size: var(--lab-font-size-xs, 0.75rem); }
   }
-  
-  .hero-content h1 {
-    font-size: var(--lab-font-size-base, 1rem) !important;
-  }
-  
-  .hero-content p {
-    font-size: var(--lab-font-size-xs, 0.75rem) !important;
-  }
-  
-  .hero-icon {
-    font-size: 2.5rem !important;
-  }
-  
-  .stat-card {
-    padding: var(--lab-space-xs, 0.25rem) !important;
-  }
-  
-  .stat-icon {
-    font-size: 1rem !important;
-  }
-  
-  .stat-number {
-    font-size: var(--lab-font-size-base, 1rem) !important;
-  }
-  
-  .stat-label {
-    font-size: 0.65rem !important;
-  }
+  .hero-icon { font-size: 2.5rem; }
+  .stat-card { padding: var(--lab-space-xs, 0.25rem); }
+  .stat-icon { font-size: 1rem; }
+  .stat-number { font-size: var(--lab-font-size-base, 1rem); }
+  .stat-label { font-size: 0.65rem; }
 }
