@@ -16,13 +16,20 @@ import { IonicModule } from '@ionic/angular';
     </ion-card>
   `,
   styles: [`
+    :host {
+      display: block;
+      width: 100%;
+    }
+
     .lab-card {
       /* Make cards clearly visible on dark backgrounds */
       --background: var(--lab-color-surface);
       border: 1px solid var(--lab-color-outline);
       border-radius: var(--lab-radius-2xl);
       box-shadow: var(--lab-shadow-soft);
-      margin: var(--lab-space-base);
+      /* Remove side margins so cards align flush with the container.
+         Vertical spacing is handled by parent container gap. */
+      margin: 0 !important;
       width: 100%;
       text-align: center;
       cursor: pointer;
@@ -84,7 +91,7 @@ import { IonicModule } from '@ionic/angular';
 
     @media (max-width: 768px) {
       .lab-card {
-        margin: var(--lab-space-sm);
+        margin: 0 !important;
       }
 
       ion-card-content {

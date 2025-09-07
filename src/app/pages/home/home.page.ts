@@ -36,23 +36,32 @@ import { settings, layers, flask } from 'ionicons/icons';
   `,
   styles: [`
     .home-container {
-      max-width: 400px;
+      max-width: 420px;
       margin: 0 auto;
-      padding-top: 40px;
+      padding-top: 32px;
+      padding-bottom: 24px;
+      /* Prevent any decorative overflow from leaking to the sides */
+      overflow: hidden;
     }
     
     .home-title {
       text-align: center;
       font-size: 1.5rem;
-      font-weight: 400;
-      color: var(--ion-color-dark);
-      margin-bottom: 30px;
+      font-weight: 500;
+      color: var(--ion-text-color);
+      margin: 0 0 16px 0;
     }
     
     .lab-cards {
       display: flex;
       flex-direction: column;
       gap: 16px;
+    }
+
+    /* Small screens: slightly reduce spacing */
+    @media (max-width: 420px) {
+      .home-container { padding-top: 24px; }
+      .home-title { margin-bottom: 12px; }
     }
   `],
   standalone: true,
