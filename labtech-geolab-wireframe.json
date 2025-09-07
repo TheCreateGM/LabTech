@@ -1,0 +1,443 @@
+{
+  "application": {
+    "name": "LabTech GeoLab",
+    "description": "A digital lab manual or data entry tool for students or technicians performing geotechnical engineering lab tests",
+    "platform": "Mobile (iOS)",
+    "primary_flow": [
+      "Start Screen",
+      "Homepage", 
+      "Lab Menu",
+      "Test Module",
+      "End Screen"
+    ]
+  },
+  "screens": {
+    "UI1_START": {
+      "name": "UI1 (START)",
+      "type": "splash_screen",
+      "description": "Initial splash or loading screen of the application",
+      "layout": {
+        "orientation": "vertical",
+        "alignment": "center"
+      },
+      "header": {
+        "type": "standard_ios_statusbar",
+        "elements": ["time", "cellular_signal", "wifi", "battery"]
+      },
+      "content": {
+        "title": {
+          "text": "LabTech GeoLab",
+          "style": "gray_rectangular_box"
+        },
+        "actions": [
+          {
+            "type": "button",
+            "text": "START",
+            "style": "gray_rectangular_button_capitalized",
+            "navigation": "UI2_HOMEPAGE"
+          }
+        ]
+      }
+    },
+    "UI2_HOMEPAGE": {
+      "name": "UI2 (HOMEPAGE)",
+      "type": "menu_screen",
+      "description": "Allows user to select the type of laboratory they wish to work with",
+      "header": {
+        "type": "standard_ios_statusbar",
+        "instruction": "Pick your lab here:"
+      },
+      "content": {
+        "lab_options": [
+          {
+            "id": "tech_lab",
+            "name": "Tech LAB",
+            "icon": "mechanical_gear_component",
+            "type": "card"
+          },
+          {
+            "id": "geotechnical_lab",
+            "name": "GeoTechnical LAB",
+            "label": "GEOTECHNICAL",
+            "icon": "liquid_droplet_soil_layers",
+            "type": "card",
+            "navigation": "UI3_GEOTECHNICAL_LAB",
+            "primary_focus": true
+          },
+          {
+            "id": "chemical_lab",
+            "name": "Chemical LAB",
+            "icon": "test_tubes_beakers",
+            "type": "card"
+          }
+        ]
+      }
+    },
+    "UI3_GEOTECHNICAL_LAB": {
+      "name": "UI3 (GEOTECHNICAL LAB)",
+      "type": "test_menu",
+      "description": "Menu for tests available within the Geotechnical Lab",
+      "header": {
+        "type": "standard_ios_statusbar",
+        "title": "GEOTECHNICAL LAB"
+      },
+      "content": {
+        "available_tests": [
+          {
+            "id": "grain_size_analysis",
+            "name": "GRAIN SIZE SIEVE ANALYSIS (DRY)",
+            "type": "large_button",
+            "style": "rectangular_gray",
+            "navigation": "UI4_GRAIN_SIZE_ANALYSIS"
+          },
+          {
+            "id": "proctor_compaction",
+            "name": "STANDARD PROCTOR COMPACTION TEST",
+            "type": "large_button",
+            "style": "rectangular_gray", 
+            "navigation": "UI5_PROCTOR_TEST"
+          }
+        ]
+      }
+    },
+    "UI4_GRAIN_SIZE_ANALYSIS": {
+      "name": "UI4 (GRAIN SIZE SIEVE ANALYSIS (DRY))",
+      "type": "test_module",
+      "description": "Complete grain size sieve analysis test module",
+      "sections": [
+        {
+          "id": "test_information",
+          "name": "Test Information",
+          "header": "GEOTECHNICAL LAB",
+          "content": {
+            "A_objectives": {
+              "title": "OBJECTIVES",
+              "text": "This test is performed to determine the percentage of different grain sizes contained within a soil."
+            },
+            "B_theory": {
+              "title": "THEORY", 
+              "text": "The mechanical or sieve analysis is performed to determine the distribution of the course, larger-sized particles, and the hydrometer method is used to determine the distribution of the finer particles. The distribution of different grain sizes affects the engineering properties of soil. Grain size analysis provides the grain size distribution, and it is required in classifying the soil."
+            },
+            "C_apparatus_material": {
+              "title": "APPARATUS & MATERIAL",
+              "type": "bulleted_list",
+              "items": [
+                "Balance",
+                "Set of sieves", 
+                "Cleaning brush",
+                "Sieve shaker"
+              ]
+            }
+          }
+        },
+        {
+          "id": "procedure",
+          "name": "Procedure",
+          "header": "GEOTECHNICAL LAB",
+          "content": {
+            "D_procedure": {
+              "title": "PROCEDURE",
+              "subtitle": "Dry Sieve",
+              "type": "numbered_list",
+              "steps": [
+                "Write down the weight of each sieve as well as the bottom pan to be used in the analysis.",
+                "Record the weight of the given dry soil sample.",
+                "Make sure that all the sieves are clean and assemble them in the ascending order of sieve numbers.",
+                "Carefully pour the soil sample into the top sieve and place the cap over it.",
+                "Place the sieve stack in the mechanical shaker and shake for 5 minutes.",
+                "Remove the stack from the shaker and carefully weigh and record the weight of each sieve with its retained soil. In addition, remember to weigh and record the weight of the bottom pan with its retained fine soil.",
+                "Geotechnical Laboratory"
+              ]
+            }
+          }
+        },
+        {
+          "id": "data_results",
+          "name": "Data / Results",
+          "header": "GEOTECHNICAL LAB",
+          "content": {
+            "E_data_results": {
+              "title": "DATA / RESULTS",
+              "subtitle": "Dry Sieve",
+              "data_table": {
+                "columns": [
+                  "BS test sieve size (mm)",
+                  "Mass retained (g)",
+                  "Mass Passing (g)", 
+                  "Cumulative Percentage of mass Passing (%)"
+                ],
+                "type": "data_entry_form"
+              },
+              "summary_fields": [
+                {
+                  "label": "Total mass of soil",
+                  "unit": "gram",
+                  "type": "input_field"
+                },
+                {
+                  "label": "Total mass after sieving",
+                  "unit": "gram", 
+                  "type": "input_field"
+                },
+                {
+                  "label": "Losses",
+                  "unit": "gram",
+                  "type": "input_field"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "calculation",
+          "name": "Calculation",
+          "header": {
+            "left": "back_arrow_icon",
+            "center": "GEOTECHNICAL LAB",
+            "right": "home_icon"
+          },
+          "content": {
+            "F_calculation": {
+              "title": "CALCULATION",
+              "type": "informational_list",
+              "items": [
+                "i. cumulative percentage by weight of the total sample",
+                "ii. percentage by weight of the total sample passing through one sieve and retained on the next smaller sieve.",
+                "iii. The results of the sieve analysis may be recorded graphically on a semi-log graph with particle size as abscissa (log scale) and the percentage smaller than the specified diameter as ordinate.",
+                "iv. Type of soil and grading"
+              ]
+            }
+          }
+        },
+        {
+          "id": "summary",
+          "name": "Summary", 
+          "header": {
+            "left": "back_arrow_icon",
+            "center": "GEOTECHNICAL LAB",
+            "right": "home_icon"
+          },
+          "content": {
+            "summary": {
+              "title": "SUMMARY",
+              "type": "large_text_input_box",
+              "description": "Empty rectangular text box for user input or generated summary text"
+            }
+          }
+        }
+      ]
+    },
+    "UI5_PROCTOR_TEST": {
+      "name": "UI5 (STANDARD PROCTOR COMPACTION TEST)",
+      "type": "test_module", 
+      "description": "Complete standard Proctor compaction test module",
+      "sections": [
+        {
+          "id": "test_information",
+          "name": "Test Information",
+          "header": {
+            "left": "back_arrow_icon",
+            "center": "GEOTECHNICAL LAB",
+            "right": "home_icon"
+          },
+          "content": {
+            "A_objectives": {
+              "title": "OBJECTIVES",
+              "text": "This laboratory test is performed to determine the relationship between the moisture content and the dry density of a soil for a specified compactify effort."
+            },
+            "B_theory": {
+              "title": "THEORY",
+              "text": "Explains the Proctor test and its objectives (increase shear strength, increase stiffness, decrease voids ratio)."
+            },
+            "C_apparatus_material": {
+              "title": "APPARATUS & MATERIAL",
+              "type": "bulleted_list",
+              "items": [
+                "Cylindrical metal mould",
+                "Metal rammer",
+                "Measuring cylinder"
+              ]
+            }
+          }
+        },
+        {
+          "id": "procedure",
+          "name": "Procedure",
+          "header": {
+            "left": "back_arrow_icon",
+            "center": "GEOTECHNICAL LAB", 
+            "right": "home_icon"
+          },
+          "content": {
+            "D_procedure": {
+              "title": "PROCEDURE",
+              "type": "numbered_list",
+              "steps": 10,
+              "formula": "V = (πD²L) / 4000",
+              "description": "Numbered list of 10 steps detailing the compaction procedure"
+            }
+          }
+        },
+        {
+          "id": "data_results",
+          "name": "Data / Results",
+          "header": {
+            "left": "back_arrow_icon",
+            "center": "GEOTECHNICAL LAB",
+            "right": "home_icon"
+          },
+          "content": {
+            "E_data_results": {
+              "title": "DATA / RESULTS",
+              "tables": [
+                {
+                  "name": "Dry Density / moisture content relationship",
+                  "rows": [
+                    "Mass of mold + base (m1) kg",
+                    "Mass of compacted specimen (m2-m1) kg",
+                    "Bulk density"
+                  ],
+                  "columns": ["Test Number 1", "Test Number 2", "Test Number 3", "Test Number 4", "Test Number 5"],
+                  "type": "data_entry_table"
+                },
+                {
+                  "name": "Moisture Content, w",
+                  "rows": [
+                    "Mass of container (c1) g",
+                    "Mass of container + wet soil (c2) g"
+                  ],
+                  "columns": ["Container number 1", "Container number 2", "Container number 3", "Container number 4", "Container number 5"],
+                  "formula": "moisture content formula included",
+                  "type": "data_entry_table"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "calculation",
+          "name": "Calculation",
+          "header": {
+            "left": "back_arrow_icon",
+            "center": "GEOTECHNICAL LAB",
+            "right": "home_icon"
+          },
+          "content": {
+            "F_calculation": {
+              "title": "CALCULATION",
+              "type": "informational_list",
+              "items": [
+                "i. plot experimental points and smooth curve.",
+                "ii. report the maximum dry density.",
+                "iii. plot curves for 0% and 5% air voids using the provided formula pd = (Gs * Pw * (1 - Ar)) / (1 + wGs) and defines the variables (Pd, Pw, Ar, Gs, w)."
+              ]
+            }
+          }
+        },
+        {
+          "id": "discussion",
+          "name": "Discussion",
+          "header": {
+            "left": "back_arrow_icon",
+            "center": "GEOTECHNICAL LAB",
+            "right": "home_icon"
+          },
+          "content": {
+            "G_discussion": {
+              "title": "DISCUSSION",
+              "type": "large_text_input_box",
+              "description": "Empty rectangular text box for user input"
+            }
+          }
+        },
+        {
+          "id": "conclusion",
+          "name": "Conclusion",
+          "header": {
+            "left": "back_arrow_icon",
+            "center": "GEOTECHNICAL LAB", 
+            "right": "home_icon"
+          },
+          "content": {
+            "H_conclusion": {
+              "title": "CONCLUSION",
+              "type": "large_text_input_box",
+              "description": "Empty rectangular text box for user input"
+            }
+          }
+        }
+      ]
+    },
+    "UI6_END": {
+      "name": "UI6 (END)",
+      "type": "navigation_screen",
+      "description": "Final screen allowing user to navigate away",
+      "layout": {
+        "orientation": "vertical",
+        "alignment": "center"
+      },
+      "header": {
+        "left": "large_back_arrow_icon"
+      },
+      "content": {
+        "actions": [
+          {
+            "type": "button",
+            "text": "HOME",
+            "icon": "home_icon",
+            "style": "gray_button",
+            "navigation": "UI2_HOMEPAGE"
+          },
+          {
+            "type": "button", 
+            "text": "EXIT",
+            "icon": "power_exit_symbol",
+            "style": "gray_button",
+            "action": "close_application"
+          }
+        ]
+      }
+    }
+  },
+  "navigation_flow": {
+    "UI1_START": ["UI2_HOMEPAGE"],
+    "UI2_HOMEPAGE": ["UI3_GEOTECHNICAL_LAB"],
+    "UI3_GEOTECHNICAL_LAB": ["UI4_GRAIN_SIZE_ANALYSIS", "UI5_PROCTOR_TEST"],
+    "UI4_GRAIN_SIZE_ANALYSIS": ["UI6_END"],
+    "UI5_PROCTOR_TEST": ["UI6_END"],
+    "UI6_END": ["UI2_HOMEPAGE", "EXIT"]
+  },
+  "design_patterns": {
+    "common_elements": {
+      "status_bar": "Standard iOS status bar with time, cellular, wifi, battery",
+      "navigation": {
+        "back_arrow": "Left side navigation back",
+        "home_icon": "Right side navigation to homepage"
+      },
+      "buttons": {
+        "primary": "Gray rectangular buttons",
+        "cards": "Selectable cards with icons and text"
+      }
+    },
+    "data_entry": {
+      "tables": "Structured data entry tables with rows and columns",
+      "text_boxes": "Large rectangular text input areas",
+      "input_fields": "Single line input fields with units"
+    }
+  },
+  "execution_context": {
+    "directory_state": {
+      "pwd": "/home/axogm/Documents/LabTech2/labtech-geolab",
+      "home": "/home/axogm"
+    },
+    "operating_system": {
+      "platform": "Linux",
+      "distribution": "Fedora Linux"
+    },
+    "current_time": "2025-09-07T01:55:03Z",
+    "shell": {
+      "name": "zsh",
+      "version": "5.9"
+    }
+  }
+}
