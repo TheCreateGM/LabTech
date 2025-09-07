@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LabTech GeoLab - Homepage</title>
+    <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="content">
+            <!-- Instruction Header -->
+            <h2>Pick your lab here:</h2>
+            
+            <!-- Lab Options -->
+            <div class="lab-options">
+                <!-- Tech Lab Card -->
+                <div id="tech-lab" class="lab-card disabled">
+                    <div class="lab-card-icon">⚙️</div>
+                    <div class="lab-card-content">
+                        <div class="lab-card-title">Tech LAB</div>
+                    </div>
+                </div>
+
+                <!-- Geotechnical Lab Card (Primary Focus) -->
+                <div id="geo-lab" class="lab-card">
+                    <div class="lab-card-icon">💧</div>
+                    <div class="lab-card-content">
+                        <div class="lab-card-label">GEOTECHNICAL</div>
+                        <div class="lab-card-title">GeoTechnical LAB</div>
+                    </div>
+                </div>
+
+                <!-- Chemical Lab Card -->
+                <div id="chem-lab" class="lab-card disabled">
+                    <div class="lab-card-icon">🧪</div>
+                    <div class="lab-card-content">
+                        <div class="lab-card-title">Chemical LAB</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Include renderer script -->
+    <script src="ts/renderer.js"></script>
+</body>
+</html>

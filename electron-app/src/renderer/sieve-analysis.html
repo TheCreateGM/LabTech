@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LabTech GeoLab - Grain Size Sieve Analysis</title>
+    <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+    <!-- Navigation Header -->
+    <div class="nav-header">
+        <button id="sieve-home-btn" class="nav-btn">🏠</button>
+        <div class="nav-title">GEOTECHNICAL LAB</div>
+        <div></div>
+    </div>
+
+    <!-- Section 1: Objectives -->
+    <div id="objectives" class="test-section active">
+        <div class="section-content">
+            <h3 class="section-title">A. OBJECTIVES</h3>
+            <p>This test is performed to determine the percentage of different grain sizes contained within a soil.</p>
+        </div>
+    </div>
+
+    <!-- Section 2: Theory -->
+    <div id="theory" class="test-section">
+        <div class="section-content">
+            <h3 class="section-title">B. THEORY</h3>
+            <p>The mechanical or sieve analysis is performed to determine the distribution of the coarse, larger-sized particles, and the hydrometer method is used to determine the distribution of the finer particles. The distribution of different grain sizes affects the engineering properties of soil. Grain size analysis provides the grain size distribution, and it is required in classifying the soil.</p>
+        </div>
+    </div>
+
+    <!-- Section 3: Apparatus & Material -->
+    <div id="apparatus" class="test-section">
+        <div class="section-content">
+            <h3 class="section-title">C. APPARATUS & MATERIAL</h3>
+            <ul class="bulleted-list">
+                <li>Balance</li>
+                <li>Set of sieves</li>
+                <li>Cleaning brush</li>
+                <li>Sieve shaker</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Section 4: Procedure -->
+    <div id="procedure" class="test-section">
+        <div class="section-content">
+            <h3 class="section-title">D. PROCEDURE</h3>
+            <h4 class="section-subtitle">Dry Sieve</h4>
+            <ol class="numbered-list">
+                <li>Write down the weight of each sieve as well as the bottom pan to be used in the analysis.</li>
+                <li>Record the weight of the given dry soil sample.</li>
+                <li>Make sure that all the sieves are clean and assemble them in the ascending order of sieve numbers.</li>
+                <li>Carefully pour the soil sample into the top sieve and place the cap over it.</li>
+                <li>Place the sieve stack in the mechanical shaker and shake for 5 minutes.</li>
+                <li>Remove the stack from the shaker and carefully weigh and record the weight of each sieve with its retained soil. In addition, remember to weigh and record the weight of the bottom pan with its retained fine soil.</li>
+            </ol>
+        </div>
+    </div>
+
+    <!-- Section 5: Data/Results -->
+    <div id="data-results" class="test-section">
+        <div class="section-content">
+            <h3 class="section-title">E. DATA / RESULTS</h3>
+            <h4 class="section-subtitle">Dry Sieve</h4>
+            
+            <!-- Data Table -->
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>BS test sieve size (mm)</th>
+                        <th>Mass retained (g)</th>
+                        <th>Mass Passing (g)</th>
+                        <th>Cumulative Percentage of mass Passing (%)</th>
+                    </tr>
+                </thead>
+                <tbody id="sieve-data-table">
+                    <tr>
+                        <td>4.75</td>
+                        <td><input type="number" class="mass-retained" data-sieve="4.75" step="0.01" min="0"></td>
+                        <td><input type="number" class="mass-passing" readonly></td>
+                        <td><input type="number" class="cumulative-percentage" readonly></td>
+                    </tr>
+                    <tr>
+                        <td>2.36</td>
+                        <td><input type="number" class="mass-retained" data-sieve="2.36" step="0.01" min="0"></td>
+                        <td><input type="number" class="mass-passing" readonly></td>
+                        <td><input type="number" class="cumulative-percentage" readonly></td>
+                    </tr>
+                    <tr>
+                        <td>1.18</td>
+                        <td><input type="number" class="mass-retained" data-sieve="1.18" step="0.01" min="0"></td>
+                        <td><input type="number" class="mass-passing" readonly></td>
+                        <td><input type="number" class="cumulative-percentage" readonly></td>
+                    </tr>
+                    <tr>
+                        <td>0.60</td>
+                        <td><input type="number" class="mass-retained" data-sieve="0.60" step="0.01" min="0"></td>
+                        <td><input type="number" class="mass-passing" readonly></td>
+                        <td><input type="number" class="cumulative-percentage" readonly></td>
+                    </tr>
+                    <tr>
+                        <td>0.30</td>
+                        <td><input type="number" class="mass-retained" data-sieve="0.30" step="0.01" min="0"></td>
+                        <td><input type="number" class="mass-passing" readonly></td>
+                        <td><input type="number" class="cumulative-percentage" readonly></td>
+                    </tr>
+                    <tr>
+                        <td>0.15</td>
+                        <td><input type="number" class="mass-retained" data-sieve="0.15" step="0.01" min="0"></td>
+                        <td><input type="number" class="mass-passing" readonly></td>
+                        <td><input type="number" class="cumulative-percentage" readonly></td>
+                    </tr>
+                    <tr>
+                        <td>Pan</td>
+                        <td><input type="number" class="mass-retained" data-sieve="pan" step="0.01" min="0"></td>
+                        <td><input type="number" class="mass-passing" readonly></td>
+                        <td><input type="number" class="cumulative-percentage" readonly></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- Summary Fields -->
+            <div class="summary-fields">
+                <div class="summary-field">
+                    <label for="total-mass-soil">Total mass of soil:</label>
+                    <input type="number" id="total-mass-soil" step="0.01" min="0"> gram
+                </div>
+                <div class="summary-field">
+                    <label for="total-mass-after">Total mass after sieving:</label>
+                    <input type="number" id="total-mass-after" readonly> gram
+                </div>
+                <div class="summary-field">
+                    <label for="losses">Losses:</label>
+                    <input type="number" id="losses" readonly> gram
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Section 6: Calculation -->
+    <div id="calculation" class="test-section">
+        <div class="section-content">
+            <h3 class="section-title">F. CALCULATION</h3>
+            <ul class="info-list">
+                <li><strong>i.</strong> cumulative percentage by weight of the total sample</li>
+                <li><strong>ii.</strong> percentage by weight of the total sample passing through one sieve and retained on the next smaller sieve.</li>
+                <li><strong>iii.</strong> The results of the sieve analysis may be recorded graphically on a semi-log graph with particle size as abscissa (log scale) and the percentage smaller than the specified diameter as ordinate.</li>
+                <li><strong>iv.</strong> Type of soil and grading</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Section 7: Summary -->
+    <div id="summary" class="test-section">
+        <div class="section-content">
+            <h3 class="section-title">SUMMARY</h3>
+            <textarea class="text-area" placeholder="Enter your summary and observations here..."></textarea>
+        </div>
+    </div>
+
+    <!-- Navigation Footer -->
+    <div class="nav-footer">
+        <button id="sieve-back-btn" class="btn btn-small">Back</button>
+        <button id="sieve-next-btn" class="btn btn-small">Next</button>
+    </div>
+
+    <!-- Include specific script for sieve analysis -->
+    <script src="ts/sieve.js"></script>
+</body>
+</html>
