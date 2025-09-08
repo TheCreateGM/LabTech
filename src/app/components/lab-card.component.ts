@@ -106,6 +106,14 @@ import { IonicModule } from '@ionic/angular';
         font-size: var(--lab-font-size-base);
       }
     }
+
+    @media (max-width: 480px) {
+      ion-card-content {
+        padding: var(--lab-space-base) !important;
+      }
+      .card-icon ion-icon { font-size: 2rem; }
+      .card-label { font-size: var(--lab-font-size-sm); }
+    }
   `],
   standalone: true,
   imports: [IonicModule]
