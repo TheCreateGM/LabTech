@@ -95,10 +95,14 @@ import { HeaderComponent } from '../../../components/header.component';
     }
     
     .formula-box {
-      background-color: #f5f5f5;
+      /* Theme-aware surface for readability in dark mode */
+      background: var(--lab-color-surface);
+      border: 1px solid var(--lab-color-outline);
+      color: var(--ion-text-color);
       padding: 16px;
-      border-radius: 8px;
+      border-radius: 12px;
       margin: 12px 0;
+      box-shadow: var(--lab-shadow-soft);
     }
     
     .formula-box p {
