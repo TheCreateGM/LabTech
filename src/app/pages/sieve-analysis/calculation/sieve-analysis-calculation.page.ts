@@ -80,10 +80,14 @@ import { HeaderComponent } from '../../../components/header.component';
     }
     
     .formula-box {
-      background-color: #f5f5f5;
+      /* Use theme-aware surface so it looks good in both light and dark modes */
+      background: var(--lab-color-surface);
+      border: 1px solid var(--lab-color-outline);
+      color: var(--ion-text-color);
       padding: 16px;
-      border-radius: 8px;
+      border-radius: 12px;
       margin: 16px 0;
+      box-shadow: var(--lab-shadow-soft);
     }
     
     .formula-box ul {
@@ -96,9 +100,12 @@ import { HeaderComponent } from '../../../components/header.component';
     }
     
     .note-box {
-      background-color: #e8f4fd;
+      /* Subtle primary-tinted background with good contrast on dark */
+      background: rgba(var(--ion-color-primary-rgb), 0.08);
+      color: var(--ion-text-color);
       padding: 16px;
-      border-radius: 8px;
+      border-radius: 12px;
+      border: 1px solid var(--lab-color-outline);
       border-left: 4px solid var(--ion-color-primary);
       margin: 16px 0;
     }
