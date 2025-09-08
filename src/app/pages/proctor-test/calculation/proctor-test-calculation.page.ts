@@ -61,11 +61,29 @@ import { HeaderComponent } from '../../../components/header.component';
     .content-section { margin-bottom: 80px; }
     h3 { color: var(--ion-color-primary); font-weight: 600; margin-bottom: 16px; }
     h4 { color: var(--ion-color-secondary); font-weight: 600; margin-top: 20px; margin-bottom: 8px; }
-    .formula-box { background-color: #f5f5f5; padding: 16px; border-radius: 8px; margin: 12px 0; }
+    .formula-box {
+      /* Theme-aware surface for readability in dark mode */
+      background: var(--lab-color-surface);
+      border: 1px solid var(--lab-color-outline);
+      color: var(--ion-text-color);
+      padding: 16px;
+      border-radius: 12px;
+      margin: 12px 0;
+      box-shadow: var(--lab-shadow-soft);
+    }
     .formula-box p { margin-bottom: 8px; }
     .formula-box ul { margin: 8px 0; padding-left: 20px; }
     .formula-box li { margin-bottom: 4px; }
-    .note-box { background-color: #e8f4fd; padding: 16px; border-radius: 8px; border-left: 4px solid var(--ion-color-primary); margin: 16px 0; }
+    .note-box {
+      /* Subtle primary-tinted background with good contrast on dark */
+      background: rgba(var(--ion-color-primary-rgb), 0.08);
+      color: var(--ion-text-color);
+      padding: 16px;
+      border-radius: 12px;
+      border: 1px solid var(--lab-color-outline);
+      border-left: 4px solid var(--ion-color-primary);
+      margin: 16px 0;
+    }
     .navigation-buttons { position: fixed; bottom: 20px; left: 20px; right: 20px; }
     .next-button { --background: var(--ion-color-success); }
   `],
