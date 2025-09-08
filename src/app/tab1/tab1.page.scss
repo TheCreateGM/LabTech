@@ -58,8 +58,6 @@
 .features-section,
 .stats-section {
   padding: 0 var(--lab-space-base) var(--lab-space-xl);
-  /* Hide any decorative overflow to avoid artifacts on small screens */
-  overflow: hidden;
 }
 
 /* Tighter grid paddings on mobile */
@@ -166,7 +164,7 @@
   .stat-card { padding: var(--lab-space-base, 1rem); margin: var(--lab-space-xs, 0.25rem); }
   .stat-icon { font-size: 1.8rem; }
   .stat-number { font-size: var(--lab-font-size-xl, 1.25rem); }
-  .features-section, .stats-section { padding: 0 var(--lab-space-sm, 0.5rem) var(--lab-space-base, 1rem); overflow: hidden; }
+  .features-section, .stats-section { padding: 0 var(--lab-space-sm, 0.5rem) var(--lab-space-base, 1rem); }
 }
 
 @media (max-width: 480px) {
