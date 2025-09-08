@@ -68,6 +68,12 @@
   --ion-grid-padding: 0;
   --ion-grid-column-padding: var(--lab-space-sm);
 }
+/* Remove negative side margins from rows that can cause side artifacts */
+.features-section ion-row,
+.stats-section ion-row {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
 
 .section-title {
   font-size: var(--lab-font-size-2xl, 1.5rem);
@@ -177,6 +183,12 @@
   .stat-number { font-size: var(--lab-font-size-lg, 1.125rem); }
   .stat-label { font-size: var(--lab-font-size-xs, 0.75rem); }
   .features-section ion-grid, .stats-section ion-grid { --ion-grid-column-padding: 6px; }
+}
+
+/* Utility to enforce no horizontal overflow on this page */
+ion-content.no-x-overflow::part(scroll),
+ion-content.no-x-overflow {
+  overflow-x: hidden !important;
 }
 
 @media (max-width: 360px) {
