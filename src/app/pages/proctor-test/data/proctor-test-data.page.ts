@@ -150,10 +150,10 @@ interface MoistureData {
     .table-section { margin-bottom: 24px; }
     .table-container { overflow-x: auto; }
     .data-table { width: 100%; border-collapse: collapse; font-size: 10px; }
-    .data-table th, .data-table td { border: 1px solid #ddd; padding: 6px; text-align: center; }
+    .data-table th, .data-table td { border: 1px solid var(--lab-color-outline); padding: 6px; text-align: center; }
     .data-table th { background-color: var(--ion-color-primary); color: white; font-weight: 600; }
-    .data-table td:first-child { background-color: #f9f9f9; font-weight: 500; text-align: left; white-space: nowrap; }
-    .data-table td ion-input { --padding: 2px; font-size: 10px; }
+    .data-table td:first-child { background: var(--lab-color-surface); color: var(--ion-text-color); font-weight: 500; text-align: left; white-space: nowrap; }
+    .data-table td ion-input { --padding: 2px; font-size: 10px; --background: var(--lab-color-surface); --color: var(--ion-text-color); --placeholder-color: var(--ion-color-medium); border-radius: var(--lab-radius-lg); }
     .navigation-buttons { position: fixed; bottom: 20px; left: 20px; right: 20px; }
     .next-button { --background: var(--ion-color-success); }
   `],
