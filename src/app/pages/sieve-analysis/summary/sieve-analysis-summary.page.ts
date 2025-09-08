@@ -76,17 +76,24 @@ import { HeaderComponent } from '../../../components/header.component';
     }
     
     .summary-textarea {
-      border: 1px solid #ddd;
-      border-radius: 8px;
+      /* Theme-aware input surface for good contrast in dark mode */
+      --background: var(--lab-color-surface);
+      --color: var(--ion-text-color);
+      --placeholder-color: var(--ion-color-medium);
+      border: 1px solid var(--lab-color-outline);
+      border-radius: 12px;
       margin-bottom: 20px;
       --padding: 12px;
     }
     
     .suggestions-box {
-      background-color: #f9f9f9;
+      background: var(--lab-color-surface);
+      color: var(--ion-text-color);
       padding: 16px;
-      border-radius: 8px;
+      border-radius: 12px;
+      border: 1px solid var(--lab-color-outline);
       margin-top: 16px;
+      box-shadow: var(--lab-shadow-soft);
     }
     
     .suggestions-box ul {
