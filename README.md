@@ -14,25 +14,35 @@ A comprehensive mobile application for geotechnical engineering laboratory tests
 
 - ✅ **Dependencies**: All updated and compatible
 - ✅ **Build System**: Working perfectly (development & production)
+- ✅ **Vercel Deployment**: Ready with optimized configuration
+- ✅ **SPA Routing**: Properly configured for web hosting
 - ✅ **Android Platform**: Configured and ready
 - ✅ **iOS Platform**: Configured and ready  
 - ✅ **Mobile Testing**: Ready for Ionic Dashboard deployment
 - 🎯 **App ID**: `com.labtech.geolab`
 
-## 🚀 Quick Mobile Deployment
+## 🚀 Quick Deployment
 
-For immediate mobile device testing:
+### Web Deployment (Vercel - Recommended)
+```bash
+# Login to Vercel
+npx vercel login
 
-1. **Deploy to Ionic Dashboard**:
-   ```bash
-   ionic login
-   ionic link
-   ionic deploy
-   ```
+# Deploy to production
+npx vercel --prod
+```
 
-2. **Test on devices**: Visit [dashboard.ionicframework.com](https://dashboard.ionicframework.com)
+### Mobile Testing (Ionic Dashboard)
+```bash
+ionic login
+ionic link
+ionic deploy
+```
 
-📖 **Full deployment guide**: See `IONIC_DASHBOARD_DEPLOYMENT.md` for complete instructions.
+📖 **Complete deployment guides**:
+- **`QUICK_DEPLOY.md`**: Fast Vercel deployment
+- **`DEPLOYMENT_GUIDE.md`**: Comprehensive setup and deployment guide
+- **`IONIC_DASHBOARD_DEPLOYMENT.md`**: Mobile testing instructions
 
 ## Project Overview
 
@@ -331,6 +341,13 @@ For support and questions:
 - Create an issue on the project repository
 - Check the Ionic documentation: https://ionicframework.com/docs
 - Angular documentation: https://angular.dev
+
+## Deployment Files
+
+- **`vercel.json`**: Vercel deployment configuration with SPA routing
+- **`DEPLOYMENT_GUIDE.md`**: Comprehensive setup and deployment guide
+- **`QUICK_DEPLOY.md`**: Quick Vercel deployment reference
+- **`IONIC_DASHBOARD_DEPLOYMENT.md`**: Mobile testing deployment guide
 
 ## Acknowledgments
 
