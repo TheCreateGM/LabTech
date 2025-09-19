@@ -40,7 +40,9 @@ interface SieveData {
                 <td>{{ row.sieveSize }}</td>
                 <td>
                   <ion-input 
-                    type="number" 
+                    type="number"
+                    inputmode="decimal"
+                    step="any"
                     placeholder="0.0"
                     [(ngModel)]="row.massRetained"
                     (ionInput)="calculateValues(i)">
@@ -48,14 +50,18 @@ interface SieveData {
                 </td>
                 <td>
                   <ion-input 
-                    type="number" 
+                    type="number"
+                    inputmode="decimal"
+                    step="any"
                     placeholder="0.0"
                     [(ngModel)]="row.massPassing">
                   </ion-input>
                 </td>
                 <td>
                   <ion-input 
-                    type="number" 
+                    type="number"
+                    inputmode="decimal"
+                    step="any"
                     placeholder="0.0"
                     [(ngModel)]="row.cumulativePercentPassing">
                   </ion-input>
@@ -70,7 +76,9 @@ interface SieveData {
           <div class="summary-row">
             <label>Total mass of soil:</label>
             <ion-input 
-              type="number" 
+              type="number"
+              inputmode="decimal"
+              step="any"
               placeholder="0.0" 
               [(ngModel)]="totalMass"
               class="summary-input">
@@ -80,7 +88,9 @@ interface SieveData {
           <div class="summary-row">
             <label>Total mass after sieving:</label>
             <ion-input 
-              type="number" 
+              type="number"
+              inputmode="decimal"
+              step="any"
               placeholder="0.0" 
               [(ngModel)]="totalMassAfterSieving"
               class="summary-input">
@@ -90,7 +100,9 @@ interface SieveData {
           <div class="summary-row">
             <label>Losses:</label>
             <ion-input 
-              type="number" 
+              type="number"
+              inputmode="decimal"
+              step="any"
               placeholder="0.0" 
               [(ngModel)]="losses"
               class="summary-input">
@@ -134,7 +146,7 @@ interface SieveData {
     
     .data-table th,
     .data-table td {
-      border: 1px solid #ddd;
+      border: 1px solid var(--lab-color-outline);
       padding: 8px;
       text-align: center;
     }
@@ -145,9 +157,24 @@ interface SieveData {
       font-weight: 600;
     }
     
+    /* Ensure inputs are readable and focusable in dark mode */
     .data-table td ion-input {
-      --padding: 4px;
+      --background: var(--lab-color-surface);
+      --color: var(--ion-text-color);
+      --placeholder-color: var(--ion-color-medium);
+      --padding: 6px;
       font-size: 12px;
+      border-radius: var(--lab-radius-lg);
+      width: 100%;
+    }
+
+    /* Make first column (labels) use surface for contrast */
+    .data-table td:first-child {
+      background: var(--lab-color-surface);
+      color: var(--ion-text-color);
+      font-weight: 500;
+      text-align: left;
+      white-space: nowrap;
     }
     
     .summary-section {
