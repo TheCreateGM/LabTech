@@ -1,0 +1,45 @@
+ion-list {
+  margin-bottom: 24px;
+}
+
+.warning-card {
+  margin: 16px 0;
+  
+  .warning-content {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    
+    ion-icon {
+      font-size: 32px;
+      flex-shrink: 0;
+    }
+    
+    strong {
+      display: block;
+      margin-bottom: 4px;
+    }
+    
+    p {
+      margin: 0;
+      font-size: 0.9rem;
+    }
+  }
+}
+
+.export-progress {
+  margin: 24px 0;
+  
+  .progress-text {
+    text-align: center;
+    margin-top: 8px;
+    color: var(--ion-color-medium);
+  }
+}
+
+.button-container {
+  margin-top: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}

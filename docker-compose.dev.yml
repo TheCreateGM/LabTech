@@ -1,0 +1,67 @@
+version: '3.8'
+
+# Development docker-compose configuration with hot-reload
+services:
+  db:
+    image: postgres:15-alpine
+    container_name: labtech-db-dev
+    environment:
+      POSTGRES_DB: labtech_dev
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - postgres_dev_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - labtech-dev-network
+
+  redis:
+    image: redis:7-alpine
+    container_name: labtech-redis-dev
+    command: redis-server --appendonly yes
+    volumes:
+      - redis_dev_data:/data
+    ports:
+      - "6379:6379"
+    networks:
+      - labtech-dev-network
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.dev
+    container_name: labtech-backend-dev
+    environment:
+      NODE_ENV: development
+      PORT: 3000
+      DATABASE_URL: postgresql://postgres:postgres@db:5432/labtech_dev
+      REDIS_URL: redis://redis:6379
+      JWT_SECRET: dev_jwt_secret_min_32_characters_long
+      JWT_REFRESH_SECRET: dev_jwt_refresh_secret_min_32_chars
+      ENCRYPTION_KEY: dev_encryption_key_32_chars_long
+      MFA_ISSUER: LabTech GeoLab Dev
+      CORS_ORIGIN: http://localhost:8100
+      LOG_LEVEL: debug
+    volumes:
+      - ./backend/src:/app/src
+      - ./backend/migrations:/app/migrations
+      - ./backend/keys:/app/keys
+      - /app/node_modules
+    ports:
+      - "3000:3000"
+      - "9229:9229"  # Node.js debugger
+    depends_on:
+      - db
+      - redis
+    command: npm run dev
+    networks:
+      - labtech-dev-network
+
+volumes:
+  postgres_dev_data:
+  redis_dev_data:
+
+networks:
+  labtech-dev-network:
+    driver: bridge

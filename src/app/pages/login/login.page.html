@@ -1,0 +1,89 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Login</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div class="login-container">
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title class="ion-text-center">
+          <ion-icon name="log-in-outline" size="large"></ion-icon>
+          <h2>LabTech GeoLab</h2>
+        </ion-card-title>
+      </ion-card-header>
+
+      <ion-card-content>
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+          <!-- Username Field -->
+          <ion-item>
+            <ion-icon name="person-outline" slot="start"></ion-icon>
+            <ion-label position="floating">Username</ion-label>
+            <ion-input
+              type="text"
+              formControlName="username"
+              placeholder="Enter your username"
+              [clearInput]="true"
+            ></ion-input>
+          </ion-item>
+          
+          <!-- Username Validation Errors -->
+          <ion-text color="danger" *ngIf="hasError('username', 'required')">
+            <p class="error-message">Username is required</p>
+          </ion-text>
+          <ion-text color="danger" *ngIf="hasError('username', 'minlength')">
+            <p class="error-message">Username must be at least 3 characters</p>
+          </ion-text>
+
+          <!-- Password Field -->
+          <ion-item>
+            <ion-icon name="lock-closed-outline" slot="start"></ion-icon>
+            <ion-label position="floating">Password</ion-label>
+            <ion-input
+              type="password"
+              formControlName="password"
+              placeholder="Enter your password"
+              [clearInput]="true"
+            ></ion-input>
+          </ion-item>
+
+          <!-- Password Validation Errors -->
+          <ion-text color="danger" *ngIf="hasError('password', 'required')">
+            <p class="error-message">Password is required</p>
+          </ion-text>
+          <ion-text color="danger" *ngIf="hasError('password', 'minlength')">
+            <p class="error-message">Password must be at least 8 characters</p>
+          </ion-text>
+
+          <!-- Error Message -->
+          <ion-text color="danger" *ngIf="errorMessage">
+            <p class="error-message error-banner">{{ errorMessage }}</p>
+          </ion-text>
+
+          <!-- Login Button -->
+          <ion-button
+            expand="block"
+            type="submit"
+            [disabled]="isLoading"
+            class="login-button"
+          >
+            <ion-spinner *ngIf="isLoading" name="crescent"></ion-spinner>
+            <span *ngIf="!isLoading">Login</span>
+          </ion-button>
+
+          <!-- Forgot Password Link -->
+          <div class="forgot-password">
+            <ion-button
+              fill="clear"
+              size="small"
+              (click)="onForgotPassword()"
+            >
+              Forgot Password?
+            </ion-button>
+          </div>
+        </form>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>

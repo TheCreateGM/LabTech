@@ -1,0 +1,127 @@
+name: Deploy to AWS
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environment to deploy to'
+        required: true
+        type: choice
+        options:
+          - staging
+          - production
+
+env:
+  NODE_VERSION: '18'
+  AWS_REGION: 'us-east-1'
+
+jobs:
+  deploy-aws:
+    name: Deploy to AWS ${{ github.event.inputs.environment }}
+    runs-on: ubuntu-latest
+    environment:
+      name: ${{ github.event.inputs.environment }}
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+      
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v2
+      
+      - name: Build and push backend image to ECR
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          ECR_REPOSITORY: labtech-backend
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -f backend/Dockerfile backend/
+          docker tag $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG $ECR_REGISTRY/$ECR_REPOSITORY:latest
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
+      
+      - name: Build and push frontend image to ECR
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          ECR_REPOSITORY: labtech-frontend
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -f Dockerfile .
+          docker tag $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG $ECR_REGISTRY/$ECR_REPOSITORY:latest
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
+      
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.6.0
+      
+      - name: Terraform Init
+        working-directory: deployment/aws/terraform
+        run: terraform init
+      
+      - name: Terraform Plan
+        working-directory: deployment/aws/terraform
+        run: terraform plan -var-file="${{ github.event.inputs.environment }}.tfvars"
+      
+      - name: Terraform Apply
+        if: github.event.inputs.environment == 'production'
+        working-directory: deployment/aws/terraform
+        run: terraform apply -var-file="${{ github.event.inputs.environment }}.tfvars" -auto-approve
+      
+      - name: Get Auto Scaling Group name
+        id: get-asg
+        run: |
+          ASG_NAME=$(aws autoscaling describe-auto-scaling-groups \
+            --query "AutoScalingGroups[?Tags[?Key=='Environment' && Value=='${{ github.event.inputs.environment }}']].AutoScalingGroupName" \
+            --output text)
+          echo "asg_name=$ASG_NAME" >> $GITHUB_OUTPUT
+      
+      - name: Trigger instance refresh
+        run: |
+          aws autoscaling start-instance-refresh \
+            --auto-scaling-group-name ${{ steps.get-asg.outputs.asg_name }} \
+            --preferences '{"MinHealthyPercentage": 90, "InstanceWarmup": 300}'
+      
+      - name: Wait for instance refresh
+        run: |
+          aws autoscaling wait instance-refresh-complete \
+            --auto-scaling-group-name ${{ steps.get-asg.outputs.asg_name }}
+      
+      - name: Get ALB DNS name
+        id: get-alb
+        run: |
+          ALB_DNS=$(aws elbv2 describe-load-balancers \
+            --query "LoadBalancers[?Tags[?Key=='Environment' && Value=='${{ github.event.inputs.environment }}']].DNSName" \
+            --output text)
+          echo "alb_dns=$ALB_DNS" >> $GITHUB_OUTPUT
+      
+      - name: Health check
+        run: |
+          response=$(curl -s -o /dev/null -w "%{http_code}" http://${{ steps.get-alb.outputs.alb_dns }}/health)
+          if [ $response -eq 200 ]; then
+            echo "✓ AWS deployment successful"
+          else
+            echo "✗ AWS deployment failed (HTTP $response)"
+            exit 1
+          fi
+      
+      - name: Notify Slack
+        if: always() && secrets.SLACK_WEBHOOK_URL
+        uses: 8398a7/action-slack@v3
+        with:
+          status: ${{ job.status }}
+          text: |
+            AWS Deployment to ${{ github.event.inputs.environment }} ${{ job.status }}
+            Commit: ${{ github.sha }}
+            Author: ${{ github.actor }}
+            ALB: ${{ steps.get-alb.outputs.alb_dns }}
+          webhook_url: ${{ secrets.SLACK_WEBHOOK_URL }}

@@ -1,0 +1,188 @@
+.status-card {
+  margin: 16px;
+  
+  .status-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+    .status-indicator {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      
+      ion-icon {
+        font-size: 32px;
+        
+        &.spinning {
+          animation: spin 1s linear infinite;
+        }
+      }
+      
+      .status-text {
+        strong {
+          display: block;
+          margin-bottom: 4px;
+        }
+        
+        p {
+          margin: 0;
+          color: var(--ion-color-medium);
+          text-transform: capitalize;
+        }
+      }
+    }
+  }
+}
+
+.feed-header {
+  padding: 16px;
+  border-bottom: 1px solid var(--ion-color-light-shade);
+  
+  h3 {
+    margin: 0 0 4px 0;
+  }
+  
+  .activity-count {
+    margin: 0;
+    color: var(--ion-color-medium);
+    font-size: 0.9rem;
+  }
+}
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 64px 32px;
+  text-align: center;
+  
+  ion-icon {
+    font-size: 64px;
+    color: var(--ion-color-medium);
+    margin-bottom: 16px;
+  }
+  
+  h3 {
+    color: var(--ion-color-dark);
+    margin-bottom: 8px;
+  }
+  
+  p {
+    color: var(--ion-color-medium);
+  }
+}
+
+.activity-feed {
+  padding: 8px 16px;
+  
+  .activity-item {
+    margin-bottom: 12px;
+    animation: slideIn 0.3s ease-out;
+    
+    &.new-activity {
+      border-left: 4px solid var(--ion-color-primary);
+    }
+    
+    .activity-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      
+      .timestamp {
+        font-size: 0.85rem;
+        color: var(--ion-color-medium);
+      }
+    }
+    
+    .activity-details {
+      .detail-row {
+        display: flex;
+        align-items: center;
+        margin-bottom: 8px;
+        font-size: 0.9rem;
+        
+        &:last-child {
+          margin-bottom: 0;
+        }
+        
+        ion-icon {
+          margin-right: 8px;
+          color: var(--ion-color-medium);
+          flex-shrink: 0;
+        }
+        
+        span {
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+      }
+    }
+  }
+}
+
+.info-card {
+  margin: 16px;
+  background: var(--ion-color-light);
+  
+  .info-content {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    
+    ion-icon {
+      font-size: 24px;
+      color: var(--ion-color-primary);
+      flex-shrink: 0;
+    }
+    
+    strong {
+      display: block;
+      margin-bottom: 4px;
+    }
+    
+    p {
+      margin: 0;
+      font-size: 0.9rem;
+      color: var(--ion-color-medium);
+    }
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 768px) {
+  .status-card,
+  .info-card {
+    margin: 8px;
+  }
+  
+  .feed-header {
+    padding: 12px;
+  }
+  
+  .activity-feed {
+    padding: 8px;
+  }
+}

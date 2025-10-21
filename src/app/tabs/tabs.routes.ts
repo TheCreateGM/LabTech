@@ -102,6 +102,10 @@ export const routes: Routes = [
         loadComponent: () => import('../pages/end/end.page').then(m => m.EndPage)
       },
       {
+        path: 'admin',
+        loadChildren: () => import('../admin/admin.routes').then(m => m.adminRoutes)
+      },
+      {
         path: '',
         redirectTo: '/tabs/tab1',
         pathMatch: 'full',

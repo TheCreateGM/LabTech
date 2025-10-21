@@ -1,0 +1,117 @@
+<ion-card class="filter-card">
+  <ion-card-header>
+    <ion-card-title>
+      <ion-icon name="filter-outline"></ion-icon>
+      Filters
+    </ion-card-title>
+  </ion-card-header>
+  
+  <ion-card-content>
+    <form [formGroup]="filterForm">
+      <ion-grid>
+        <ion-row>
+          <!-- User ID Filter -->
+          <ion-col size="12" size-md="6" size-lg="4">
+            <ion-item>
+              <ion-label position="stacked">User ID</ion-label>
+              <ion-input 
+                formControlName="userId" 
+                placeholder="Enter user ID"
+                type="text">
+              </ion-input>
+            </ion-item>
+          </ion-col>
+
+          <!-- Start Date Filter -->
+          <ion-col size="12" size-md="6" size-lg="4">
+            <ion-item>
+              <ion-label position="stacked">Start Date</ion-label>
+              <ion-datetime-button datetime="startDate"></ion-datetime-button>
+              <ion-modal [keepContentsMounted]="true">
+                <ng-template>
+                  <ion-datetime 
+                    id="startDate"
+                    formControlName="startDate"
+                    presentation="date"
+                    [max]="filterForm.get('endDate')?.value || undefined">
+                  </ion-datetime>
+                </ng-template>
+              </ion-modal>
+            </ion-item>
+          </ion-col>
+
+          <!-- End Date Filter -->
+          <ion-col size="12" size-md="6" size-lg="4">
+            <ion-item>
+              <ion-label position="stacked">End Date</ion-label>
+              <ion-datetime-button datetime="endDate"></ion-datetime-button>
+              <ion-modal [keepContentsMounted]="true">
+                <ng-template>
+                  <ion-datetime 
+                    id="endDate"
+                    formControlName="endDate"
+                    presentation="date"
+                    [min]="filterForm.get('startDate')?.value || undefined">
+                  </ion-datetime>
+                </ng-template>
+              </ion-modal>
+            </ion-item>
+          </ion-col>
+
+          <!-- Action Type Filter -->
+          <ion-col size="12" size-md="6" size-lg="4">
+            <ion-item>
+              <ion-label position="stacked">Action Type</ion-label>
+              <ion-select 
+                formControlName="action" 
+                placeholder="Select action"
+                [interface]="isMobile ? 'action-sheet' : 'popover'">
+                <ion-select-option value="">All Actions</ion-select-option>
+                <ion-select-option 
+                  *ngFor="let action of actionTypes" 
+                  [value]="action.value">
+                  {{ action.label }}
+                </ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+
+          <!-- Resource Path Filter -->
+          <ion-col size="12" size-md="6" size-lg="4">
+            <ion-item>
+              <ion-label position="stacked">Resource Path</ion-label>
+              <ion-input 
+                formControlName="resourcePath" 
+                placeholder="Search path..."
+                type="text">
+              </ion-input>
+            </ion-item>
+          </ion-col>
+
+          <!-- Action Buttons -->
+          <ion-col size="12" size-md="6" size-lg="4" class="button-col">
+            <div class="button-group">
+              <ion-button 
+                expand="block" 
+                (click)="applyFilters()"
+                color="primary">
+                <ion-icon name="checkmark-outline" slot="start"></ion-icon>
+                Apply Filters
+              </ion-button>
+              
+              <ion-button 
+                expand="block" 
+                (click)="clearFilters()"
+                fill="outline"
+                color="medium"
+                [disabled]="!hasActiveFilters()">
+                <ion-icon name="close-outline" slot="start"></ion-icon>
+                Clear Filters
+              </ion-button>
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </form>
+  </ion-card-content>
+</ion-card>

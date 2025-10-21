@@ -1,0 +1,133 @@
+groups:
+  - name: labtech_alerts
+    interval: 30s
+    rules:
+      # High error rate alert
+      - alert: HighErrorRate
+        expr: |
+          (
+            sum(rate(labtech_http_errors_total[5m]))
+            /
+            sum(rate(labtech_http_requests_total[5m]))
+          ) > 0.05
+        for: 5m
+        labels:
+          severity: critical
+          component: backend
+        annotations:
+          summary: "High error rate detected"
+          description: "Error rate is {{ $value | humanizePercentage }} (threshold: 5%)"
+
+      # Slow response time alert
+      - alert: SlowResponseTime
+        expr: |
+          histogram_quantile(0.95,
+            rate(labtech_http_request_duration_seconds_bucket[5m])
+          ) > 0.5
+        for: 5m
+        labels:
+          severity: warning
+          component: backend
+        annotations:
+          summary: "Slow response time detected"
+          description: "95th percentile response time is {{ $value }}s (threshold: 0.5s)"
+
+      # Database connection failure alert
+      - alert: DatabaseConnectionFailure
+        expr: |
+          labtech_database_connection_pool{status="active"} == 0
+        for: 2m
+        labels:
+          severity: critical
+          component: database
+        annotations:
+          summary: "Database connection failure"
+          description: "No active database connections available"
+
+      # High database query duration alert
+      - alert: SlowDatabaseQueries
+        expr: |
+          histogram_quantile(0.95,
+            rate(labtech_database_query_duration_seconds_bucket[5m])
+          ) > 0.1
+        for: 5m
+        labels:
+          severity: warning
+          component: database
+        annotations:
+          summary: "Slow database queries detected"
+          description: "95th percentile query duration is {{ $value }}s (threshold: 0.1s)"
+
+      # High CPU usage alert
+      - alert: HighCPUUsage
+        expr: |
+          rate(labtech_process_cpu_seconds_total[5m]) * 100 > 80
+        for: 10m
+        labels:
+          severity: warning
+          component: system
+        annotations:
+          summary: "High CPU usage detected"
+          description: "CPU usage is {{ $value }}% (threshold: 80%)"
+
+      # High memory usage alert
+      - alert: HighMemoryUsage
+        expr: |
+          (labtech_process_resident_memory_bytes / 1024 / 1024 / 1024) > 2
+        for: 10m
+        labels:
+          severity: warning
+          component: system
+        annotations:
+          summary: "High memory usage detected"
+          description: "Memory usage is {{ $value }}GB (threshold: 2GB)"
+
+      # Service down alert
+      - alert: ServiceDown
+        expr: up{job="labtech-backend"} == 0
+        for: 1m
+        labels:
+          severity: critical
+          component: backend
+        annotations:
+          summary: "LabTech backend service is down"
+          description: "The backend service has been down for more than 1 minute"
+
+      # Too many active connections alert
+      - alert: TooManyActiveConnections
+        expr: labtech_active_connections > 1000
+        for: 5m
+        labels:
+          severity: warning
+          component: backend
+        annotations:
+          summary: "Too many active connections"
+          description: "Active connections: {{ $value }} (threshold: 1000)"
+
+      # Authentication failure spike alert
+      - alert: AuthenticationFailureSpike
+        expr: |
+          rate(labtech_auth_attempts_total{result="failure"}[5m]) > 10
+        for: 5m
+        labels:
+          severity: warning
+          component: security
+        annotations:
+          summary: "Authentication failure spike detected"
+          description: "Failed authentication attempts: {{ $value }}/s (threshold: 10/s)"
+
+      # Database connection pool exhaustion alert
+      - alert: DatabasePoolExhaustion
+        expr: |
+          (
+            labtech_database_connection_pool{status="active"}
+            /
+            labtech_database_connection_pool{status="total"}
+          ) > 0.9
+        for: 5m
+        labels:
+          severity: warning
+          component: database
+        annotations:
+          summary: "Database connection pool near exhaustion"
+          description: "Connection pool usage is {{ $value | humanizePercentage }} (threshold: 90%)"

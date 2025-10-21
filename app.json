@@ -1,0 +1,182 @@
+{
+  "name": "LabTech GeoLab",
+  "description": "Geotechnical laboratory testing application with user tracking and activity monitoring",
+  "repository": "https://github.com/your-org/labtech-geolab",
+  "logo": "https://labtech.example.com/logo.png",
+  "keywords": [
+    "ionic",
+    "angular",
+    "geotechnical",
+    "laboratory",
+    "user-tracking",
+    "activity-monitoring"
+  ],
+  "website": "https://labtech.example.com",
+  "success_url": "/",
+  "scripts": {
+    "postdeploy": "cd backend && npm run migrate"
+  },
+  "env": {
+    "NODE_ENV": {
+      "description": "Node environment",
+      "value": "production",
+      "required": true
+    },
+    "JWT_SECRET": {
+      "description": "Secret key for JWT token signing (minimum 32 characters)",
+      "generator": "secret",
+      "required": true
+    },
+    "JWT_REFRESH_SECRET": {
+      "description": "Secret key for JWT refresh token signing (minimum 32 characters)",
+      "generator": "secret",
+      "required": true
+    },
+    "ENCRYPTION_KEY": {
+      "description": "Encryption key for sensitive data (exactly 32 characters)",
+      "generator": "secret",
+      "required": true
+    },
+    "MFA_ISSUER": {
+      "description": "MFA issuer name displayed in authenticator apps",
+      "value": "LabTech GeoLab",
+      "required": false
+    },
+    "CORS_ORIGIN": {
+      "description": "Allowed CORS origin (your frontend URL)",
+      "value": "https://your-app.herokuapp.com",
+      "required": true
+    },
+    "LOG_LEVEL": {
+      "description": "Application log level",
+      "value": "info",
+      "required": false
+    },
+    "SMTP_HOST": {
+      "description": "SMTP server host for sending emails",
+      "required": false
+    },
+    "SMTP_PORT": {
+      "description": "SMTP server port",
+      "value": "587",
+      "required": false
+    },
+    "SMTP_USER": {
+      "description": "SMTP username",
+      "required": false
+    },
+    "SMTP_PASSWORD": {
+      "description": "SMTP password",
+      "required": false
+    },
+    "SMTP_FROM": {
+      "description": "Email sender address",
+      "value": "noreply@labtech.com",
+      "required": false
+    }
+  },
+  "formation": {
+    "web": {
+      "quantity": 1,
+      "size": "standard-1x"
+    },
+    "worker": {
+      "quantity": 1,
+      "size": "standard-1x"
+    }
+  },
+  "addons": [
+    {
+      "plan": "heroku-postgresql:standard-0",
+      "as": "DATABASE"
+    },
+    {
+      "plan": "heroku-redis:premium-0",
+      "as": "REDIS"
+    },
+    {
+      "plan": "papertrail:choklad",
+      "as": "PAPERTRAIL"
+    }
+  ],
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    }
+  ],
+  "stack": "heroku-22",
+  "environments": {
+    "test": {
+      "addons": [
+        {
+          "plan": "heroku-postgresql:mini",
+          "as": "DATABASE"
+        },
+        {
+          "plan": "heroku-redis:mini",
+          "as": "REDIS"
+        }
+      ],
+      "env": {
+        "NODE_ENV": "test"
+      },
+      "formation": {
+        "web": {
+          "quantity": 1,
+          "size": "basic"
+        }
+      }
+    },
+    "staging": {
+      "addons": [
+        {
+          "plan": "heroku-postgresql:standard-0",
+          "as": "DATABASE"
+        },
+        {
+          "plan": "heroku-redis:premium-0",
+          "as": "REDIS"
+        }
+      ],
+      "env": {
+        "NODE_ENV": "staging"
+      },
+      "formation": {
+        "web": {
+          "quantity": 1,
+          "size": "standard-1x"
+        },
+        "worker": {
+          "quantity": 1,
+          "size": "standard-1x"
+        }
+      }
+    },
+    "production": {
+      "addons": [
+        {
+          "plan": "heroku-postgresql:standard-2",
+          "as": "DATABASE"
+        },
+        {
+          "plan": "heroku-redis:premium-2",
+          "as": "REDIS"
+        },
+        {
+          "plan": "papertrail:fixa",
+          "as": "PAPERTRAIL"
+        }
+      ],
+      "formation": {
+        "web": {
+          "quantity": 2,
+          "size": "standard-2x"
+        },
+        "worker": {
+          "quantity": 2,
+          "size": "standard-2x"
+        }
+      }
+    }
+  }
+}

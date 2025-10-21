@@ -1,0 +1,80 @@
+name: Deploy to Staging
+
+on:
+  pull_request:
+    branches: [ main ]
+    types: [ opened, synchronize, reopened ]
+
+env:
+  NODE_VERSION: '18'
+
+jobs:
+  deploy-staging:
+    name: Deploy to Staging Environment
+    runs-on: ubuntu-latest
+    environment:
+      name: staging
+      url: https://labtech-geolab-staging.herokuapp.com
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+      
+      - name: Install Heroku CLI
+        run: curl https://cli-assets.heroku.com/install.sh | sh
+      
+      - name: Deploy to Heroku Staging
+        env:
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+          HEROKU_APP_NAME: ${{ secrets.HEROKU_STAGING_APP_NAME }}
+        run: |
+          git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git HEAD:main --force
+      
+      - name: Run database migrations
+        env:
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+          HEROKU_APP_NAME: ${{ secrets.HEROKU_STAGING_APP_NAME }}
+        run: |
+          heroku run npm run migrate --app $HEROKU_APP_NAME
+      
+      - name: Wait for deployment
+        run: sleep 30
+      
+      - name: Health check
+        run: |
+          response=$(curl -s -o /dev/null -w "%{http_code}" https://${{ secrets.HEROKU_STAGING_APP_NAME }}.herokuapp.com/health)
+          if [ $response -eq 200 ]; then
+            echo "✓ Staging deployment successful"
+          else
+            echo "✗ Staging deployment failed (HTTP $response)"
+            exit 1
+          fi
+      
+      - name: Comment on PR
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: '🚀 Deployed to staging: https://${{ secrets.HEROKU_STAGING_APP_NAME }}.herokuapp.com'
+            })
+      
+      - name: Notify Slack
+        if: ${{ secrets.SLACK_WEBHOOK_URL }}
+        uses: 8398a7/action-slack@v3
+        with:
+          status: ${{ job.status }}
+          text: |
+            Staging Deployment ${{ job.status }}
+            PR: #${{ github.event.pull_request.number }}
+            URL: https://${{ secrets.HEROKU_STAGING_APP_NAME }}.herokuapp.com
+          webhook_url: ${{ secrets.SLACK_WEBHOOK_URL }}

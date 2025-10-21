@@ -1,0 +1,64 @@
+.admin-nav {
+  background-color: var(--ion-color-light);
+  min-height: calc(100vh - 56px);
+  padding: 0;
+
+  ion-list {
+    background: transparent;
+    padding: 16px 0;
+  }
+
+  ion-item {
+    --background: transparent;
+    margin: 4px 8px;
+    border-radius: 8px;
+    --min-height: 48px; // Touch-friendly height
+    
+    &.active-link {
+      --background: var(--ion-color-primary);
+      --color: var(--ion-color-primary-contrast);
+      
+      ion-icon {
+        color: var(--ion-color-primary-contrast);
+      }
+    }
+  }
+}
+
+.admin-content {
+  padding: 16px;
+}
+
+// Responsive adjustments for mobile devices
+@media (max-width: 768px) {
+  .admin-nav {
+    min-height: auto;
+    
+    ion-list {
+      padding: 8px 0;
+    }
+    
+    ion-item {
+      margin: 2px 4px;
+      --min-height: 56px; // Larger touch targets on mobile
+      font-size: 16px;
+      
+      ion-icon {
+        font-size: 24px;
+        margin-right: 12px;
+      }
+    }
+  }
+  
+  .admin-content {
+    padding: 8px;
+  }
+  
+  ion-grid {
+    padding: 0;
+  }
+  
+  ion-col {
+    padding: 4px;
+  }
+}

@@ -1,0 +1,200 @@
+<ion-header collapse="condense">
+  <ion-toolbar>
+    <ion-title size="large">Analytics</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!-- Date Range Selector -->
+  <ion-card class="date-range-card">
+    <ion-card-header>
+      <ion-card-title>Date Range</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <form [formGroup]="dateRangeForm">
+        <ion-grid>
+          <ion-row>
+            <ion-col size="12" size-md="5">
+              <ion-item>
+                <ion-label position="stacked">Start Date</ion-label>
+                <ion-datetime-button datetime="analyticsStartDate"></ion-datetime-button>
+                <ion-modal [keepContentsMounted]="true">
+                  <ng-template>
+                    <ion-datetime 
+                      id="analyticsStartDate"
+                      formControlName="startDate"
+                      presentation="date">
+                    </ion-datetime>
+                  </ng-template>
+                </ion-modal>
+              </ion-item>
+            </ion-col>
+            
+            <ion-col size="12" size-md="5">
+              <ion-item>
+                <ion-label position="stacked">End Date</ion-label>
+                <ion-datetime-button datetime="analyticsEndDate"></ion-datetime-button>
+                <ion-modal [keepContentsMounted]="true">
+                  <ng-template>
+                    <ion-datetime 
+                      id="analyticsEndDate"
+                      formControlName="endDate"
+                      presentation="date">
+                    </ion-datetime>
+                  </ng-template>
+                </ion-modal>
+              </ion-item>
+            </ion-col>
+            
+            <ion-col size="12" size-md="2" class="button-col">
+              <ion-button expand="block" (click)="applyDateRange()">
+                Apply
+              </ion-button>
+              <ion-button expand="block" fill="outline" (click)="clearDateRange()">
+                Clear
+              </ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </form>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Loading State -->
+  <div *ngIf="isLoading" class="loading-container">
+    <ion-spinner></ion-spinner>
+    <p>Loading analytics...</p>
+  </div>
+
+  <!-- Stats Overview -->
+  <div *ngIf="!isLoading && stats" class="stats-container">
+    <!-- Total Activities Card -->
+    <ion-card class="stat-card total-card">
+      <ion-card-content>
+        <div class="stat-content">
+          <ion-icon name="analytics-outline"></ion-icon>
+          <div class="stat-info">
+            <h2>{{ stats.totalActivities | number }}</h2>
+            <p>Total Activities</p>
+          </div>
+        </div>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Action Breakdown -->
+    <ion-card class="chart-card">
+      <ion-card-header>
+        <ion-card-title>
+          <ion-icon name="pie-chart-outline"></ion-icon>
+          Actions Breakdown
+        </ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <div class="action-breakdown">
+          <div *ngFor="let item of stats.actionBreakdown" class="action-item">
+            <div class="action-header">
+              <ion-badge [color]="getActionColor(item.action)">
+                {{ item.action }}
+              </ion-badge>
+              <span class="action-count">{{ item.count | number }} ({{ item.percentage | number:'1.1-1' }}%)</span>
+            </div>
+            <div class="progress-bar">
+              <div 
+                class="progress-fill" 
+                [style.width.%]="item.percentage"
+                [style.background-color]="'var(--ion-color-' + getActionColor(item.action) + ')'">
+              </div>
+            </div>
+          </div>
+        </div>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Top Users -->
+    <ion-card class="chart-card">
+      <ion-card-header>
+        <ion-card-title>
+          <ion-icon name="people-outline"></ion-icon>
+          Top Users
+        </ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <div class="bar-chart">
+          <div *ngFor="let user of stats.topUsers; let i = index" class="bar-item">
+            <div class="bar-label">
+              <span class="rank">{{ i + 1 }}</span>
+              <span class="name">{{ user.username }}</span>
+              <span class="value">{{ user.count }}</span>
+            </div>
+            <div class="bar-container">
+              <div 
+                class="bar-fill"
+                [style.width.%]="getBarWidth(user.count, getMaxCount(stats.topUsers))">
+              </div>
+            </div>
+          </div>
+        </div>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Top Files -->
+    <ion-card class="chart-card">
+      <ion-card-header>
+        <ion-card-title>
+          <ion-icon name="document-text-outline"></ion-icon>
+          Top Files
+        </ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <div class="bar-chart">
+          <div *ngFor="let file of stats.topFiles; let i = index" class="bar-item">
+            <div class="bar-label">
+              <span class="rank">{{ i + 1 }}</span>
+              <span class="name file-path">{{ file.path }}</span>
+              <span class="value">{{ file.count }}</span>
+            </div>
+            <div class="bar-container">
+              <div 
+                class="bar-fill secondary"
+                [style.width.%]="getBarWidth(file.count, getMaxCount(stats.topFiles))">
+              </div>
+            </div>
+          </div>
+        </div>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Activities Over Time -->
+    <ion-card class="chart-card">
+      <ion-card-header>
+        <ion-card-title>
+          <ion-icon name="trending-up-outline"></ion-icon>
+          Activities Over Time
+        </ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <div class="line-chart">
+          <div *ngFor="let point of stats.activitiesOverTime" class="chart-point">
+            <div class="point-bar" [style.height.%]="getBarWidth(point.count, getMaxCount(stats.activitiesOverTime))">
+              <span class="point-value">{{ point.count }}</span>
+            </div>
+            <span class="point-label">{{ point.date | date:'MMM d' }}</span>
+          </div>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <!-- Info Note -->
+  <ion-card class="info-card">
+    <ion-card-content>
+      <div class="info-content">
+        <ion-icon name="information-circle-outline"></ion-icon>
+        <div>
+          <strong>Note:</strong>
+          <p>For advanced charting with Chart.js, install: <code>npm install chart.js ng2-charts</code></p>
+        </div>
+      </div>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

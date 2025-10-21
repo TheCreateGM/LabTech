@@ -1,0 +1,957 @@
+openapi: 3.0.3
+info:
+  title: LabTech GeoLab User Tracking API
+  description: |
+    Comprehensive API for user activity tracking, authentication, and administrative monitoring in the LabTech GeoLab application.
+    
+    ## Authentication
+    Most endpoints require JWT authentication. Include the token in the Authorization header:
+    ```
+    Authorization: Bearer <your_jwt_token>
+    ```
+    
+    ## Rate Limiting
+    - Standard endpoints: 100 requests per minute per IP
+    - Authentication endpoints: 10 requests per minute per IP
+    
+    ## Error Codes
+    - 400: Bad Request - Invalid input data
+    - 401: Unauthorized - Missing or invalid authentication
+    - 403: Forbidden - Insufficient permissions
+    - 404: Not Found - Resource doesn't exist
+    - 429: Too Many Requests - Rate limit exceeded
+    - 500: Internal Server Error - Unexpected server error
+    - 503: Service Unavailable - Database connection failed
+  version: 1.0.0
+  contact:
+    name: LabTech GeoLab Support
+    email: support@labtech-geolab.com
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+
+servers:
+  - url: http://localhost:3000/api/v1
+    description: Development server
+  - url: https://staging-api.labtech-geolab.com/api/v1
+    description: Staging server
+  - url: https://api.labtech-geolab.com/api/v1
+    description: Production server
+
+tags:
+  - name: Authentication
+    description: User authentication and authorization endpoints
+  - name: Activities
+    description: User activity tracking and logging
+  - name: MFA
+    description: Multi-factor authentication management
+  - name: GDPR
+    description: GDPR compliance and data management
+  - name: Backup
+    description: Database backup and recovery operations
+  - name: Monitoring
+    description: Application monitoring and metrics
+
+paths:
+  /auth/register:
+    post:
+      tags:
+        - Authentication
+      summary: Register a new user
+      description: Create a new user account with username, email, and password
+      operationId: registerUser
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegisterRequest'
+            examples:
+              basic:
+                value:
+                  username: johndoe
+                  email: john@example.com
+                  password: SecurePass123!
+      responses:
+        '201':
+          description: User successfully registered
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+
+  /auth/login:
+    post:
+      tags:
+        - Authentication
+      summary: User login
+      description: Authenticate user with username/email and password, returns JWT tokens
+      operationId: loginUser
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+            examples:
+              username:
+                value:
+                  username: johndoe
+                  password: SecurePass123!
+              email:
+                value:
+                  email: john@example.com
+                  password: SecurePass123!
+      responses:
+        '200':
+          description: Login successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+
+  /auth/refresh:
+    post:
+      tags:
+        - Authentication
+      summary: Refresh access token
+      description: Get a new access token using a valid refresh token
+      operationId: refreshToken
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - refreshToken
+              properties:
+                refreshToken:
+                  type: string
+                  description: Valid refresh token
+      responses:
+        '200':
+          description: Token refreshed successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /auth/logout:
+    post:
+      tags:
+        - Authentication
+      summary: User logout
+      description: Invalidate current JWT tokens and add to blacklist
+      operationId: logoutUser
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Logout successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Logged out successfully
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /auth/me:
+    get:
+      tags:
+        - Authentication
+      summary: Get current user
+      description: Retrieve information about the currently authenticated user
+      operationId: getCurrentUser
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: User information retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /auth/mfa/setup:
+    post:
+      tags:
+        - MFA
+      summary: Setup MFA
+      description: Generate MFA secret and QR code for user
+      operationId: setupMFA
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: MFA setup initiated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MFASetupResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /auth/mfa/verify:
+    post:
+      tags:
+        - MFA
+      summary: Verify MFA token
+      description: Verify TOTP token to complete MFA setup or login
+      operationId: verifyMFA
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - token
+              properties:
+                token:
+                  type: string
+                  description: 6-digit TOTP code
+                  pattern: '^\d{6}$'
+                  example: '123456'
+      responses:
+        '200':
+          description: MFA verified successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  verified:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: MFA verified successfully
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /activities:
+    get:
+      tags:
+        - Activities
+      summary: Get activity logs
+      description: Retrieve paginated activity logs with optional filters
+      operationId: getActivities
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: page
+          in: query
+          description: Page number (1-indexed)
+          schema:
+            type: integer
+            minimum: 1
+            default: 1
+        - name: limit
+          in: query
+          description: Number of items per page
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 50
+        - name: userId
+          in: query
+          description: Filter by user ID
+          schema:
+            type: string
+            format: uuid
+        - name: startDate
+          in: query
+          description: Filter by start date (ISO 8601)
+          schema:
+            type: string
+            format: date-time
+        - name: endDate
+          in: query
+          description: Filter by end date (ISO 8601)
+          schema:
+            type: string
+            format: date-time
+        - name: action
+          in: query
+          description: Filter by action type
+          schema:
+            type: string
+            enum: [read, write, delete, open, download]
+        - name: resourcePath
+          in: query
+          description: Filter by resource path (supports wildcards)
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Activity logs retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ActivityLogListResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+
+    post:
+      tags:
+        - Activities
+      summary: Log new activity
+      description: Create a new activity log entry
+      operationId: createActivity
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateActivityRequest'
+            examples:
+              fileRead:
+                value:
+                  action: read
+                  resourceType: file
+                  resourcePath: /projects/sample.pdf
+                  metadata:
+                    fileSize: 1024000
+                    duration: 5000
+              pageView:
+                value:
+                  action: open
+                  resourceType: page
+                  resourcePath: /admin/dashboard
+                  metadata:
+                    referrer: /home
+      responses:
+        '201':
+          description: Activity logged successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ActivityLog'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /activities/{id}:
+    get:
+      tags:
+        - Activities
+      summary: Get activity by ID
+      description: Retrieve a specific activity log entry
+      operationId: getActivityById
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Activity log ID
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Activity retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ActivityLog'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /activities/export:
+    get:
+      tags:
+        - Activities
+      summary: Export activity logs
+      description: Export filtered activity logs as CSV or JSON
+      operationId: exportActivities
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: format
+          in: query
+          required: true
+          description: Export format
+          schema:
+            type: string
+            enum: [csv, json]
+        - name: startDate
+          in: query
+          description: Filter by start date (ISO 8601)
+          schema:
+            type: string
+            format: date-time
+        - name: endDate
+          in: query
+          description: Filter by end date (ISO 8601)
+          schema:
+            type: string
+            format: date-time
+        - name: userId
+          in: query
+          description: Filter by user ID
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Export file generated
+          content:
+            text/csv:
+              schema:
+                type: string
+                format: binary
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ActivityLog'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+
+  /activities/stats:
+    get:
+      tags:
+        - Activities
+      summary: Get activity statistics
+      description: Retrieve aggregated activity statistics
+      operationId: getActivityStats
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: startDate
+          in: query
+          description: Start date for statistics (ISO 8601)
+          schema:
+            type: string
+            format: date-time
+        - name: endDate
+          in: query
+          description: End date for statistics (ISO 8601)
+          schema:
+            type: string
+            format: date-time
+      responses:
+        '200':
+          description: Statistics retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ActivityStats'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+
+  /gdpr/export:
+    post:
+      tags:
+        - GDPR
+      summary: Export user data
+      description: Export all data associated with the current user (GDPR right to access)
+      operationId: exportUserData
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: User data exported successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GDPRExportResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /gdpr/delete:
+    delete:
+      tags:
+        - GDPR
+      summary: Delete user data
+      description: Delete all data associated with the current user (GDPR right to erasure)
+      operationId: deleteUserData
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - confirmation
+              properties:
+                confirmation:
+                  type: string
+                  description: Must be "DELETE" to confirm
+                  example: DELETE
+      responses:
+        '200':
+          description: User data deleted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: User data deleted successfully
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /backup/create:
+    post:
+      tags:
+        - Backup
+      summary: Create database backup
+      description: Manually trigger a database backup (admin only)
+      operationId: createBackup
+      security:
+        - bearerAuth: []
+      responses:
+        '202':
+          description: Backup initiated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BackupResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+
+  /backup/list:
+    get:
+      tags:
+        - Backup
+      summary: List backups
+      description: Get list of available backups (admin only)
+      operationId: listBackups
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Backup list retrieved
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  backups:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/BackupInfo'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+
+  /metrics:
+    get:
+      tags:
+        - Monitoring
+      summary: Get Prometheus metrics
+      description: Retrieve application metrics in Prometheus format
+      operationId: getMetrics
+      responses:
+        '200':
+          description: Metrics retrieved
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: |
+                  # HELP http_requests_total Total HTTP requests
+                  # TYPE http_requests_total counter
+                  http_requests_total{method="GET",status="200"} 1234
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: JWT token obtained from /auth/login or /auth/refresh
+
+  schemas:
+    RegisterRequest:
+      type: object
+      required:
+        - username
+        - email
+        - password
+      properties:
+        username:
+          type: string
+          minLength: 3
+          maxLength: 50
+          pattern: '^[a-zA-Z0-9_-]+$'
+          example: johndoe
+        email:
+          type: string
+          format: email
+          example: john@example.com
+        password:
+          type: string
+          minLength: 8
+          maxLength: 100
+          description: Must contain uppercase, lowercase, number, and special character
+          example: SecurePass123!
+
+    LoginRequest:
+      type: object
+      required:
+        - password
+      properties:
+        username:
+          type: string
+          example: johndoe
+        email:
+          type: string
+          format: email
+          example: john@example.com
+        password:
+          type: string
+          example: SecurePass123!
+      oneOf:
+        - required: [username]
+        - required: [email]
+
+    AuthResponse:
+      type: object
+      properties:
+        user:
+          $ref: '#/components/schemas/User'
+        accessToken:
+          type: string
+          description: JWT access token (15-minute expiry)
+        refreshToken:
+          type: string
+          description: JWT refresh token (7-day expiry)
+        expiresIn:
+          type: integer
+          description: Access token expiry in seconds
+          example: 900
+
+    TokenResponse:
+      type: object
+      properties:
+        accessToken:
+          type: string
+          description: New JWT access token
+        expiresIn:
+          type: integer
+          description: Token expiry in seconds
+          example: 900
+
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        username:
+          type: string
+        email:
+          type: string
+          format: email
+        role:
+          type: string
+          enum: [user, admin, super_admin]
+        mfaEnabled:
+          type: boolean
+        createdAt:
+          type: string
+          format: date-time
+        lastLogin:
+          type: string
+          format: date-time
+
+    MFASetupResponse:
+      type: object
+      properties:
+        secret:
+          type: string
+          description: Base32-encoded MFA secret
+        qrCode:
+          type: string
+          description: Data URL of QR code image
+        backupCodes:
+          type: array
+          items:
+            type: string
+          description: Single-use backup codes
+
+    CreateActivityRequest:
+      type: object
+      required:
+        - action
+        - resourceType
+        - resourcePath
+      properties:
+        action:
+          type: string
+          enum: [read, write, delete, open, download]
+        resourceType:
+          type: string
+          enum: [file, folder, page]
+        resourcePath:
+          type: string
+          example: /projects/sample.pdf
+        metadata:
+          type: object
+          additionalProperties: true
+          description: Additional context about the activity
+
+    ActivityLog:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        userId:
+          type: string
+          format: uuid
+        username:
+          type: string
+        action:
+          type: string
+          enum: [read, write, delete, open, download]
+        resourceType:
+          type: string
+          enum: [file, folder, page]
+        resourcePath:
+          type: string
+        metadata:
+          type: object
+          additionalProperties: true
+        ipAddress:
+          type: string
+        userAgent:
+          type: string
+        timestamp:
+          type: string
+          format: date-time
+
+    ActivityLogListResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/ActivityLog'
+        pagination:
+          type: object
+          properties:
+            page:
+              type: integer
+            limit:
+              type: integer
+            total:
+              type: integer
+            totalPages:
+              type: integer
+
+    ActivityStats:
+      type: object
+      properties:
+        totalActivities:
+          type: integer
+        actionBreakdown:
+          type: object
+          additionalProperties:
+            type: integer
+        topUsers:
+          type: array
+          items:
+            type: object
+            properties:
+              userId:
+                type: string
+                format: uuid
+              username:
+                type: string
+              count:
+                type: integer
+        topFiles:
+          type: array
+          items:
+            type: object
+            properties:
+              path:
+                type: string
+              count:
+                type: integer
+        activitiesOverTime:
+          type: array
+          items:
+            type: object
+            properties:
+              date:
+                type: string
+                format: date
+              count:
+                type: integer
+
+    GDPRExportResponse:
+      type: object
+      properties:
+        user:
+          $ref: '#/components/schemas/User'
+        activities:
+          type: array
+          items:
+            $ref: '#/components/schemas/ActivityLog'
+        exportDate:
+          type: string
+          format: date-time
+
+    BackupResponse:
+      type: object
+      properties:
+        backupId:
+          type: string
+        status:
+          type: string
+          enum: [initiated, in_progress, completed, failed]
+        message:
+          type: string
+
+    BackupInfo:
+      type: object
+      properties:
+        id:
+          type: string
+        filename:
+          type: string
+        size:
+          type: integer
+          description: Backup size in bytes
+        createdAt:
+          type: string
+          format: date-time
+        type:
+          type: string
+          enum: [full, incremental]
+
+    Error:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            code:
+              type: string
+              example: INVALID_INPUT
+            message:
+              type: string
+              example: Invalid request parameters
+            details:
+              type: object
+              additionalProperties: true
+            timestamp:
+              type: string
+              format: date-time
+            requestId:
+              type: string
+              format: uuid
+
+  responses:
+    BadRequest:
+      description: Bad Request - Invalid input data
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            error:
+              code: INVALID_INPUT
+              message: Validation failed
+              details:
+                username: Username must be at least 3 characters
+              timestamp: '2024-01-15T10:30:00Z'
+              requestId: 550e8400-e29b-41d4-a716-446655440000
+
+    Unauthorized:
+      description: Unauthorized - Missing or invalid authentication
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            error:
+              code: UNAUTHORIZED
+              message: Invalid or expired token
+              timestamp: '2024-01-15T10:30:00Z'
+              requestId: 550e8400-e29b-41d4-a716-446655440000
+
+    Forbidden:
+      description: Forbidden - Insufficient permissions
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            error:
+              code: FORBIDDEN
+              message: Admin access required
+              timestamp: '2024-01-15T10:30:00Z'
+              requestId: 550e8400-e29b-41d4-a716-446655440000
+
+    NotFound:
+      description: Not Found - Resource doesn't exist
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            error:
+              code: NOT_FOUND
+              message: Resource not found
+              timestamp: '2024-01-15T10:30:00Z'
+              requestId: 550e8400-e29b-41d4-a716-446655440000
+
+    TooManyRequests:
+      description: Too Many Requests - Rate limit exceeded
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            error:
+              code: RATE_LIMIT_EXCEEDED
+              message: Too many requests, please try again later
+              timestamp: '2024-01-15T10:30:00Z'
+              requestId: 550e8400-e29b-41d4-a716-446655440000

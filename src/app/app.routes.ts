@@ -89,5 +89,17 @@ export const routes: Routes = [
   {
     path: 'end',
     loadComponent: () => import('./pages/end/end.page').then(m => m.EndPage)
+  },
+  {
+    path: 'admin',
+    loadChildren: () => import('./admin/admin.routes').then(m => m.adminRoutes)
+  },
+  {
+    path: 'login',
+    loadComponent: () => import('./pages/login/login.page').then(m => m.LoginPage)
+  },
+  {
+    path: 'mfa-verify',
+    loadComponent: () => import('./pages/mfa-verify/mfa-verify.page').then(m => m.MfaVerifyPage)
   }
 ];

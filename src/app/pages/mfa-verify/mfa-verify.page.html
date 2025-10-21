@@ -1,0 +1,120 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Two-Factor Authentication</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div class="mfa-container">
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title class="ion-text-center">
+          <ion-icon name="shield-checkmark-outline" size="large"></ion-icon>
+          <h2>Verify Your Identity</h2>
+        </ion-card-title>
+      </ion-card-header>
+
+      <ion-card-content>
+        <!-- Instructions -->
+        <div class="instructions">
+          <ion-text color="medium">
+            <p *ngIf="!useBackupCode">
+              Enter the 6-digit verification code from your authenticator app.
+            </p>
+            <p *ngIf="useBackupCode">
+              Enter one of your backup codes.
+            </p>
+          </ion-text>
+        </div>
+
+        <!-- Countdown Timer (only show for TOTP) -->
+        <div class="countdown-timer" *ngIf="!useBackupCode">
+          <ion-icon name="time-outline"></ion-icon>
+          <ion-text [color]="countdownColor">
+            <span class="timer-value">{{ timeRemaining }}s</span>
+          </ion-text>
+          <ion-note>Time remaining for current code</ion-note>
+        </div>
+
+        <form [formGroup]="mfaForm" (ngSubmit)="onSubmit()">
+          <!-- Verification Code Field -->
+          <ion-item>
+            <ion-icon name="key-outline" slot="start"></ion-icon>
+            <ion-label position="floating">
+              {{ useBackupCode ? 'Backup Code' : 'Verification Code' }}
+            </ion-label>
+            <ion-input
+              [type]="useBackupCode ? 'text' : 'number'"
+              formControlName="code"
+              [placeholder]="useBackupCode ? 'Enter backup code' : 'Enter 6-digit code'"
+              [clearInput]="true"
+              [maxlength]="useBackupCode ? 20 : 6"
+              class="code-input"
+            ></ion-input>
+          </ion-item>
+
+          <!-- Validation Errors -->
+          <ion-text color="danger" *ngIf="hasError('code', 'required')">
+            <p class="error-message">Verification code is required</p>
+          </ion-text>
+          <ion-text color="danger" *ngIf="hasError('code', 'pattern')">
+            <p class="error-message">Code must be 6 digits</p>
+          </ion-text>
+          <ion-text color="danger" *ngIf="hasError('code', 'minlength')">
+            <p class="error-message">Backup code must be at least 8 characters</p>
+          </ion-text>
+
+          <!-- Error Message -->
+          <ion-text color="danger" *ngIf="errorMessage">
+            <p class="error-message error-banner">{{ errorMessage }}</p>
+          </ion-text>
+
+          <!-- Verify Button -->
+          <ion-button
+            expand="block"
+            type="submit"
+            [disabled]="isLoading"
+            class="verify-button"
+          >
+            <ion-spinner *ngIf="isLoading" name="crescent"></ion-spinner>
+            <span *ngIf="!isLoading">Verify</span>
+          </ion-button>
+
+          <!-- Action Buttons -->
+          <div class="action-buttons">
+            <!-- Toggle Backup Code -->
+            <ion-button
+              fill="clear"
+              size="small"
+              (click)="toggleBackupCode()"
+              [disabled]="isLoading"
+            >
+              {{ useBackupCode ? 'Use Authenticator Code' : 'Use Backup Code' }}
+            </ion-button>
+
+            <!-- Cancel Button -->
+            <ion-button
+              fill="clear"
+              size="small"
+              color="medium"
+              (click)="onCancel()"
+              [disabled]="isLoading"
+            >
+              Cancel
+            </ion-button>
+          </div>
+        </form>
+
+        <!-- Help Text -->
+        <div class="help-text">
+          <ion-note>
+            <p>
+              <strong>Lost your device?</strong><br>
+              Use one of your backup codes to access your account.
+            </p>
+          </ion-note>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>

@@ -1,0 +1,155 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Export Activity Logs</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismiss()" [disabled]="isExporting">
+        <ion-icon name="close-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form [formGroup]="exportForm">
+    <!-- Format Selection -->
+    <ion-list>
+      <ion-list-header>
+        <ion-label>Export Format</ion-label>
+      </ion-list-header>
+      
+      <ion-radio-group formControlName="format">
+        <ion-item>
+          <ion-radio value="csv" slot="start"></ion-radio>
+          <ion-label>
+            <h3>CSV (Comma-Separated Values)</h3>
+            <p>Best for Excel and spreadsheet applications</p>
+          </ion-label>
+        </ion-item>
+        
+        <ion-item>
+          <ion-radio value="json" slot="start"></ion-radio>
+          <ion-label>
+            <h3>JSON (JavaScript Object Notation)</h3>
+            <p>Best for programmatic processing and APIs</p>
+          </ion-label>
+        </ion-item>
+      </ion-radio-group>
+    </ion-list>
+
+    <!-- Date Range -->
+    <ion-list>
+      <ion-list-header>
+        <ion-label>Date Range (Optional)</ion-label>
+      </ion-list-header>
+      
+      <ion-item>
+        <ion-label position="stacked">Start Date</ion-label>
+        <ion-datetime-button datetime="exportStartDate"></ion-datetime-button>
+        <ion-modal [keepContentsMounted]="true">
+          <ng-template>
+            <ion-datetime 
+              id="exportStartDate"
+              formControlName="startDate"
+              presentation="date"
+              [max]="exportForm.get('endDate')?.value || undefined">
+            </ion-datetime>
+          </ng-template>
+        </ion-modal>
+      </ion-item>
+      
+      <ion-item>
+        <ion-label position="stacked">End Date</ion-label>
+        <ion-datetime-button datetime="exportEndDate"></ion-datetime-button>
+        <ion-modal [keepContentsMounted]="true">
+          <ng-template>
+            <ion-datetime 
+              id="exportEndDate"
+              formControlName="endDate"
+              presentation="date"
+              [min]="exportForm.get('startDate')?.value || undefined">
+            </ion-datetime>
+          </ng-template>
+        </ion-modal>
+      </ion-item>
+    </ion-list>
+
+    <!-- Additional Filters -->
+    <ion-list>
+      <ion-list-header>
+        <ion-label>Additional Filters (Optional)</ion-label>
+      </ion-list-header>
+      
+      <ion-item>
+        <ion-label position="stacked">User ID</ion-label>
+        <ion-input 
+          formControlName="userId" 
+          placeholder="Filter by user ID"
+          type="text">
+        </ion-input>
+      </ion-item>
+      
+      <ion-item>
+        <ion-label position="stacked">Action Type</ion-label>
+        <ion-select 
+          formControlName="action" 
+          placeholder="All actions"
+          interface="popover">
+          <ion-select-option value="">All Actions</ion-select-option>
+          <ion-select-option value="read">Read</ion-select-option>
+          <ion-select-option value="write">Write</ion-select-option>
+          <ion-select-option value="delete">Delete</ion-select-option>
+          <ion-select-option value="open">Open</ion-select-option>
+          <ion-select-option value="download">Download</ion-select-option>
+        </ion-select>
+      </ion-item>
+      
+      <ion-item>
+        <ion-label position="stacked">Resource Path</ion-label>
+        <ion-input 
+          formControlName="resourcePath" 
+          placeholder="Filter by path"
+          type="text">
+        </ion-input>
+      </ion-item>
+    </ion-list>
+
+    <!-- Warning for Large Datasets -->
+    <ion-card *ngIf="showWarning" color="warning" class="warning-card">
+      <ion-card-content>
+        <div class="warning-content">
+          <ion-icon name="warning-outline"></ion-icon>
+          <div>
+            <strong>Large Dataset Warning</strong>
+            <p>Estimated {{ estimatedRecords | number }} records. Consider adding date filters to reduce export size.</p>
+          </div>
+        </div>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Export Progress -->
+    <div *ngIf="isExporting" class="export-progress">
+      <ion-progress-bar [value]="exportProgress / 100"></ion-progress-bar>
+      <p class="progress-text">Exporting... {{ exportProgress }}%</p>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="button-container">
+      <ion-button 
+        expand="block" 
+        (click)="exportData()"
+        [disabled]="exportForm.invalid || isExporting"
+        color="primary">
+        <ion-icon name="download-outline" slot="start"></ion-icon>
+        {{ isExporting ? 'Exporting...' : 'Export Data' }}
+      </ion-button>
+      
+      <ion-button 
+        expand="block" 
+        fill="outline"
+        (click)="dismiss()"
+        [disabled]="isExporting">
+        Cancel
+      </ion-button>
+    </div>
+  </form>
+</ion-content>

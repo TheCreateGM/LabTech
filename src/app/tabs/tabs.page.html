@@ -14,5 +14,10 @@
       <ion-icon aria-hidden="true" name="library-outline"></ion-icon>
       <ion-label>Resources</ion-label>
     </ion-tab-button>
+
+    <ion-tab-button tab="admin" href="/tabs/admin" *ngIf="isAdmin">
+      <ion-icon aria-hidden="true" name="lock-closed-outline"></ion-icon>
+      <ion-label>Admin</ion-label>
+    </ion-tab-button>
   </ion-tab-bar>
 </ion-tabs>

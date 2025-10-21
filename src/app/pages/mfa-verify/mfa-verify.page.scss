@@ -1,0 +1,182 @@
+.mfa-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100%;
+  padding: 20px;
+}
+
+ion-card {
+  max-width: 500px;
+  width: 100%;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+}
+
+ion-card-title {
+  margin-bottom: 20px;
+
+  ion-icon {
+    display: block;
+    margin: 0 auto 10px;
+    color: var(--ion-color-success);
+    font-size: 64px;
+  }
+
+  h2 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--ion-text-color);
+  }
+}
+
+.instructions {
+  margin-bottom: 20px;
+  text-align: center;
+
+  p {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+}
+
+.countdown-timer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 15px;
+  margin-bottom: 20px;
+  background-color: var(--ion-color-light);
+  border-radius: 8px;
+
+  ion-icon {
+    font-size: 24px;
+  }
+
+  .timer-value {
+    font-size: 20px;
+    font-weight: 700;
+    min-width: 40px;
+    display: inline-block;
+  }
+
+  ion-note {
+    font-size: 12px;
+    margin-left: 8px;
+  }
+}
+
+ion-item {
+  margin-bottom: 10px;
+  --padding-start: 0;
+  --inner-padding-end: 0;
+}
+
+.code-input {
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: 4px;
+  text-align: center;
+}
+
+.error-message {
+  font-size: 12px;
+  margin: 5px 0 10px 0;
+  padding-left: 16px;
+}
+
+.error-banner {
+  background-color: var(--ion-color-danger-tint);
+  padding: 10px;
+  border-radius: 4px;
+  margin: 15px 0;
+  text-align: center;
+  font-size: 14px;
+}
+
+.verify-button {
+  margin-top: 20px;
+  height: 48px;
+  font-weight: 600;
+
+  ion-spinner {
+    margin-right: 8px;
+  }
+}
+
+.action-buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+  flex-wrap: wrap;
+  gap: 10px;
+
+  ion-button {
+    text-transform: none;
+    font-size: 14px;
+    flex: 1;
+    min-width: 150px;
+  }
+}
+
+.help-text {
+  margin-top: 20px;
+  padding: 15px;
+  background-color: var(--ion-color-light);
+  border-radius: 8px;
+  text-align: center;
+
+  ion-note {
+    font-size: 13px;
+    line-height: 1.6;
+
+    p {
+      margin: 0;
+    }
+
+    strong {
+      color: var(--ion-text-color);
+    }
+  }
+}
+
+// Responsive design for mobile
+@media (max-width: 768px) {
+  .mfa-container {
+    padding: 10px;
+  }
+
+  ion-card {
+    margin: 0;
+  }
+
+  ion-card-title {
+    ion-icon {
+      font-size: 48px;
+    }
+
+    h2 {
+      font-size: 20px;
+    }
+  }
+
+  .countdown-timer {
+    flex-direction: column;
+    gap: 5px;
+
+    ion-note {
+      margin-left: 0;
+    }
+  }
+
+  .action-buttons {
+    flex-direction: column;
+
+    ion-button {
+      width: 100%;
+    }
+  }
+}

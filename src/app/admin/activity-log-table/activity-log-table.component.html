@@ -1,0 +1,127 @@
+<ion-header collapse="condense">
+  <ion-toolbar>
+    <ion-title size="large">Activity Logs</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="openExportDialog()">
+        <ion-icon name="download-outline"></ion-icon>
+      </ion-button>
+      <ion-button (click)="toggleFilters()">
+        <ion-icon name="filter-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+  
+  <!-- Offline Indicator -->
+  <ion-toolbar *ngIf="!isOnline" color="warning">
+    <ion-title size="small">
+      <ion-icon name="cloud-offline-outline"></ion-icon>
+      Offline Mode - Showing Cached Data
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)" [disabled]="!isOnline">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <!-- Filters Section -->
+  <app-activity-filter 
+    *ngIf="showFilters"
+    (filtersApplied)="onFiltersApplied($event)"
+    (filtersClear)="onFiltersClear()">
+  </app-activity-filter>
+
+  <!-- Loading Skeleton -->
+  <div *ngIf="isLoading && activityLogs.length === 0" class="skeleton-container">
+    <ion-card *ngFor="let item of [1,2,3,4,5]">
+      <ion-card-content>
+        <ion-skeleton-text animated style="width: 100%; height: 20px;"></ion-skeleton-text>
+        <ion-skeleton-text animated style="width: 80%; height: 16px; margin-top: 8px;"></ion-skeleton-text>
+        <ion-skeleton-text animated style="width: 60%; height: 16px; margin-top: 8px;"></ion-skeleton-text>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <!-- Desktop Table View -->
+  <div class="table-container desktop-only" *ngIf="!isLoading || activityLogs.length > 0">
+    <table class="activity-table">
+      <thead>
+        <tr>
+          <th (click)="sortBy('timestamp')" class="sortable">
+            Timestamp
+            <ion-icon [name]="getSortIcon('timestamp')"></ion-icon>
+          </th>
+          <th (click)="sortBy('username')" class="sortable">
+            Username
+            <ion-icon [name]="getSortIcon('username')"></ion-icon>
+          </th>
+          <th (click)="sortBy('action')" class="sortable">
+            Action
+            <ion-icon [name]="getSortIcon('action')"></ion-icon>
+          </th>
+          <th>Resource Type</th>
+          <th>Resource Path</th>
+          <th>IP Address</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let log of activityLogs">
+          <td>{{ formatTimestamp(log.timestamp) }}</td>
+          <td>{{ log.username }}</td>
+          <td>
+            <ion-badge [color]="getActionColor(log.action)">
+              {{ log.action }}
+            </ion-badge>
+          </td>
+          <td>{{ log.resourceType }}</td>
+          <td class="path-cell">{{ log.resourcePath }}</td>
+          <td>{{ log.ipAddress }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Mobile Card View -->
+  <div class="mobile-only" *ngIf="!isLoading || activityLogs.length > 0">
+    <ion-card *ngFor="let log of activityLogs" class="activity-card">
+      <ion-card-header>
+        <ion-card-subtitle>
+          <ion-badge [color]="getActionColor(log.action)">
+            {{ log.action }}
+          </ion-badge>
+          <span class="timestamp">{{ formatTimestamp(log.timestamp) }}</span>
+        </ion-card-subtitle>
+        <ion-card-title>{{ log.username }}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <div class="log-detail">
+          <ion-icon name="document-outline"></ion-icon>
+          <span>{{ log.resourceType }}: {{ log.resourcePath }}</span>
+        </div>
+        <div class="log-detail">
+          <ion-icon name="location-outline"></ion-icon>
+          <span>{{ log.ipAddress }}</span>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <!-- Empty State -->
+  <div *ngIf="!isLoading && activityLogs.length === 0" class="empty-state">
+    <ion-icon name="document-text-outline"></ion-icon>
+    <h3>No Activity Logs</h3>
+    <p>No activity logs found matching your criteria.</p>
+  </div>
+
+  <!-- Infinite Scroll -->
+  <ion-infinite-scroll 
+    threshold="100px" 
+    (ionInfinite)="loadMore($event)"
+    [disabled]="!hasMore">
+    <ion-infinite-scroll-content
+      loadingSpinner="bubbles"
+      loadingText="Loading more logs...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>

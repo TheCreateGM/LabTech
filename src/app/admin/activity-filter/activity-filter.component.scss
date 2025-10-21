@@ -1,0 +1,86 @@
+.filter-card {
+  margin: 16px;
+  
+  ion-card-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    
+    ion-icon {
+      font-size: 24px;
+    }
+  }
+}
+
+ion-item {
+  --padding-start: 0;
+  --inner-padding-end: 0;
+  margin-bottom: 16px;
+  --min-height: 48px; // Touch-friendly height
+}
+
+.button-col {
+  display: flex;
+  align-items: flex-end;
+  padding-bottom: 16px;
+}
+
+.button-group {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  
+  ion-button {
+    --min-height: 44px; // Touch-friendly button height
+  }
+}
+
+// Mobile optimizations
+@media (max-width: 768px) {
+  .filter-card {
+    margin: 8px;
+  }
+  
+  ion-item {
+    --min-height: 56px; // Larger touch targets on mobile
+    margin-bottom: 12px;
+    
+    ion-label {
+      font-size: 14px;
+      font-weight: 500;
+    }
+    
+    ion-input, ion-select {
+      font-size: 16px; // Prevent zoom on iOS
+    }
+  }
+  
+  .button-col {
+    padding-bottom: 0;
+    margin-top: 8px;
+  }
+  
+  .button-group {
+    gap: 12px;
+    
+    ion-button {
+      --min-height: 48px; // Larger buttons on mobile
+      font-size: 16px;
+      
+      ion-icon {
+        font-size: 20px;
+      }
+    }
+  }
+  
+  ion-datetime-button {
+    width: 100%;
+    --padding-start: 8px;
+    --padding-end: 8px;
+  }
+  
+  ion-select {
+    width: 100%;
+  }
+}
