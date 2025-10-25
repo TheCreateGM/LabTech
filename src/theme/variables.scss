@@ -1,206 +1,266 @@
-// LabTech GeoLab - Modern Flat Plastic Design System
+// LabTech GeoLab - Modern Educational Design System
+// Vibrant, bright, and engaging color palette for students and lecturers
 // For information on how to create your own theme, please see:
 // http://ionicframework.com/docs/theming/
 
 :root {
-  // Modern Color Palette - Flat & Vibrant
-  --ion-color-primary: #667eea;
-  --ion-color-primary-rgb: 102, 126, 234;
+  /* ===================================
+     PRIMARY BRAND COLORS
+     Scientific yet approachable
+     =================================== */
+  
+  // Primary: Trust, Knowledge, Scientific (Blue-Indigo)
+  --ion-color-primary: #5B8DEE;
+  --ion-color-primary-rgb: 91, 141, 238;
   --ion-color-primary-contrast: #ffffff;
   --ion-color-primary-contrast-rgb: 255, 255, 255;
-  --ion-color-primary-shade: #5a6fd8;
-  --ion-color-primary-tint: #7691ec;
+  --ion-color-primary-shade: #4f7cd1;
+  --ion-color-primary-tint: #6b98f0;
 
-  --ion-color-secondary: #764ba2;
-  --ion-color-secondary-rgb: 118, 75, 162;
-  --ion-color-secondary-contrast: #ffffff;
-  --ion-color-secondary-contrast-rgb: 255, 255, 255;
-  --ion-color-secondary-shade: #68428f;
-  --ion-color-secondary-tint: #845fab;
+  // Secondary: Innovation, Creativity (Teal-Cyan)
+  --ion-color-secondary: #00D4AA;
+  --ion-color-secondary-rgb: 0, 212, 170;
+  --ion-color-secondary-contrast: #000000;
+  --ion-color-secondary-contrast-rgb: 0, 0, 0;
+  --ion-color-secondary-shade: #00bb96;
+  --ion-color-secondary-tint: #1ad8b3;
 
-  --ion-color-tertiary: #f093fb;
-  --ion-color-tertiary-rgb: 240, 147, 251;
+  // Tertiary: Energy, Motivation (Vibrant Purple)
+  --ion-color-tertiary: #A78BFA;
+  --ion-color-tertiary-rgb: 167, 139, 250;
   --ion-color-tertiary-contrast: #000000;
   --ion-color-tertiary-contrast-rgb: 0, 0, 0;
-  --ion-color-tertiary-shade: #d482dd;
-  --ion-color-tertiary-tint: #f29efb;
+  --ion-color-tertiary-shade: #927adc;
+  --ion-color-tertiary-tint: #b097fb;
 
-  --ion-color-success: #10dc60;
-  --ion-color-success-rgb: 16, 220, 96;
+  /* ===================================
+     FUNCTIONAL COLORS
+     =================================== */
+
+  // Success: Achievement, Completion (Fresh Green)
+  --ion-color-success: #22C55E;
+  --ion-color-success-rgb: 34, 197, 94;
   --ion-color-success-contrast: #ffffff;
   --ion-color-success-contrast-rgb: 255, 255, 255;
-  --ion-color-success-shade: #0ec254;
-  --ion-color-success-tint: #28e070;
+  --ion-color-success-shade: #1ead53;
+  --ion-color-success-tint: #38ca6e;
 
-  --ion-color-warning: #ffce00;
-  --ion-color-warning-rgb: 255, 206, 0;
+  // Warning: Caution, Validation (Warm Orange)
+  --ion-color-warning: #F59E0B;
+  --ion-color-warning-rgb: 245, 158, 11;
   --ion-color-warning-contrast: #000000;
   --ion-color-warning-contrast-rgb: 0, 0, 0;
-  --ion-color-warning-shade: #e0b500;
-  --ion-color-warning-tint: #ffd31a;
+  --ion-color-warning-shade: #d88b0a;
+  --ion-color-warning-tint: #f6a823;
 
-  --ion-color-danger: #f04141;
-  --ion-color-danger-rgb: 240, 65, 65;
+  // Danger: Error, Alert (Coral Red)
+  --ion-color-danger: #EF4444;
+  --ion-color-danger-rgb: 239, 68, 68;
   --ion-color-danger-contrast: #ffffff;
   --ion-color-danger-contrast-rgb: 255, 255, 255;
-  --ion-color-danger-shade: #d33939;
-  --ion-color-danger-tint: #f25454;
+  --ion-color-danger-shade: #d23c3c;
+  --ion-color-danger-tint: #f15757;
 
-  // Modern Neutral Palette
-  --ion-color-dark: #1a202c;
-  --ion-color-dark-rgb: 26, 32, 44;
+  // Info: Educational Content (Sky Blue)
+  --ion-color-info: #3B82F6;
+  --ion-color-info-rgb: 59, 130, 246;
+  --ion-color-info-contrast: #ffffff;
+  --ion-color-info-contrast-rgb: 255, 255, 255;
+  --ion-color-info-shade: #3472d8;
+  --ion-color-info-tint: #4f8ef7;
+
+  /* ===================================
+     NEUTRAL PALETTE
+     Light-optimized for bright environments
+     =================================== */
+
+  --ion-color-dark: #1E293B;
+  --ion-color-dark-rgb: 30, 41, 59;
   --ion-color-dark-contrast: #ffffff;
   --ion-color-dark-contrast-rgb: 255, 255, 255;
-  --ion-color-dark-shade: #171923;
-  --ion-color-dark-tint: #2d3748;
+  --ion-color-dark-shade: #1a2333;
+  --ion-color-dark-tint: #354152;
 
-  --ion-color-medium: #718096;
-  --ion-color-medium-rgb: 113, 128, 150;
+  --ion-color-medium: #64748B;
+  --ion-color-medium-rgb: 100, 116, 139;
   --ion-color-medium-contrast: #ffffff;
   --ion-color-medium-contrast-rgb: 255, 255, 255;
-  --ion-color-medium-shade: #64748b;
-  --ion-color-medium-tint: #8492a6;
+  --ion-color-medium-shade: #58667a;
+  --ion-color-medium-tint: #748297;
 
-  --ion-color-light: #f8fafc;
-  --ion-color-light-rgb: 248, 250, 252;
+  --ion-color-light: #F1F5F9;
+  --ion-color-light-rgb: 241, 245, 249;
   --ion-color-light-contrast: #000000;
   --ion-color-light-contrast-rgb: 0, 0, 0;
-  --ion-color-light-shade: #dae1e7;
-  --ion-color-light-tint: #f9fbfc;
+  --ion-color-light-shade: #d4d8db;
+  --ion-color-light-tint: #f2f6fa;
 
-  // Custom Lab Colors
-  --lab-color-accent: #4facfe;
-  --lab-color-accent-rgb: 79, 172, 254;
-  --lab-color-surface: #ffffff;
-  --lab-color-surface-variant: #f1f5f9;
-  --lab-color-outline: #e2e8f0;
-  --lab-color-outline-variant: #cbd5e1;
+  /* ===================================
+     CUSTOM LAB COLORS
+     =================================== */
+
+  // Accent colors for highlights and CTAs
+  --lab-color-accent-blue: #60A5FA;
+  --lab-color-accent-blue-rgb: 96, 165, 250;
+  --lab-color-accent-teal: #2DD4BF;
+  --lab-color-accent-teal-rgb: 45, 212, 191;
+  --lab-color-accent-purple: #C084FC;
+  --lab-color-accent-purple-rgb: 192, 132, 252;
+  --lab-color-accent-pink: #F472B6;
+  --lab-color-accent-pink-rgb: 244, 114, 182;
+
+  // Surface colors (Light theme optimized)
+  --lab-color-surface: #FFFFFF;
+  --lab-color-surface-rgb: 255, 255, 255;
+  --lab-color-surface-variant: #F8FAFC;
+  --lab-color-surface-hover: #F1F5F9;
+  --lab-color-outline: #E2E8F0;
+  --lab-color-outline-variant: #CBD5E1;
   
-  // Plastic/Glass Effects
-  --lab-glass-backdrop: rgba(255, 255, 255, 0.85);
-  --lab-glass-border: rgba(255, 255, 255, 0.2);
+  /* ===================================
+     GLASS & DEPTH EFFECTS
+     =================================== */
+  
+  --lab-glass-light: rgba(255, 255, 255, 0.7);
+  --lab-glass-medium: rgba(255, 255, 255, 0.85);
+  --lab-glass-heavy: rgba(255, 255, 255, 0.95);
+  --lab-glass-border: rgba(255, 255, 255, 0.25);
+  --lab-glass-shadow: 0 8px 32px rgba(31, 38, 135, 0.15);
+  
+  // Colored glass effects for cards
+  --lab-glass-primary: rgba(91, 141, 238, 0.08);
+  --lab-glass-secondary: rgba(0, 212, 170, 0.08);
+  --lab-glass-tertiary: rgba(167, 139, 250, 0.08);
+  
+  // Modern shadow system
+  --lab-shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --lab-shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.06);
   --lab-shadow-soft: 0 4px 16px rgba(0, 0, 0, 0.08);
   --lab-shadow-medium: 0 8px 32px rgba(0, 0, 0, 0.12);
-  --lab-shadow-strong: 0 16px 64px rgba(0, 0, 0, 0.16);
+  --lab-shadow-strong: 0 16px 48px rgba(0, 0, 0, 0.16);
+  --lab-shadow-xl: 0 20px 64px rgba(0, 0, 0, 0.20);
   
-  // Modern Typography Scale
-  --lab-font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --lab-font-size-xs: 0.75rem;   // 12px
-  --lab-font-size-sm: 0.875rem;  // 14px
-  --lab-font-size-base: 1rem;    // 16px
-  --lab-font-size-lg: 1.125rem;  // 18px
-  --lab-font-size-xl: 1.25rem;   // 20px
-  --lab-font-size-2xl: 1.5rem;   // 24px
-  --lab-font-size-3xl: 1.875rem; // 30px
+  // Colored shadows for depth
+  --lab-shadow-primary: 0 8px 24px rgba(91, 141, 238, 0.25);
+  --lab-shadow-secondary: 0 8px 24px rgba(0, 212, 170, 0.25);
+  --lab-shadow-success: 0 8px 24px rgba(34, 197, 94, 0.25);
+
+  /* ===================================
+     MODERN TYPOGRAPHY SCALE
+     =================================== */
   
-  // Modern Spacing Scale
-  --lab-space-xs: 0.25rem;   // 4px
-  --lab-space-sm: 0.5rem;    // 8px
-  --lab-space-base: 1rem;    // 16px
-  --lab-space-lg: 1.5rem;    // 24px
-  --lab-space-xl: 2rem;      // 32px
-  --lab-space-2xl: 3rem;     // 48px
+  --lab-font-family: 'Poppins', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --lab-font-family-display: 'Poppins', 'Inter', sans-serif;
+  --lab-font-family-mono: 'Fira Code', 'Monaco', 'Courier New', monospace;
   
-  // Modern Border Radius
-  --lab-radius-xs: 0.125rem;  // 2px
-  --lab-radius-sm: 0.25rem;   // 4px
+  --lab-font-size-xs: 0.75rem;     // 12px
+  --lab-font-size-sm: 0.875rem;    // 14px
+  --lab-font-size-base: 1rem;      // 16px
+  --lab-font-size-lg: 1.125rem;    // 18px
+  --lab-font-size-xl: 1.25rem;     // 20px
+  --lab-font-size-2xl: 1.5rem;     // 24px
+  --lab-font-size-3xl: 1.875rem;   // 30px
+  --lab-font-size-4xl: 2.25rem;    // 36px
+  --lab-font-size-5xl: 3rem;       // 48px
+  
+  --lab-line-height-tight: 1.25;
+  --lab-line-height-normal: 1.5;
+  --lab-line-height-relaxed: 1.75;
+  
+  --lab-letter-spacing-tight: -0.025em;
+  --lab-letter-spacing-normal: 0;
+  --lab-letter-spacing-wide: 0.025em;
+
+  /* ===================================
+     MODERN SPACING SCALE (8px grid)
+     =================================== */
+  
+  --lab-space-xs: 0.25rem;    // 4px
+  --lab-space-sm: 0.5rem;     // 8px
+  --lab-space-base: 1rem;     // 16px
+  --lab-space-lg: 1.5rem;     // 24px
+  --lab-space-xl: 2rem;       // 32px
+  --lab-space-2xl: 3rem;      // 48px
+  --lab-space-3xl: 4rem;      // 64px
+  --lab-space-4xl: 6rem;      // 96px
+
+  /* ===================================
+     MODERN BORDER RADIUS
+     =================================== */
+  
+  --lab-radius-xs: 0.25rem;   // 4px
+  --lab-radius-sm: 0.375rem;  // 6px
   --lab-radius-base: 0.5rem;  // 8px
   --lab-radius-lg: 0.75rem;   // 12px
   --lab-radius-xl: 1rem;      // 16px
-  --lab-radius-2xl: 1.5rem;   // 24px
+  --lab-radius-2xl: 1.25rem;  // 20px
+  --lab-radius-3xl: 1.5rem;   // 24px
   --lab-radius-full: 9999px;
 
-  // Component-specific variables
-  --ion-background-color: #f8fafc;
-  --ion-text-color: #0f172a;
-  --ion-border-color: #e2e8f0;
+  /* ===================================
+     TRANSITIONS & ANIMATIONS
+     =================================== */
+  
+  --lab-transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --lab-transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  --lab-transition-slow: 350ms cubic-bezier(0.4, 0, 0.2, 1);
+  --lab-transition-bounce: 500ms cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* ===================================
+     COMPONENT-SPECIFIC VARIABLES
+     =================================== */
+  
+  // Background & Text (Light theme default)
+  --ion-background-color: #FAFBFC;
+  --ion-text-color: #1E293B;
+  --ion-border-color: #E2E8F0;
   
   // Card styling
   --ion-card-background: var(--lab-color-surface);
   --ion-card-box-shadow: var(--lab-shadow-soft);
   
   // Button styling
-  --ion-border-radius: var(--lab-radius-lg);
+  --ion-border-radius: var(--lab-radius-xl);
+  
+  // Input styling
+  --lab-input-background: #FFFFFF;
+  --lab-input-border: #CBD5E1;
+  --lab-input-focus-border: var(--ion-color-primary);
+  --lab-input-focus-shadow: 0 0 0 3px rgba(91, 141, 238, 0.1);
+  
+  // Progress indicators
+  --lab-progress-track: #E2E8F0;
+  --lab-progress-fill: var(--ion-color-primary);
+  
+  // Status badges
+  --lab-badge-info-bg: #DBEAFE;
+  --lab-badge-info-text: #1E40AF;
+  --lab-badge-success-bg: #D1FAE5;
+  --lab-badge-success-text: #065F46;
+  --lab-badge-warning-bg: #FEF3C7;
+  --lab-badge-warning-text: #92400E;
+  --lab-badge-danger-bg: #FEE2E2;
+  --lab-badge-danger-text: #991B1B;
 }
 
-// Light theme (explicit class)
-.light-theme {
-  --ion-background-color: #f8fafc;
-  --ion-text-color: #0f172a;
-  --ion-border-color: #e2e8f0;
-  
-  --lab-color-surface: #ffffff;
-  --lab-color-surface-variant: #f1f5f9;
-  --lab-color-outline: #e2e8f0;
-  --lab-color-outline-variant: #cbd5e1;
-  
-  --lab-glass-backdrop: rgba(255, 255, 255, 0.85);
-  --lab-glass-border: rgba(255, 255, 255, 0.2);
-}
+/* ===================================
+   DARK THEME (Optional - for future use)
+   App defaults to light theme for educational clarity
+   =================================== */
 
-// Dark theme (explicit class)
 .dark-theme {
-  --ion-background-color: #0f172a;
-  --ion-text-color: #f8fafc;
+  --ion-background-color: #0F172A;
+  --ion-text-color: #F8FAFC;
   --ion-border-color: #334155;
   
-  --lab-color-surface: #1e293b;
+  --lab-color-surface: #1E293B;
   --lab-color-surface-variant: #334155;
   --lab-color-outline: #475569;
-  --lab-color-outline-variant: #64748b;
+  --lab-color-outline-variant: #64748B;
   
-  --lab-glass-backdrop: rgba(30, 41, 59, 0.85);
+  --lab-glass-medium: rgba(30, 41, 59, 0.85);
   --lab-glass-border: rgba(255, 255, 255, 0.1);
   
-  // Dark mode text colors
-  --ion-color-dark: #f8fafc;
-  --ion-color-dark-rgb: 248, 250, 252;
-  --ion-color-medium: #94a3b8;
-  --ion-color-medium-rgb: 148, 163, 184;
-  
-  // Adjust gradients for dark mode
-  --ion-color-primary: #7c8feb;
-  --ion-color-secondary: #8b5fbf;
-}
-
-// Auto mode - system preference based
-@media (prefers-color-scheme: dark) {
-  :root:not(.light-theme):not(.dark-theme) {
-    --ion-background-color: #0f172a;
-    --ion-text-color: #f8fafc;
-    --ion-border-color: #334155;
-    
-    --lab-color-surface: #1e293b;
-    --lab-color-surface-variant: #334155;
-    --lab-color-outline: #475569;
-    --lab-color-outline-variant: #64748b;
-    
-    --lab-glass-backdrop: rgba(30, 41, 59, 0.85);
-    --lab-glass-border: rgba(255, 255, 255, 0.1);
-    
-    // Dark mode text colors
-    --ion-color-dark: #f8fafc;
-    --ion-color-dark-rgb: 248, 250, 252;
-    --ion-color-medium: #94a3b8;
-    --ion-color-medium-rgb: 148, 163, 184;
-    
-    --ion-color-primary: #7c8feb;
-    --ion-color-secondary: #8b5fbf;
-  }
-}
-
-@media (prefers-color-scheme: light) {
-  :root:not(.light-theme):not(.dark-theme) {
-    --ion-background-color: #f8fafc;
-    --ion-text-color: #0f172a;
-    --ion-border-color: #e2e8f0;
-    
-    --lab-color-surface: #ffffff;
-    --lab-color-surface-variant: #f1f5f9;
-    --lab-color-outline: #e2e8f0;
-    --lab-color-outline-variant: #cbd5e1;
-    
-    --lab-glass-backdrop: rgba(255, 255, 255, 0.85);
-    --lab-glass-border: rgba(255, 255, 255, 0.2);
-  }
+  --ion-color-dark: #F8FAFC;
+  --ion-color-medium: #94A3B8;
 }

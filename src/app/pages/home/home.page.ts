@@ -27,6 +27,7 @@ import { settings, layers, flask } from 'ionicons/icons';
             *ngFor="let lab of labs; let i = index"
             [iconName]="lab.icon"
             [label]="lab.name"
+            [subtitle]="lab.subtitle"
             [class.available]="lab.available"
             [class.coming-soon]="!lab.available"
             (cardClick)="onLabClick(lab)">
@@ -45,85 +46,122 @@ import { settings, layers, flask } from 'ionicons/icons';
   `,
   styles: [`
     .home-content {
-      --background: linear-gradient(180deg, #f8fafc 0%, #e0e7ff 100%);
+      --background: linear-gradient(180deg, 
+        #FAFBFC 0%, 
+        #F0F4FF 50%, 
+        #E5F0FF 100%
+      );
     }
     
     .home-container {
       max-width: 600px;
       margin: 0 auto;
-      padding-top: var(--lab-space-2xl);
+      padding-top: var(--lab-space-3xl);
       padding-bottom: var(--lab-space-2xl);
     }
     
     /* Hero Section */
     .hero-section {
       text-align: center;
-      margin-bottom: var(--lab-space-2xl);
+      margin-bottom: var(--lab-space-3xl);
       padding: 0 var(--lab-space-base);
+      animation: fadeInDown 0.8s ease-out;
     }
     
     .hero-icon {
-      width: 80px;
-      height: 80px;
-      margin: 0 auto var(--lab-space-lg);
-      background: linear-gradient(135deg, var(--ion-color-primary), var(--ion-color-secondary));
-      border-radius: 24px;
+      width: 96px;
+      height: 96px;
+      margin: 0 auto var(--lab-space-xl);
+      background: linear-gradient(135deg, 
+        var(--ion-color-primary), 
+        var(--ion-color-secondary)
+      );
+      border-radius: var(--lab-radius-3xl);
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 8px 32px rgba(102, 126, 234, 0.3);
+      box-shadow: var(--lab-shadow-primary);
       animation: float 3s ease-in-out infinite;
+      position: relative;
+      
+      &::before {
+        content: '';
+        position: absolute;
+        inset: -4px;
+        background: linear-gradient(135deg, 
+          var(--ion-color-primary), 
+          var(--ion-color-secondary)
+        );
+        border-radius: var(--lab-radius-3xl);
+        opacity: 0.3;
+        filter: blur(12px);
+        z-index: -1;
+      }
       
       ion-icon {
-        font-size: 48px;
+        font-size: 52px;
         color: white;
+        filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
       }
     }
     
     .home-title {
-      font-size: 2rem;
+      font-size: var(--lab-font-size-3xl);
       font-weight: 700;
       margin: 0 0 var(--lab-space-sm) 0;
-      background: linear-gradient(135deg, var(--ion-color-primary), var(--ion-color-secondary));
+      font-family: var(--lab-font-family-display);
+      letter-spacing: var(--lab-letter-spacing-tight);
+      background: linear-gradient(135deg, 
+        var(--ion-color-primary), 
+        var(--ion-color-secondary)
+      );
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
     }
     
     .home-subtitle {
-      font-size: var(--lab-font-size-base);
+      font-size: var(--lab-font-size-lg);
       color: var(--ion-color-medium);
       margin: 0;
       font-weight: 400;
+      line-height: var(--lab-line-height-relaxed);
     }
     
     /* Lab Cards */
     .lab-cards {
       display: flex;
       flex-direction: column;
-      gap: var(--lab-space-lg);
-      margin-bottom: var(--lab-space-2xl);
+      gap: var(--lab-space-xl);
+      margin-bottom: var(--lab-space-3xl);
+      padding: 0 var(--lab-space-base);
     }
     
     app-lab-card {
+      position: relative;
+      
       &.coming-soon {
-        opacity: 0.6;
-        position: relative;
+        opacity: 0.65;
+        pointer-events: none;
         
         &::after {
           content: 'Coming Soon';
           position: absolute;
-          top: var(--lab-space-base);
-          right: var(--lab-space-base);
-          background: linear-gradient(135deg, #ffce00, #ff9500);
+          top: var(--lab-space-lg);
+          right: var(--lab-space-lg);
+          background: linear-gradient(135deg, 
+            var(--ion-color-warning), 
+            #FF9500
+          );
           color: #000;
-          padding: 4px 12px;
-          border-radius: 12px;
-          font-size: 0.75rem;
-          font-weight: 600;
+          padding: 6px 14px;
+          border-radius: var(--lab-radius-full);
+          font-size: var(--lab-font-size-xs);
+          font-weight: 700;
           letter-spacing: 0.5px;
+          text-transform: uppercase;
           z-index: 10;
-          box-shadow: 0 2px 8px rgba(255, 206, 0, 0.3);
+          box-shadow: 0 4px 12px rgba(245, 158, 11, 0.4);
         }
       }
       
@@ -131,19 +169,23 @@ import { settings, layers, flask } from 'ionicons/icons';
         cursor: pointer;
         
         &::after {
-          content: 'Available';
+          content: '✓ Available';
           position: absolute;
-          top: var(--lab-space-base);
-          right: var(--lab-space-base);
-          background: linear-gradient(135deg, #10dc60, #38ef7d);
+          top: var(--lab-space-lg);
+          right: var(--lab-space-lg);
+          background: linear-gradient(135deg, 
+            var(--ion-color-success), 
+            var(--ion-color-secondary)
+          );
           color: white;
-          padding: 4px 12px;
-          border-radius: 12px;
-          font-size: 0.75rem;
-          font-weight: 600;
+          padding: 6px 14px;
+          border-radius: var(--lab-radius-full);
+          font-size: var(--lab-font-size-xs);
+          font-weight: 700;
           letter-spacing: 0.5px;
+          text-transform: uppercase;
           z-index: 10;
-          box-shadow: 0 2px 8px rgba(16, 220, 96, 0.3);
+          box-shadow: 0 4px 12px rgba(34, 197, 94, 0.4);
         }
       }
     }
@@ -153,28 +195,72 @@ import { settings, layers, flask } from 'ionicons/icons';
       display: flex;
       justify-content: center;
       padding: var(--lab-space-base);
+      animation: fadeIn 1s ease-out 0.6s both;
     }
     
     .info-chip {
-      --background: rgba(113, 128, 150, 0.1);
-      border: 1px solid var(--ion-color-medium);
+      --background: rgba(91, 141, 238, 0.1);
+      border: 1.5px solid rgba(91, 141, 238, 0.3);
       font-size: var(--lab-font-size-sm);
+      padding: var(--lab-space-sm) var(--lab-space-lg);
+      border-radius: var(--lab-radius-full);
       
       ion-icon {
-        margin-right: 4px;
+        margin-right: 6px;
+        color: var(--ion-color-primary);
+      }
+      
+      ion-label {
+        color: var(--ion-color-primary);
+        font-weight: 500;
       }
     }
     
     /* Responsive */
     @media (max-width: 768px) {
       .home-container {
-        padding-top: var(--lab-space-xl);
+        padding-top: var(--lab-space-2xl);
+      }
+      
+      .hero-section {
+        margin-bottom: var(--lab-space-2xl);
       }
       
       .hero-icon {
-        width: 64px;
-        height: 64px;
-        border-radius: 20px;
+        width: 80px;
+        height: 80px;
+        border-radius: var(--lab-radius-2xl);
+        
+        ion-icon {
+          font-size: 44px;
+        }
+      }
+      
+      .home-title {
+        font-size: var(--lab-font-size-2xl);
+      }
+      
+      .home-subtitle {
+        font-size: var(--lab-font-size-base);
+      }
+      
+      .lab-cards {
+        gap: var(--lab-space-lg);
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .home-container {
+        padding-top: var(--lab-space-xl);
+      }
+      
+      .hero-section {
+        margin-bottom: var(--lab-space-xl);
+      }
+      
+      .hero-icon {
+        width: 72px;
+        height: 72px;
         
         ion-icon {
           font-size: 40px;
@@ -182,25 +268,16 @@ import { settings, layers, flask } from 'ionicons/icons';
       }
       
       .home-title {
-        font-size: 1.75rem;
+        font-size: var(--lab-font-size-xl);
       }
       
       .home-subtitle {
         font-size: var(--lab-font-size-sm);
       }
-    }
-    
-    @media (max-width: 480px) {
-      .home-container {
-        padding-top: var(--lab-space-lg);
-      }
       
-      .hero-section {
-        margin-bottom: var(--lab-space-xl);
-      }
-      
-      .home-title {
-        font-size: 1.5rem;
+      .lab-cards {
+        gap: var(--lab-space-base);
+        padding: 0;
       }
     }
   `],
@@ -240,18 +317,21 @@ export class HomePage implements OnInit {
   labs = [
     {
       name: 'Tech LAB',
+      subtitle: 'Engineering & Materials Testing',
       icon: 'settings',
       available: false,
       route: null
     },
     {
       name: 'GeoTechnical LAB',
+      subtitle: 'Soil Analysis & Foundation Studies',
       icon: 'layers',
       available: true,
       route: '/tabs/geotechnical-lab'
     },
     {
       name: 'Chemical LAB',
+      subtitle: 'Composition & Reaction Analysis',
       icon: 'flask',
       available: false,
       route: null

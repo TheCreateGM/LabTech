@@ -412,3 +412,428 @@
     }
   }
 }
+
+/* ========================================
+   Responsive Grid Layouts
+   ======================================== */
+
+.grid-responsive {
+  display: grid;
+  gap: var(--lab-space-lg);
+  grid-template-columns: 1fr;
+  
+  @media (min-width: 480px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  @media (min-width: 1024px) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.grid-auto-fit {
+  display: grid;
+  gap: var(--lab-space-lg);
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
+.flex-responsive {
+  display: flex;
+  flex-direction: column;
+  gap: var(--lab-space-base);
+  
+  @media (min-width: 768px) {
+    flex-direction: row;
+  }
+}
+
+/* ========================================
+   Responsive Spacing
+   ======================================== */
+
+// Padding utilities
+.p-responsive {
+  padding: var(--lab-space-base);
+  
+  @media (min-width: 768px) {
+    padding: var(--lab-space-xl);
+  }
+  
+  @media (min-width: 1024px) {
+    padding: var(--lab-space-2xl);
+  }
+}
+
+.px-responsive {
+  padding-left: var(--lab-space-base);
+  padding-right: var(--lab-space-base);
+  
+  @media (min-width: 768px) {
+    padding-left: var(--lab-space-xl);
+    padding-right: var(--lab-space-xl);
+  }
+}
+
+.py-responsive {
+  padding-top: var(--lab-space-base);
+  padding-bottom: var(--lab-space-base);
+  
+  @media (min-width: 768px) {
+    padding-top: var(--lab-space-xl);
+    padding-bottom: var(--lab-space-xl);
+  }
+}
+
+// Margin utilities
+.m-responsive {
+  margin: var(--lab-space-base);
+  
+  @media (min-width: 768px) {
+    margin: var(--lab-space-xl);
+  }
+}
+
+/* ========================================
+   Responsive Typography
+   ======================================== */
+
+.text-responsive-xl {
+  font-size: var(--lab-font-size-xl);
+  
+  @media (min-width: 768px) {
+    font-size: var(--lab-font-size-2xl);
+  }
+  
+  @media (min-width: 1024px) {
+    font-size: var(--lab-font-size-3xl);
+  }
+}
+
+.text-responsive-lg {
+  font-size: var(--lab-font-size-lg);
+  
+  @media (min-width: 768px) {
+    font-size: var(--lab-font-size-xl);
+  }
+}
+
+.text-responsive-base {
+  font-size: var(--lab-font-size-sm);
+  
+  @media (min-width: 768px) {
+    font-size: var(--lab-font-size-base);
+  }
+}
+
+/* ========================================
+   Touch-Friendly Utilities
+   ======================================== */
+
+.touch-target {
+  min-height: 44px;
+  min-width: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.touch-feedback {
+  -webkit-tap-highlight-color: rgba(91, 141, 238, 0.2);
+  transition: transform 0.1s ease;
+  
+  &:active {
+    transform: scale(0.97);
+  }
+}
+
+/* ========================================
+   Focus Indicators (Accessibility)
+   ======================================== */
+
+.focus-visible-primary {
+  &:focus-visible {
+    outline: 3px solid var(--ion-color-primary);
+    outline-offset: 2px;
+    border-radius: var(--lab-radius-base);
+  }
+}
+
+.focus-ring {
+  &:focus {
+    outline: none;
+  }
+  
+  &:focus-visible {
+    box-shadow: 0 0 0 3px rgba(91, 141, 238, 0.3);
+    border-color: var(--ion-color-primary);
+  }
+}
+
+/* ========================================
+   Modern Card Effects
+   ======================================== */
+
+.card-modern {
+  background: var(--lab-color-surface);
+  border-radius: var(--lab-radius-2xl);
+  box-shadow: var(--lab-shadow-soft);
+  border: 1px solid var(--lab-color-outline);
+  transition: all var(--lab-transition-base);
+  
+  &:hover {
+    box-shadow: var(--lab-shadow-medium);
+    transform: translateY(-2px);
+    border-color: var(--ion-color-primary);
+  }
+}
+
+.card-glass {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: var(--lab-radius-2xl);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.card-gradient-border {
+  position: relative;
+  background: var(--lab-color-surface);
+  border-radius: var(--lab-radius-2xl);
+  padding: var(--lab-space-xl);
+  
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: var(--lab-radius-2xl);
+    padding: 2px;
+    background: linear-gradient(135deg, var(--ion-color-primary), var(--ion-color-secondary));
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+  }
+}
+
+/* ========================================
+   Neumorphic Effects
+   ======================================== */
+
+.neomorphic-soft {
+  background: var(--lab-color-surface);
+  box-shadow: 
+    8px 8px 16px rgba(163, 177, 198, 0.3),
+    -8px -8px 16px rgba(255, 255, 255, 0.8);
+  border-radius: var(--lab-radius-xl);
+}
+
+.neomorphic-inset {
+  background: var(--lab-color-surface);
+  box-shadow: 
+    inset 4px 4px 8px rgba(163, 177, 198, 0.2),
+    inset -4px -4px 8px rgba(255, 255, 255, 0.7);
+  border-radius: var(--lab-radius-lg);
+}
+
+/* ========================================
+   Status Indicators
+   ======================================== */
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 8px;
+  
+  &.online {
+    background: var(--ion-color-success);
+    box-shadow: 0 0 8px var(--ion-color-success);
+  }
+  
+  &.offline {
+    background: var(--ion-color-medium);
+  }
+  
+  &.busy {
+    background: var(--ion-color-warning);
+    box-shadow: 0 0 8px var(--ion-color-warning);
+  }
+}
+
+.pulse-ring {
+  position: relative;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    border-radius: 50%;
+    border: 2px solid var(--ion-color-primary);
+    animation: pulse-ring 1.5s ease-out infinite;
+  }
+}
+
+@keyframes pulse-ring {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+}
+
+/* ========================================
+   Truncate Text
+   ======================================== */
+
+.truncate-1 {
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.truncate-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.truncate-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ========================================
+   Image Utilities
+   ======================================== */
+
+.img-responsive {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.img-cover {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.img-contain {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.img-rounded {
+  border-radius: var(--lab-radius-xl);
+  overflow: hidden;
+}
+
+/* ========================================
+   Screen Reader Only (Accessibility)
+   ======================================== */
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* ========================================
+   Print Utilities
+   ======================================== */
+
+@media print {
+  .print-hidden {
+    display: none !important;
+  }
+  
+  .print-break-before {
+    page-break-before: always;
+  }
+  
+  .print-break-after {
+    page-break-after: always;
+  }
+  
+  .print-no-break {
+    page-break-inside: avoid;
+  }
+}
+
+/* ========================================
+   Aspect Ratio Containers
+   ======================================== */
+
+.aspect-square {
+  aspect-ratio: 1 / 1;
+}
+
+.aspect-video {
+  aspect-ratio: 16 / 9;
+}
+
+.aspect-portrait {
+  aspect-ratio: 3 / 4;
+}
+
+/* ========================================
+   Device-Specific Utilities
+   ======================================== */
+
+// Tablet portrait and up
+@media (min-width: 600px) {
+  .tablet-up-show { display: block; }
+  .tablet-up-hide { display: none; }
+}
+
+// Tablet landscape and up
+@media (min-width: 1024px) {
+  .desktop-show { display: block; }
+  .desktop-hide { display: none; }
+}
+
+// Mobile only
+@media (max-width: 599px) {
+  .mobile-only { display: block; }
+  .mobile-hide { display: none; }
+}
+
+/* ========================================
+   Orientation Utilities
+   ======================================== */
+
+@media (orientation: landscape) {
+  .landscape-show { display: block; }
+  .landscape-hide { display: none; }
+}
+
+@media (orientation: portrait) {
+  .portrait-show { display: block; }
+  .portrait-hide { display: none; }
+}

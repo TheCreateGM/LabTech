@@ -52,7 +52,7 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
   `,
   styles: [`
     .start-content {
-      --background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      --background: linear-gradient(135deg, var(--ion-color-primary) 0%, var(--ion-color-secondary) 100%);
     }
     
     .start-container {
@@ -74,7 +74,11 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
       left: 0;
       right: 0;
       bottom: 0;
-      background: linear-gradient(270deg, #667eea, #764ba2, #f093fb);
+      background: linear-gradient(270deg, 
+        var(--ion-color-primary), 
+        var(--ion-color-secondary), 
+        var(--ion-color-tertiary)
+      );
       background-size: 600% 600%;
       animation: gradientShift 15s ease infinite;
       z-index: 0;
