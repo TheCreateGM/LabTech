@@ -11,6 +11,14 @@
 @import "@ionic/angular/css/display.css";
 @import '@ionic/angular/css/palettes/dark.system.css';
 
+/* Tailwind CSS imports */
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+/* Custom utility styles */
+@import './styles/utilities.scss';
+
 /* Base styles */
 * {
   box-sizing: border-box;

@@ -185,10 +185,11 @@ export class AuthService {
             await this.storeAccessToken(response.accessToken);
             this.scheduleTokenRefresh(response.expiresIn);
           }),
-          catchError(async (error) => {
+          catchError((error) => {
             // If refresh fails, clear auth and force re-login
-            await this.clearStoredAuth();
-            this.currentUserSubject.next(null);
+            this.clearStoredAuth().then(() => {
+              this.currentUserSubject.next(null);
+            });
             return throwError(() => error);
           })
         ).subscribe({
