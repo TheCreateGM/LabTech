@@ -209,11 +209,13 @@ import { AppHeaderComponent } from '../../../components/app-header.component';
         }
         
         div {
-          color: var(--ion-text-color);
+          color: #1e293b;
+          line-height: 1.6;
         }
         
         strong {
-          color: var(--ion-color-info-shade);
+          color: var(--ion-color-info);
+          font-weight: 600;
         }
       }
       
@@ -226,11 +228,13 @@ import { AppHeaderComponent } from '../../../components/app-header.component';
         }
         
         div {
-          color: var(--ion-text-color);
+          color: #78350f;
+          line-height: 1.6;
         }
         
         strong {
-          color: var(--ion-color-warning-shade);
+          color: #92400e;
+          font-weight: 600;
         }
       }
     }
