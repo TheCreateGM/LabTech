@@ -208,8 +208,12 @@ import { AppHeaderComponent } from '../../../components/app-header.component';
           color: var(--ion-color-info);
         }
         
+        div {
+          color: var(--ion-text-color);
+        }
+        
         strong {
-          color: var(--lab-badge-info-text);
+          color: var(--ion-color-info-shade);
         }
       }
       
@@ -221,8 +225,12 @@ import { AppHeaderComponent } from '../../../components/app-header.component';
           color: var(--ion-color-warning);
         }
         
+        div {
+          color: var(--ion-text-color);
+        }
+        
         strong {
-          color: var(--lab-badge-warning-text);
+          color: var(--ion-color-warning-shade);
         }
       }
     }
