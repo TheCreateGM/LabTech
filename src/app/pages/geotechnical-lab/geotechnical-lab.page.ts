@@ -121,7 +121,7 @@ import { trigger, transition, style, animate, query, stagger } from '@angular/an
       font-size: 1.75rem;
       font-weight: 700;
       margin: 0 0 var(--lab-space-sm) 0;
-      color: var(--ion-color-dark);
+      color: var(--ion-text-color) !important;
     }
     
     .section-subtitle {
@@ -233,7 +233,7 @@ import { trigger, transition, style, animate, query, stagger } from '@angular/an
       font-size: var(--lab-font-size-xl);
       font-weight: 700;
       margin: 0 0 var(--lab-space-sm) 0;
-      color: var(--ion-color-dark);
+      color: var(--ion-text-color) !important;
       line-height: 1.3;
     }
     

@@ -56,8 +56,37 @@ import { AppHeaderComponent } from '../../../components/app-header.component';
           </ion-card-content>
         </ion-card>
         
-        <!-- Apparatus & Material Card -->
+        <!-- Video Tutorial Card -->
         <ion-card class="content-card animate-fade-in-up stagger-2">
+          <ion-card-header>
+            <div class="section-header">
+              <div class="section-icon video-icon">
+                <ion-icon name="play-circle-outline"></ion-icon>
+              </div>
+              <ion-card-title>Video Tutorial</ion-card-title>
+            </div>
+          </ion-card-header>
+          <ion-card-content>
+            <div class="video-container">
+              <iframe 
+                src="https://www.youtube.com/embed/QqxfwpUtEoQ?si=pMlQQ1S6fq73lVj2" 
+                title="Grain Size Sieve Analysis (Dry) Tutorial"
+                frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                allowfullscreen>
+              </iframe>
+            </div>
+            <div class="info-box info">
+              <ion-icon name="information-circle"></ion-icon>
+              <div>
+                <strong>Watch and Learn:</strong> This video demonstrates the complete procedure for grain size sieve analysis.
+              </div>
+            </div>
+          </ion-card-content>
+        </ion-card>
+
+        <!-- Apparatus & Material Card -->
+        <ion-card class="content-card animate-fade-in-up stagger-3">
           <ion-card-header>
             <div class="section-header">
               <div class="section-icon apparatus-icon">
@@ -106,7 +135,7 @@ import { AppHeaderComponent } from '../../../components/app-header.component';
         </ion-card>
         
         <!-- Navigation Buttons -->
-        <div class="nav-buttons animate-fade-in-up stagger-3">
+        <div class="nav-buttons animate-fade-in-up stagger-4">
           <ion-button 
             expand="block"
             size="large"
@@ -145,6 +174,11 @@ import { AppHeaderComponent } from '../../../components/app-header.component';
       display: flex;
       align-items: center;
       gap: var(--lab-space-base);
+      
+      ion-card-title {
+        color: var(--ion-text-color) !important;
+        font-weight: 600;
+      }
     }
     
     .section-icon {
@@ -175,6 +209,14 @@ import { AppHeaderComponent } from '../../../components/app-header.component';
         var(--ion-color-secondary)
       );
       box-shadow: var(--lab-shadow-primary);
+    }
+    
+    .video-icon {
+      background: linear-gradient(135deg, 
+        var(--ion-color-danger), 
+        #ff6b6b
+      );
+      box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
     }
     
     .apparatus-icon {
@@ -272,11 +314,33 @@ import { AppHeaderComponent } from '../../../components/app-header.component';
         span {
           flex: 1;
           line-height: var(--lab-line-height-relaxed);
-          color: var(--ion-text-color);
+          color: var(--ion-text-color) !important;
         }
       }
     }
     
+    /* Video Container */
+    .video-container {
+      position: relative;
+      width: 100%;
+      height: 0;
+      padding-bottom: 56.25%; /* 16:9 aspect ratio */
+      margin-bottom: var(--lab-space-lg);
+      border-radius: var(--lab-radius-lg);
+      overflow: hidden;
+      box-shadow: var(--lab-shadow-medium);
+      
+      iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border: none;
+        border-radius: var(--lab-radius-lg);
+      }
+    }
+
     /* Navigation Buttons */
     .nav-buttons {
       display: flex;

@@ -24,6 +24,21 @@ import { HeaderComponent } from '../../../components/header.component';
         
         <p>The relationship between dry density and moisture content typically shows that as moisture content increases, dry density increases to a maximum value (maximum dry density at optimum moisture content), after which further increase in moisture content causes a decrease in dry density.</p>
         
+        <h3>Video Tutorial</h3>
+        <div class="video-container">
+          <iframe 
+            src="https://www.youtube.com/embed/zubJOrbvbIg?si=Jfbz9MnhSi7glYDP" 
+            title="Standard Proctor Compaction Test Tutorial"
+            frameborder="0" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+            allowfullscreen>
+          </iframe>
+        </div>
+        <div class="video-info">
+          <ion-icon name="information-circle"></ion-icon>
+          <span>Watch this comprehensive tutorial on Standard Proctor Compaction Test procedure</span>
+        </div>
+        
         <h3>C. APPARATUS & MATERIAL</h3>
         <ul>
           <li>Standard Proctor mould with detachable collar and base plate (internal diameter 101.6 mm, height 116.4 mm)</li>
@@ -55,7 +70,7 @@ import { HeaderComponent } from '../../../components/header.component';
     }
     
     h3 {
-      color: var(--ion-color-primary);
+      color: var(--ion-color-primary) !important;
       font-weight: 600;
       margin-top: 24px;
       margin-bottom: 12px;
@@ -65,6 +80,52 @@ import { HeaderComponent } from '../../../components/header.component';
       line-height: 1.6;
       margin-bottom: 16px;
       text-align: justify;
+      color: var(--ion-text-color) !important;
+    }
+    
+    /* Video Container */
+    .video-container {
+      position: relative;
+      width: 100%;
+      height: 0;
+      padding-bottom: 56.25%; /* 16:9 aspect ratio */
+      margin: 20px 0;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+      
+      iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border: none;
+        border-radius: 12px;
+      }
+    }
+    
+    .video-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px;
+      background: rgba(59, 130, 246, 0.08);
+      border-radius: 12px;
+      margin-bottom: 20px;
+      border-left: 4px solid var(--ion-color-info);
+      
+      ion-icon {
+        color: var(--ion-color-info);
+        font-size: 24px;
+        flex-shrink: 0;
+      }
+      
+      span {
+        color: var(--ion-text-color) !important;
+        line-height: 1.5;
+        font-weight: 500;
+      }
     }
     
     ul {
@@ -74,6 +135,7 @@ import { HeaderComponent } from '../../../components/header.component';
     li {
       margin-bottom: 8px;
       line-height: 1.5;
+      color: var(--ion-text-color) !important;
     }
     
     .navigation-buttons {
