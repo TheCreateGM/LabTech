@@ -412,21 +412,19 @@ export class ProctorTestDataPage implements OnInit {
    * 3. Moisture Content (w) = [(c2 - c3) / (c3 - c1)] × 100
    */
   calculateMoistureValues(container: MoistureData) {
+    // Check if all required values are present
     if (container.massContainer !== null && 
         container.massContainerWetSoil !== null && 
-        container.massContainerDrySoil !== null &&
-        container.massContainer >= 0 &&
-        container.massContainerWetSoil > container.massContainerDrySoil &&
-        container.massContainerDrySoil > container.massContainer) {
+        container.massContainerDrySoil !== null) {
       
-      // Calculate mass of moisture
+      // Calculate mass of moisture (c2 - c3)
       container.massMoisture = container.massContainerWetSoil - container.massContainerDrySoil;
       
-      // Calculate mass of dry soil
+      // Calculate mass of dry soil (c3 - c1)
       container.massDrySoil = container.massContainerDrySoil - container.massContainer;
       
-      // Calculate moisture content
-      if (container.massDrySoil > 0) {
+      // Calculate moisture content only if mass of dry soil is positive
+      if (container.massDrySoil > 0 && container.massMoisture >= 0) {
         container.moistureContent = (container.massMoisture / container.massDrySoil) * 100;
         
         // Update corresponding dry density
@@ -434,8 +432,11 @@ export class ProctorTestDataPage implements OnInit {
         if (densityTest && densityTest.bulkDensity !== null) {
           densityTest.dryDensity = densityTest.bulkDensity / (1 + container.moistureContent / 100);
         }
+      } else {
+        container.moistureContent = null;
       }
     } else {
+      // Reset calculated values if inputs are incomplete
       container.massMoisture = null;
       container.massDrySoil = null;
       container.moistureContent = null;
