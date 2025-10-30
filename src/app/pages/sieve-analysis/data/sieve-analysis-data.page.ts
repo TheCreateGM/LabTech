@@ -364,6 +364,10 @@ export class SieveAnalysisDataPage implements OnInit {
   }
 
   onTotalMassChange() {
+    // Convert to number if it's a string
+    if (typeof this.totalMass === 'string') {
+      this.totalMass = parseFloat(this.totalMass as any) || null;
+    }
     this.calculateValues();
   }
 
@@ -387,6 +391,11 @@ export class SieveAnalysisDataPage implements OnInit {
     // Calculate values for each sieve
     for (let i = 0; i < this.sieveData.length; i++) {
       const row = this.sieveData[i];
+
+      // Convert string to number if needed
+      if (typeof row.massRetained === 'string') {
+        row.massRetained = parseFloat(row.massRetained as any) || null;
+      }
 
       if (row.massRetained !== null && row.massRetained >= 0) {
         // Calculate percentage retained on this sieve
@@ -469,8 +478,23 @@ export class SieveAnalysisDataPage implements OnInit {
   }
 
   navigateNext() {
+    // Convert total mass to number if it's a string
+    if (typeof this.totalMass === 'string') {
+      this.totalMass = parseFloat(this.totalMass as any) || null;
+    }
+
     if (!this.totalMass || this.totalMass <= 0) {
       alert('Please enter the total mass of soil sample before proceeding.');
+      return;
+    }
+
+    // Check if at least some sieve data has been entered
+    const hasAnySieveData = this.sieveData.some(row =>
+      row.massRetained !== null && row.massRetained !== undefined && String(row.massRetained).trim() !== ''
+    );
+
+    if (!hasAnySieveData) {
+      alert('Please enter mass retained values for at least one sieve before proceeding.');
       return;
     }
 

@@ -70,13 +70,13 @@ interface MoistureData {
                 <tr>
                   <td>Mass of mold + base (m1) kg</td>
                   <td *ngFor="let test of densityData">
-                    <ion-input type="number" placeholder="0.0" [(ngModel)]="test.massOfMoldBase" (ionChange)="calculateDensityValues(test)"></ion-input>
+                    <ion-input type="number" inputmode="decimal" step="any" placeholder="0.0" [(ngModel)]="test.massOfMoldBase" (ionChange)="calculateDensityValues(test)"></ion-input>
                   </td>
                 </tr>
                 <tr>
                   <td>Mass total (m2) kg</td>
                   <td *ngFor="let test of densityData">
-                    <ion-input type="number" placeholder="0.0" [(ngModel)]="test.massTotal" (ionChange)="calculateDensityValues(test)"></ion-input>
+                    <ion-input type="number" inputmode="decimal" step="any" placeholder="0.0" [(ngModel)]="test.massTotal" (ionChange)="calculateDensityValues(test)"></ion-input>
                   </td>
                 </tr>
                 <tr>
@@ -116,19 +116,19 @@ interface MoistureData {
                 <tr>
                   <td>Mass of container (c1) g</td>
                   <td *ngFor="let container of moistureData">
-                    <ion-input type="number" placeholder="0.0" [(ngModel)]="container.massContainer" (ionChange)="calculateMoistureValues(container)"></ion-input>
+                    <ion-input type="number" inputmode="decimal" step="any" placeholder="0.0" [(ngModel)]="container.massContainer" (ionChange)="calculateMoistureValues(container)"></ion-input>
                   </td>
                 </tr>
                 <tr>
                   <td>Mass container + wet soil (c2) g</td>
                   <td *ngFor="let container of moistureData">
-                    <ion-input type="number" placeholder="0.0" [(ngModel)]="container.massContainerWetSoil" (ionChange)="calculateMoistureValues(container)"></ion-input>
+                    <ion-input type="number" inputmode="decimal" step="any" placeholder="0.0" [(ngModel)]="container.massContainerWetSoil" (ionChange)="calculateMoistureValues(container)"></ion-input>
                   </td>
                 </tr>
                 <tr>
                   <td>Mass container + dry soil (c3) g</td>
                   <td *ngFor="let container of moistureData">
-                    <ion-input type="number" placeholder="0.0" [(ngModel)]="container.massContainerDrySoil" (ionChange)="calculateMoistureValues(container)"></ion-input>
+                    <ion-input type="number" inputmode="decimal" step="any" placeholder="0.0" [(ngModel)]="container.massContainerDrySoil" (ionChange)="calculateMoistureValues(container)"></ion-input>
                   </td>
                 </tr>
                 <tr>
@@ -378,6 +378,14 @@ export class ProctorTestDataPage implements OnInit {
    * 3. Dry Density (ρd) = ρb / (1 + w/100)
    */
   calculateDensityValues(test: DensityData) {
+    // Convert string inputs to numbers if needed
+    if (typeof test.massOfMoldBase === 'string') {
+      test.massOfMoldBase = parseFloat(test.massOfMoldBase) || null;
+    }
+    if (typeof test.massTotal === 'string') {
+      test.massTotal = parseFloat(test.massTotal) || null;
+    }
+    
     if (test.massOfMoldBase !== null && test.massTotal !== null && 
         test.massOfMoldBase >= 0 && test.massTotal > test.massOfMoldBase) {
       
@@ -412,6 +420,17 @@ export class ProctorTestDataPage implements OnInit {
    * 3. Moisture Content (w) = [(c2 - c3) / (c3 - c1)] × 100
    */
   calculateMoistureValues(container: MoistureData) {
+    // Convert string inputs to numbers if needed
+    if (typeof container.massContainer === 'string') {
+      container.massContainer = parseFloat(container.massContainer) || null;
+    }
+    if (typeof container.massContainerWetSoil === 'string') {
+      container.massContainerWetSoil = parseFloat(container.massContainerWetSoil) || null;
+    }
+    if (typeof container.massContainerDrySoil === 'string') {
+      container.massContainerDrySoil = parseFloat(container.massContainerDrySoil) || null;
+    }
+    
     // Check if all required values are present
     if (container.massContainer !== null && 
         container.massContainerWetSoil !== null && 
@@ -504,7 +523,32 @@ export class ProctorTestDataPage implements OnInit {
   }
 
   navigateNext() {
-    if (this.completedTests < 1) {
+    // Convert mould volume to number if it's a string
+    if (typeof this.mouldVolume === 'string') {
+      this.mouldVolume = parseFloat(this.mouldVolume as any) || 0.001;
+    }
+    
+    // Validate mould volume
+    if (!this.mouldVolume || this.mouldVolume <= 0) {
+      alert('Please enter a valid Volume of mould (V).\n\nStandard mould volume is typically 0.001 m³ (1000 cm³)');
+      return;
+    }
+    
+    // Check if at least one test has basic data filled in
+    const hasAnyTestData = this.densityData.some(test => {
+      const m1 = test.massOfMoldBase !== null && test.massOfMoldBase !== undefined && String(test.massOfMoldBase).trim() !== '';
+      const m2 = test.massTotal !== null && test.massTotal !== undefined && String(test.massTotal).trim() !== '';
+      return m1 && m2;
+    });
+    
+    const hasAnyMoistureData = this.moistureData.some(container => {
+      const c1 = container.massContainer !== null && container.massContainer !== undefined && String(container.massContainer).trim() !== '';
+      const c2 = container.massContainerWetSoil !== null && container.massContainerWetSoil !== undefined && String(container.massContainerWetSoil).trim() !== '';
+      const c3 = container.massContainerDrySoil !== null && container.massContainerDrySoil !== undefined && String(container.massContainerDrySoil).trim() !== '';
+      return c1 && c2 && c3;
+    });
+    
+    if (!hasAnyTestData || !hasAnyMoistureData) {
       alert('Please complete at least one test before proceeding.\n\nTo complete a test, you need to:\n1. Fill in Mass of mold + base (m1)\n2. Fill in Mass total (m2)\n3. Fill in all three container masses (c1, c2, c3)\n\nThis will calculate the dry density and moisture content for that test.');
       return;
     }
