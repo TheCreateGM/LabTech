@@ -505,7 +505,7 @@ export class ProctorTestDataPage implements OnInit {
 
   navigateNext() {
     if (this.completedTests < 1) {
-      alert('Please complete at least one test before proceeding.');
+      alert('Please complete at least one test before proceeding.\n\nTo complete a test, you need to:\n1. Fill in Mass of mold + base (m1)\n2. Fill in Mass total (m2)\n3. Fill in all three container masses (c1, c2, c3)\n\nThis will calculate the dry density and moisture content for that test.');
       return;
     }
     
