@@ -69,7 +69,7 @@ import { AppHeaderComponent } from '../../../components/app-header.component';
           <ion-card-content>
             <div class="video-container">
               <iframe 
-                src="https://www.youtube.com/embed/QqxfwpUtEoQ?si=pMlQQ1S6fq73lVj2" 
+                src="https://www.youtube.com/embed/AM-NrQoRIYY" 
                 title="Grain Size Sieve Analysis (Dry) Tutorial"
                 frameborder="0" 
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
