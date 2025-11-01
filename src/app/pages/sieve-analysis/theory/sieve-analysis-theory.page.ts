@@ -11,6 +11,14 @@ import { AppHeaderComponent } from '../../../components/app-header.component';
     <ion-content class="theory-content">
       <div class="page-content">
         
+        <!-- Equipment Image Button -->
+        <div class="equipment-image-button" (click)="openImage()">
+          <div class="image-overlay">
+            <ion-icon name="images-outline"></ion-icon>
+            <span>View Sieve Analysis Equipment</span>
+          </div>
+        </div>
+        
         <!-- Objectives Card -->
         <ion-card class="content-card animate-fade-in-up">
           <ion-card-header>
@@ -155,6 +163,53 @@ import { AppHeaderComponent } from '../../../components/app-header.component';
         #FAFBFC 0%, 
         #F0F4FF 100%
       );
+    }
+    
+    /* Equipment Image Button */
+    .equipment-image-button {
+      position: relative;
+      width: 100%;
+      height: 200px;
+      margin-bottom: var(--lab-space-xl);
+      border-radius: var(--lab-radius-lg);
+      overflow: hidden;
+      cursor: pointer;
+      background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.5)),
+                  url('https://www.mdpi.com/applsci/applsci-11-01609/article_deploy/html/images/applsci-11-01609-g001.png') center/cover no-repeat;
+      box-shadow: var(--lab-shadow-medium);
+      transition: all var(--lab-transition-base);
+      
+      &:hover {
+        transform: translateY(-4px);
+        box-shadow: var(--lab-shadow-large);
+      }
+      
+      &:active {
+        transform: translateY(-2px);
+      }
+    }
+    
+    .image-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: var(--lab-space-lg);
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+      display: flex;
+      align-items: center;
+      gap: var(--lab-space-base);
+      color: white;
+      
+      ion-icon {
+        font-size: 28px;
+      }
+      
+      span {
+        font-size: 16px;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+      }
     }
     
     .content-card {
@@ -418,6 +473,10 @@ import { AppHeaderComponent } from '../../../components/app-header.component';
 })
 export class SieveAnalysisTheoryPage {
   constructor(private router: Router) {}
+
+  openImage() {
+    window.open('https://www.mdpi.com/applsci/applsci-11-01609/article_deploy/html/images/applsci-11-01609-g001.png', '_blank');
+  }
 
   navigateNext() {
     this.router.navigate(['/tabs/sieve-analysis/procedure']);

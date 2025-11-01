@@ -14,6 +14,14 @@ import { HeaderComponent } from '../../../components/header.component';
     
     <ion-content class="ion-padding">
       <div class="content-section">
+        <!-- Equipment Image Button -->
+        <div class="equipment-image-button" (click)="openImage()">
+          <div class="image-overlay">
+            <ion-icon name="images-outline"></ion-icon>
+            <span>View Standard Proctor Equipment</span>
+          </div>
+        </div>
+        
         <h3>A. OBJECTIVES</h3>
         <p>To determine the relationship between the dry density and moisture content of soils and to determine the maximum dry density and optimum moisture content.</p>
         
@@ -65,6 +73,53 @@ import { HeaderComponent } from '../../../components/header.component';
     </ion-content>
   `,
   styles: [`
+    /* Equipment Image Button */
+    .equipment-image-button {
+      position: relative;
+      width: 100%;
+      height: 200px;
+      margin-bottom: 24px;
+      border-radius: 12px;
+      overflow: hidden;
+      cursor: pointer;
+      background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.5)),
+                  url('https://www.vertexinstruments.com/wp-content/uploads/2020/02/Standard_Proctor_Compaction_Test_Apparatus-jpg-1200x900.webp') center/cover no-repeat;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+      transition: all 0.3s ease;
+    }
+    
+    .equipment-image-button:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.18);
+    }
+    
+    .equipment-image-button:active {
+      transform: translateY(-2px);
+    }
+    
+    .image-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 16px;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: white;
+    }
+    
+    .image-overlay ion-icon {
+      font-size: 28px;
+    }
+    
+    .image-overlay span {
+      font-size: 16px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+    
     .content-section {
       margin-bottom: 80px;
     }
@@ -154,6 +209,10 @@ import { HeaderComponent } from '../../../components/header.component';
 })
 export class ProctorTestTheoryPage {
   constructor(private router: Router) {}
+
+  openImage() {
+    window.open('https://www.vertexinstruments.com/wp-content/uploads/2020/02/Standard_Proctor_Compaction_Test_Apparatus-jpg-1200x900.webp', '_blank');
+  }
 
   navigateNext() {
     this.router.navigate(['/proctor-test/procedure']);
