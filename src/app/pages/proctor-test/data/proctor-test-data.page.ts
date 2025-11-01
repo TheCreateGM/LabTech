@@ -380,27 +380,32 @@ export class ProctorTestDataPage implements OnInit {
    */
   calculateDensityValues(test: DensityData) {
     // Convert string inputs to numbers if needed
-    if (typeof test.massOfMoldBase === 'string') {
-      test.massOfMoldBase = parseFloat(test.massOfMoldBase) || null;
-    }
-    if (typeof test.massTotal === 'string') {
-      test.massTotal = parseFloat(test.massTotal) || null;
-    }
+    const m1 = test.massOfMoldBase !== null && test.massOfMoldBase !== undefined ? 
+      (typeof test.massOfMoldBase === 'string' ? parseFloat(test.massOfMoldBase) : test.massOfMoldBase) : null;
+    const m2 = test.massTotal !== null && test.massTotal !== undefined ? 
+      (typeof test.massTotal === 'string' ? parseFloat(test.massTotal) : test.massTotal) : null;
     
-    if (test.massOfMoldBase !== null && test.massTotal !== null && 
-        test.massOfMoldBase >= 0 && test.massTotal > test.massOfMoldBase) {
-      
+    // Update the values back to the object
+    test.massOfMoldBase = m1;
+    test.massTotal = m2;
+    
+    // Check if we have valid numbers
+    if (m1 !== null && m2 !== null && !isNaN(m1) && !isNaN(m2) && m1 >= 0 && m2 > m1) {
       // Calculate mass of specimen
-      test.massSpecimen = test.massTotal - test.massOfMoldBase;
+      test.massSpecimen = m2 - m1;
       
       // Calculate bulk density (ρb = mass / volume)
-      if (this.mouldVolume > 0) {
-        test.bulkDensity = test.massSpecimen / this.mouldVolume;
+      const volume = typeof this.mouldVolume === 'string' ? parseFloat(this.mouldVolume) : this.mouldVolume;
+      if (volume > 0) {
+        test.bulkDensity = test.massSpecimen / volume;
         
         // Calculate dry density if moisture content is available
         const moistureContent = this.moistureData[test.testNumber - 1]?.moistureContent;
-        if (moistureContent !== null && moistureContent !== undefined) {
+        if (moistureContent !== null && moistureContent !== undefined && !isNaN(moistureContent)) {
           test.dryDensity = test.bulkDensity / (1 + moistureContent / 100);
+        } else {
+          // If no moisture content yet, set dry density to null
+          test.dryDensity = null;
         }
       }
     } else {
@@ -422,26 +427,27 @@ export class ProctorTestDataPage implements OnInit {
    */
   calculateMoistureValues(container: MoistureData) {
     // Convert string inputs to numbers if needed
-    if (typeof container.massContainer === 'string') {
-      container.massContainer = parseFloat(container.massContainer) || null;
-    }
-    if (typeof container.massContainerWetSoil === 'string') {
-      container.massContainerWetSoil = parseFloat(container.massContainerWetSoil) || null;
-    }
-    if (typeof container.massContainerDrySoil === 'string') {
-      container.massContainerDrySoil = parseFloat(container.massContainerDrySoil) || null;
-    }
+    const c1 = container.massContainer !== null && container.massContainer !== undefined ? 
+      (typeof container.massContainer === 'string' ? parseFloat(container.massContainer) : container.massContainer) : null;
+    const c2 = container.massContainerWetSoil !== null && container.massContainerWetSoil !== undefined ? 
+      (typeof container.massContainerWetSoil === 'string' ? parseFloat(container.massContainerWetSoil) : container.massContainerWetSoil) : null;
+    const c3 = container.massContainerDrySoil !== null && container.massContainerDrySoil !== undefined ? 
+      (typeof container.massContainerDrySoil === 'string' ? parseFloat(container.massContainerDrySoil) : container.massContainerDrySoil) : null;
     
-    // Check if all required values are present
-    if (container.massContainer !== null && 
-        container.massContainerWetSoil !== null && 
-        container.massContainerDrySoil !== null) {
+    // Update the values back to the object
+    container.massContainer = c1;
+    container.massContainerWetSoil = c2;
+    container.massContainerDrySoil = c3;
+    
+    // Check if all required values are present and valid
+    if (c1 !== null && c2 !== null && c3 !== null && 
+        !isNaN(c1) && !isNaN(c2) && !isNaN(c3)) {
       
       // Calculate mass of moisture (c2 - c3)
-      container.massMoisture = container.massContainerWetSoil - container.massContainerDrySoil;
+      container.massMoisture = c2 - c3;
       
       // Calculate mass of dry soil (c3 - c1)
-      container.massDrySoil = container.massContainerDrySoil - container.massContainer;
+      container.massDrySoil = c3 - c1;
       
       // Calculate moisture content only if mass of dry soil is positive
       if (container.massDrySoil > 0 && container.massMoisture >= 0) {
@@ -449,7 +455,7 @@ export class ProctorTestDataPage implements OnInit {
         
         // Update corresponding dry density
         const densityTest = this.densityData[container.containerNumber - 1];
-        if (densityTest && densityTest.bulkDensity !== null) {
+        if (densityTest && densityTest.bulkDensity !== null && !isNaN(densityTest.bulkDensity)) {
           densityTest.dryDensity = densityTest.bulkDensity / (1 + container.moistureContent / 100);
         }
       } else {
