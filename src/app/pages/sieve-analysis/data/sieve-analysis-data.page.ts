@@ -191,13 +191,13 @@ interface SieveData {
     .data-table {
       width: 100%;
       border-collapse: collapse;
-      font-size: 11px;
+      font-size: 12px;
     }
     
     .data-table th,
     .data-table td {
       border: 1px solid var(--lab-color-outline);
-      padding: 6px;
+      padding: 8px;
       text-align: center;
     }
     
@@ -205,7 +205,7 @@ interface SieveData {
       background-color: var(--ion-color-primary);
       color: white;
       font-weight: 600;
-      font-size: 10px;
+      font-size: 11px;
     }
     
     .data-table td:first-child {
@@ -218,15 +218,17 @@ interface SieveData {
       --background: var(--ion-color-light);
       --color: var(--ion-text-color);
       --placeholder-color: var(--ion-color-medium);
-      --padding: 4px;
-      font-size: 11px;
+      --padding: 8px;
+      font-size: 14px;
       border-radius: 4px;
+      min-height: 40px;
     }
     
     .calculated-cell {
       background: rgba(var(--ion-color-success-rgb), 0.1);
       color: var(--ion-text-color);
       font-weight: 500;
+      font-size: 12px;
     }
     
     .has-error {

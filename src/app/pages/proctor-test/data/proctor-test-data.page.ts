@@ -235,31 +235,32 @@ interface MoistureData {
     
     .table-section { margin-bottom: 24px; }
     .table-container { overflow-x: auto; }
-    .data-table { width: 100%; border-collapse: collapse; font-size: 9px; }
-    .data-table th, .data-table td { border: 1px solid var(--lab-color-outline); padding: 4px; text-align: center; }
-    .data-table th { background-color: var(--ion-color-primary); color: white; font-weight: 600; font-size: 8px; }
+    .data-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+    .data-table th, .data-table td { border: 1px solid var(--lab-color-outline); padding: 8px; text-align: center; }
+    .data-table th { background-color: var(--ion-color-primary); color: white; font-weight: 600; font-size: 11px; }
     .data-table td:first-child { 
       background: var(--lab-color-surface); 
       color: var(--ion-text-color); 
       font-weight: 500; 
       text-align: left; 
       white-space: nowrap;
-      font-size: 9px;
+      font-size: 12px;
     }
     .data-table td ion-input { 
-      --padding: 2px; 
-      font-size: 9px; 
+      --padding: 8px; 
+      font-size: 14px; 
       --background: var(--ion-color-light); 
       --color: var(--ion-text-color); 
       --placeholder-color: var(--ion-color-medium); 
-      border-radius: 4px; 
+      border-radius: 4px;
+      min-height: 40px;
     }
     
     .calculated-cell {
       background: rgba(var(--ion-color-success-rgb), 0.1);
       color: var(--ion-text-color);
       font-weight: 600;
-      font-size: 9px;
+      font-size: 12px;
     }
     
     .calculation-summary {
