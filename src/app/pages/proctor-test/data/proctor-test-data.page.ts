@@ -48,7 +48,7 @@ interface MoistureData {
               step="any"
               placeholder="0.001"
               [(ngModel)]="mouldVolume"
-              (ionChange)="calculateAllValues()"
+              (ionInput)="calculateAllValues()"
               class="input-field">
             </ion-input>
             <span>m³</span>
@@ -70,13 +70,13 @@ interface MoistureData {
                 <tr>
                   <td>Mass of mold + base (m1) kg</td>
                   <td *ngFor="let test of densityData">
-                    <ion-input type="number" inputmode="decimal" step="any" placeholder="0.0" [(ngModel)]="test.massOfMoldBase" (ionChange)="calculateDensityValues(test)"></ion-input>
+                    <ion-input type="number" inputmode="decimal" step="any" placeholder="0.0" [(ngModel)]="test.massOfMoldBase" (ionInput)="calculateDensityValues(test)"></ion-input>
                   </td>
                 </tr>
                 <tr>
                   <td>Mass total (m2) kg</td>
                   <td *ngFor="let test of densityData">
-                    <ion-input type="number" inputmode="decimal" step="any" placeholder="0.0" [(ngModel)]="test.massTotal" (ionChange)="calculateDensityValues(test)"></ion-input>
+                    <ion-input type="number" inputmode="decimal" step="any" placeholder="0.0" [(ngModel)]="test.massTotal" (ionInput)="calculateDensityValues(test)"></ion-input>
                   </td>
                 </tr>
                 <tr>
@@ -116,19 +116,19 @@ interface MoistureData {
                 <tr>
                   <td>Mass of container (c1) g</td>
                   <td *ngFor="let container of moistureData">
-                    <ion-input type="number" inputmode="decimal" step="any" placeholder="0.0" [(ngModel)]="container.massContainer" (ionChange)="calculateMoistureValues(container)"></ion-input>
+                    <ion-input type="number" inputmode="decimal" step="any" placeholder="0.0" [(ngModel)]="container.massContainer" (ionInput)="calculateMoistureValues(container)"></ion-input>
                   </td>
                 </tr>
                 <tr>
                   <td>Mass container + wet soil (c2) g</td>
                   <td *ngFor="let container of moistureData">
-                    <ion-input type="number" inputmode="decimal" step="any" placeholder="0.0" [(ngModel)]="container.massContainerWetSoil" (ionChange)="calculateMoistureValues(container)"></ion-input>
+                    <ion-input type="number" inputmode="decimal" step="any" placeholder="0.0" [(ngModel)]="container.massContainerWetSoil" (ionInput)="calculateMoistureValues(container)"></ion-input>
                   </td>
                 </tr>
                 <tr>
                   <td>Mass container + dry soil (c3) g</td>
                   <td *ngFor="let container of moistureData">
-                    <ion-input type="number" inputmode="decimal" step="any" placeholder="0.0" [(ngModel)]="container.massContainerDrySoil" (ionChange)="calculateMoistureValues(container)"></ion-input>
+                    <ion-input type="number" inputmode="decimal" step="any" placeholder="0.0" [(ngModel)]="container.massContainerDrySoil" (ionInput)="calculateMoistureValues(container)"></ion-input>
                   </td>
                 </tr>
                 <tr>
